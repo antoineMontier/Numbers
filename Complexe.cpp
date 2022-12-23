@@ -164,22 +164,11 @@ Complexe& Complexe::operator/=(const Complexe& c){
 }
 
 Complexe& Complexe::operator/(const Complexe& c) {
-
-    std::cout << toString() << "  /  " << c.toString() << " = ";
-
-    if(c.a == 0 && c.b == 0) throw std::runtime_error("Division by zero");
-    
-
     Complexe* res = new Complexe(1, 0);
     if(c.b == b && c.a == a)
         return *res;
-
-    double divisor = (c.a*1.0*c.a + c.b*1.0*c.b);
-
-    std::cout << (c.a*1.0*a - c.b*1.0*b) << "/" << divisor << " + i" << (c.a*1.0*b + c.b*1.0*a) << "/" << divisor << "     ";;
-    
-    res->a = (c.a*1.0*a - c.b*1.0*b) / divisor;
-    res->b = (c.a*1.0*b + c.b*1.0*a) / divisor;
+    res->a = (c.a*1.0*a +c.b*1.0*b) / (c.a*1.0*c.a + c.b*1.0*c.b);
+    res->b = (c.a*1.0*b - c.b*1.0*a)  / (c.a*1.0*c.a + c.b*1.0*c.b);
     return *res;
 }
 
