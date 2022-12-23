@@ -1,38 +1,53 @@
 #include <iostream>
+#include <assert.h>
 #include "Complexe.hpp"
 
 int main(){
-    Complexe a(0, 0);
-    Complexe b(0, -5);
-    Complexe c(2, 9);
-    Complexe d(5, -7);
-    Complexe e(-2, -3);
+    // Test the addition operator
+    Complexe a(2, 3);
+    Complexe b(4, 5);
+    Complexe c = a + b;
+    assert(c.getRe() == 6 && c.getIm() == 8);
 
-    std::cout << "a = " << a.toString() << std::endl;
-    std::cout << "b = " << b.toString() << std::endl;
-    std::cout << "c = " << c.toString() << std::endl;
-    std::cout << "d = " << d.toString() << std::endl;
-    std::cout << "e = " << e.toString() << std::endl;
+    // Test the subtraction operator
+    c = a - b;
+    assert(c.getRe() == -2 && c.getIm() == -2);
+
+    // Test the multiplication operator
+    c = a * b;
+    assert(c.getRe() == -7 && c.getIm() == 22);
+
+    // Test the division operator
+    c = a / b;
+    assert(c.getRe() == (23.0 / 41.0) && c.getIm() == (2.0/ 41.0));
+
+    // Test the equality operator
+    assert(a == a);
+    assert(!(a == b));
+
+    // Test the inequality operator
+    assert(a != b);
+    assert(!(a != a));
+
+    // Test the greater than operator
+    assert(b > a);
+    assert(!(a > b));
+
+
+    // Test the less than operator
+    assert(a < b);
+    assert(!(b < a));
+
+    // Test the setRe and getRe methods
+    a.setRe(10);
+    assert(a.getRe() == 10);
+
+    // Test the setIm and getIm methods
+    a.setIm(15);
+    assert(a.getIm() == 15);
+
     
-    std::cout << "a + b = " << (a + b).toString() << std::endl;
-    std::cout << "b + c = " << (b + c).toString() << std::endl;
-    std::cout << "a / b = " << (a / b).toString() <<std::endl;
-    std::cout << "d / b = " << (d / b).toString() <<std::endl;
-    std::cout << "b * c = " << (b * c).toString() << std::endl;
-    std::cout << "a * e = " << (a * e).toString() << std::endl;
-    std::cout << "c / c = " << (c / c).toString() << std::endl;
-    std::cout << "b - b = " << (b - b).toString() << std::endl;
-    std::cout << "(b + c)*8 = " << ((b + c)*8).toString() << std::endl;
-    std::cout << "(b + c ) = " << ((b + c )).toString() << std::endl;
-    std::cout << "(b + c - 2) = " << ((b + c - 2)).toString() << std::endl;
-    std::cout << "(b + c - 2)/8 = " << ((b + c - 2)/8).toString() << std::endl;
-    std::cout << "c* d = " << (c*d).toString() << std::endl;
-    std::cout << "c* d / c = " << ((c*d)/c).toString() << std::endl;
-    std::cout << "d / c = " << (d/c).toString() << std::endl;
-    std::cout << "b > c = " << (b > c) << std::endl;
-    std::cout << "d != e = " << (d != e) << std::endl;
 
-
-
+    std::cout << "All tests passed!" << std::endl;
     return 0;
 }
