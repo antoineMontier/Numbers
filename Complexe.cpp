@@ -207,3 +207,31 @@ Complexe Complexe::conjugate() const{return Complexe(a, -b);}
 double Complexe::abs() const {return sqrt(a*a + b*b);}
 
 double Complexe::arg() const {return atan(b*1.0/a);}
+
+double Complexe::distance(const Complexe& c) const{return sqrt((c.a - a) * (c.a - a) + (c.b - b) * (c.b - b));}
+
+bool Complexe::translate(const Complexe& c){
+    a += c.a;
+    b += c.b;
+    return true;
+}
+
+bool Complexe::translate(double _a, double _b){
+    a += _a;
+    b += _b;
+    return true;
+}
+
+bool Complexe::translate(double _a){
+    a += _a;
+    return true;
+}
+
+bool Complexe::dilation(double zoom){
+    if(zoom == 0.0)
+        return false;
+    a *= zoom;
+    b *= zoom;
+    return true;
+}
+

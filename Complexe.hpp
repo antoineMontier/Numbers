@@ -82,6 +82,15 @@ class Complexe{
 
         double arg() const;
 
+        double distance(const Complexe& c) const;
+
+        bool translate(const Complexe& c);
+
+        bool translate(double _a, double _b);
+
+        bool translate(double _a);
+
+        bool dilation(double zoom);
 };
 
 #endif
