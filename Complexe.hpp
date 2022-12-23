@@ -78,7 +78,9 @@ class Complexe{
 
         Complexe conjugate() const;
 
-        double module();
+        double abs() const;
+
+        double arg() const;
 
 };
 

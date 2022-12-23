@@ -52,7 +52,7 @@ int main(){
 
     //test module and conjugate
     c = a.conjugate()*a;
-    assert(c.getRe() == a.module()*a.module());
+    assert(c.getRe() == a.abs()*a.abs());
     
 
     std::cout << "All tests passed!" << std::endl;

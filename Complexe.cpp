@@ -204,4 +204,6 @@ Complexe& Complexe::operator/(double d_c){
 Complexe Complexe::conjugate() const{return Complexe(a, -b);}
 
 
-double Complexe::module(){return sqrt(a*a + b*b);}
+double Complexe::abs() const {return sqrt(a*a + b*b);}
+
+double Complexe::arg() const {return atan(b*1.0/a);}
