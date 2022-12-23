@@ -22,5 +22,12 @@ const string Complexe::toString() const
     ostringstream res;
     res << a << " + i" << b;
     return res.str();
-
 }
+
+void Complexe::setRe(double _a){a = _a;}
+
+void Complexe::setIm(double _b){b = _b;}
+
+double Complexe::getRe() const{return a;}
+
+double Complexe::getIm() const{return b;}

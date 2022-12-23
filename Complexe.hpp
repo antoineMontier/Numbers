@@ -20,6 +20,14 @@ class Complexe{
         Complexe(const Complexe& c);
 
         const string toString() const;
+
+        void setRe(double _a);
+
+        void setIm(double _b);
+
+        double getRe() const;
+
+        double getIm() const;
 };
 
 #endif
