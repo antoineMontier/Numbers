@@ -53,6 +53,11 @@ int main(){
     //test module and conjugate
     c = a.conjugate()*a;
     assert(c.getRe() == a.abs()*a.abs());
+
+    //test rotation
+    c = a;
+    c.rotate(PI);
+    assert((c  + a).abs() < 0.001);
     
 
     std::cout << "All tests passed!" << std::endl;

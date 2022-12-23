@@ -235,3 +235,8 @@ bool Complexe::dilation(double zoom){
     return true;
 }
 
+bool Complexe::rotate(double angle){
+    Complexe rotation_center(cos(angle), sin(angle));
+    (*this) *= rotation_center;
+    return true;
+}

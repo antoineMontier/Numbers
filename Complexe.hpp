@@ -5,6 +5,7 @@
 #include <sstream>
 #include <iomanip>
 #include <cmath>
+#define PI 3.141592653589793238462643383279502884197169
 
 using namespace std;
 
@@ -91,6 +92,8 @@ class Complexe{
         bool translate(double _a);
 
         bool dilation(double zoom);
+
+        bool rotate(double angle);
 };
 
 #endif
