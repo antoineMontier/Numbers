@@ -240,3 +240,10 @@ bool Complexe::rotate(double angle){
     (*this) *= rotation_center;
     return true;
 }
+
+
+Complexe Complexe::operator^(double exp){
+    if(exp == 0.0)
+        return Complexe(1, 0);
+    return Complexe(pow(abs(), exp)*cos(arg() * exp), pow(abs(), exp)*sin(arg() * exp));
+}

@@ -94,6 +94,8 @@ class Complexe{
         bool dilation(double zoom);
 
         bool rotate(double angle);
+
+        Complexe operator^(double exp);
 };
 
 #endif

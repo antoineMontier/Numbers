@@ -58,7 +58,11 @@ int main(){
     c = a;
     c.rotate(PI);
     assert((c  + a).abs() < 0.001);
-    
+
+    //test the exponent
+    assert((a^1) == a);
+    assert((a^0) == Complexe(1, 0));
+
 
     std::cout << "All tests passed!" << std::endl;
     return 0;
