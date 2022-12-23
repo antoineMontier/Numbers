@@ -20,7 +20,29 @@ Complexe::Complexe(const Complexe& c){
 const string Complexe::toString() const
 {
     ostringstream res;
-    res << a << " + i" << b;
+    if(a == 0){
+        if(b > 0)
+            res << b << "i";
+        if(b < 0)
+            res << "-" << -b << "i";
+        if(b == 0)
+            res << "0";
+    }else if(b == 0){
+        if(a > 0)
+            res << a;
+        if(a < 0)
+            res << "-" << -a;
+    }else{// a!=0 && b != 0
+        if(a > 0 && b > 0)
+            res << a << " + " << b << "i";
+        else if(a > 0 && b < 0)
+            res << a << " - " << -b << "i";
+        else if(a < 0 && b > 0)
+            res <<"-"<< -a << " + " << b << "i";
+        else if(a < 0 && b < 0)
+            res <<"-"<< -a << " - " << -b << "i";
+        
+    }
     return res.str();
 }
 
@@ -64,3 +86,6 @@ Complexe& Complexe::operator-(const Complexe& c){
     res->b -= c.b;
     return *res;
 }
+
+
+
