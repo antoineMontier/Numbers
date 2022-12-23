@@ -46,6 +46,13 @@ int main(){
     a.setIm(15);
     assert(a.getIm() == 15);
 
+    //test the conjugate
+    c = a.conjugate();
+    assert(c.getRe() == a.getRe() && c.getIm() == -a.getIm());
+
+    //test module and conjugate
+    c = a.conjugate()*a;
+    assert(c.getRe() == a.module()*a.module());
     
 
     std::cout << "All tests passed!" << std::endl;

@@ -201,3 +201,7 @@ Complexe& Complexe::operator/(double d_c){
     return *res;
 }
 
+Complexe Complexe::conjugate() const{return Complexe(a, -b);}
+
+
+double Complexe::module(){return sqrt(a*a + b*b);}

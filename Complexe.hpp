@@ -4,6 +4,7 @@
 #include <iostream>
 #include <sstream>
 #include <iomanip>
+#include <cmath>
 
 using namespace std;
 
@@ -74,6 +75,10 @@ class Complexe{
         Complexe &operator/=(const Complexe& c);
 
         Complexe &operator/(const Complexe& c);
+
+        Complexe conjugate() const;
+
+        double module();
 
 };
 
