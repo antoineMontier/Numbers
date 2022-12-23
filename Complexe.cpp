@@ -31,3 +31,36 @@ void Complexe::setIm(double _b){b = _b;}
 double Complexe::getRe() const{return a;}
 
 double Complexe::getIm() const{return b;}
+
+Complexe& Complexe::operator=(const Complexe& c){
+    a = c.a;
+    b = c.b;
+    return *this;
+}
+
+Complexe& Complexe::operator+=(const Complexe& c){
+    a += c.a;
+    b += c.b;
+    return *this;
+}
+
+
+Complexe& Complexe::operator-=(const Complexe& c){
+    a -= c.a;
+    b -= c.b;
+    return *this;
+}
+
+Complexe& Complexe::operator+(const Complexe& c){
+    Complexe *res = new Complexe(*this);
+    res->a += c.a;
+    res->b += c.b;
+    return *res;
+}
+
+Complexe& Complexe::operator-(const Complexe& c){
+    Complexe *res = new Complexe(*this);
+    res->a -= c.a;
+    res->b -= c.b;
+    return *res;
+}

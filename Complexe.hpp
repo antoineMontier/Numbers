@@ -28,6 +28,16 @@ class Complexe{
         double getRe() const;
 
         double getIm() const;
+
+        Complexe& operator=(const Complexe& c);
+
+        Complexe& operator+=(const Complexe& c);
+
+        Complexe& operator-=(const Complexe& c);
+
+        Complexe& operator+(const Complexe& c);
+
+        Complexe& operator-(const Complexe& c);
 };
 
 #endif
