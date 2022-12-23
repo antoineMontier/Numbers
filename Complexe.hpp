@@ -96,6 +96,8 @@ class Complexe{
         bool rotate(double angle);
 
         Complexe operator^(double exp);
+
+        Complexe exp();
 };
 
 #endif

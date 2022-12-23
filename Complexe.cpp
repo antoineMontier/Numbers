@@ -247,3 +247,9 @@ Complexe Complexe::operator^(double exp){
         return Complexe(1, 0);
     return Complexe(pow(abs(), exp)*cos(arg() * exp), pow(abs(), exp)*sin(arg() * exp));
 }
+
+Complexe Complexe::exp(){
+    if(b == 0.0)
+        return Complexe(exp10(a), 0);
+    return Complexe(exp10(a)*cos(b), exp10(a)*sin(b)); //replace exp10 by exp ?
+}
