@@ -38,6 +38,43 @@ class Complexe{
         Complexe& operator+(const Complexe& c);
 
         Complexe& operator-(const Complexe& c);
+
+        bool operator==(const Complexe& c) const;
+
+        bool operator!=(const Complexe& c) const;
+
+        bool operator<(const Complexe& c) const;
+
+        bool operator>(const Complexe& c) const;
+
+        bool operator<=(const Complexe& c) const;
+
+        bool operator>=(const Complexe& c) const;
+
+        Complexe &operator+=(double d_a);
+
+        Complexe &operator+(double d_a);
+
+        Complexe &operator-=(double d_b);
+
+        Complexe &operator-(double d_b);
+
+        Complexe &operator*=(double d_c);
+
+        Complexe &operator*(double d_c);
+
+        Complexe &operator/=(double d_c);
+
+        Complexe &operator/(double d_c);
+
+        Complexe &operator*=(const Complexe& c);
+
+        Complexe &operator*(const Complexe& c);
+
+        Complexe &operator/=(const Complexe& c);
+
+        Complexe &operator/(const Complexe& c);
+
 };
 
 #endif
