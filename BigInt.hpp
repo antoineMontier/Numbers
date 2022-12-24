@@ -52,6 +52,8 @@ class BigInt{
         bool operator>= (const BigInt& n) const;
 
         bool operator<=(const BigInt& n) const;
+
+        BigInt operator % (const BigInt& n) const;
 };
 
 #endif

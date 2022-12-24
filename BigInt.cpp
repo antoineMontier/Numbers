@@ -68,32 +68,34 @@ BigInt BigInt::operator + (const BigInt& n) const{
         else if(i >= n.num->size() && i < num->size())
             res.num->pushTail(num->get(i));
         else
-            std::cout << " 'operator +' bug" << std::endl;
+            throw std::runtime_error("BigInt::operator + bug");
     }
     res.tidy();
     return res;
 }
-/*need to compare first 
 BigInt BigInt::operator - (const BigInt& n) const{
     BigInt res;
-    for (int i = 0; i < std::max(num->size(), n.num->size()); i++){
-        if(i < min(num->size(), n.num->size()))
-            res.num->push(num->get(i) - n.num->get(i));
-        else if(i >= num->size() && i < n.num->size())
-            res.num->push(n.num->get(i));
-        else if(i >= n.num->size() && i < num->size())
-            res.num->push(num->get(i));
-        else
-            std::cout << " 'operator +' bug" << std::endl;
-    }
+    if(n >= *this) return BigInt(0);
+    for (int i = 0; i <= std::max(num->size(), n.num->size()); i++) // add enough space
+        res.num->pushTail(0);
+    for (int i = 0; i < num->size(); i++)
+        res.num->set(i, num->get(i));
+    for (int i = 0; i < n.num->size(); i++)
+        res.num->set(i, res.num->get(i) - n.num->get(i));
+
     res.tidy();
     return res;
-}*/
+}
 
 
 bool BigInt::tidy(){
     bool res = false;
     int tmp = 0;
+    for(int i = num->size() - 2; i >= 0 ; i--)
+        if(num->get(i) < 0){
+            num->set(i, 10 + num->get(i));
+            num->set(i + 1, num->get(i + 1) - 1);
+        } 
     for (int i = 0; i < num->size(); i++){
         //std::cout <<"              "<< debugToString() << " i = " << i << std::endl;
         if(num->get(i) >= 10){
