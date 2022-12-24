@@ -70,21 +70,58 @@ BigInt BigInt::operator + (const BigInt& n) const{
     res.tidy();
     return res;
 }
+/*need to compare first 
+BigInt BigInt::operator - (const BigInt& n) const{
+    BigInt res;
+    for (int i = 0; i < std::max(num->size(), n.num->size()); i++){
+        if(i < min(num->size(), n.num->size()))
+            res.num->push(num->get(i) - n.num->get(i));
+        else if(i >= num->size() && i < n.num->size())
+            res.num->push(n.num->get(i));
+        else if(i >= n.num->size() && i < num->size())
+            res.num->push(num->get(i));
+        else
+            std::cout << " 'operator +' bug" << std::endl;
+    }
+    res.tidy();
+    return res;
+}*/
+
 
 bool BigInt::tidy(){
     bool res = false;
     int tmp = 0;
     for (int i = 0; i < num->size(); i++){
+        //std::cout <<"              "<< debugToString() << " i = " << i << std::endl;
         if(num->get(i) >= 10){
             res = true;
-            tmp = num->get(i) - 10;
-            num->set(i, num->get(i) - 10);
+            tmp = num->get(i)/10;
+            num->set(i, num->get(i) % 10);
             if(i < num->size() - 1)
                 num->set(i + 1, num->get(i + 1) + tmp);
             else
-                num->push(tmp);
+                num->pushTail(tmp);
         }
+        //std::cout <<"              "<< debugToString() << " i = " << i << std::endl;
     }
+    //remove useless 0
+    while(num->size() > 0 && num->get(num->size() - 1) == 0)
+        num->popTail();
+    return res;
+}
+
+BigInt BigInt::operator * (const BigInt& n) const{
+    BigInt res;
+    //add enough digits 
+    for (int i = 0; i < num->size() +  n.num->size(); i++)
+        res.num->push(0);
+    for (int i = 0; i < num->size() ; i++) 
+        for (int j = 0; j < n.num->size(); j++){
+            //std::cout << num->get(i) << " * " << n.num->get(j) << " * 10^" << i+j << std::endl;
+            res.num->set(i + j, res.num->get(i + j) + num->get(i) * n.num->get(j));
+        }
+    //std::cout << res.debugToString() << std::endl;
+    res.tidy();
     return res;
 }
 

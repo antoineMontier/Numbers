@@ -33,7 +33,11 @@ class BigInt{
 
         BigInt operator + (const BigInt& n) const;
 
-        bool tidy();
+        BigInt operator - (const BigInt& n) const;
+
+        BigInt operator * (const BigInt& n) const;
+
+        bool tidy();//test the remove first zeros !
 };
 
 #endif
