@@ -21,9 +21,15 @@ class BigInt{
 
         BigInt(int n);
 
+        BigInt(const BigInt& n);
+
+        BigInt(long int n);
+
         ~BigInt();
 
         const string toString() const;
+
+        const string debugToString() const;
 };
 
 #endif
