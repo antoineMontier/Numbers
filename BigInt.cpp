@@ -199,3 +199,12 @@ BigInt& BigInt::operator=(const BigInt& n) {
 
     return *this;
 }
+
+BigInt BigInt::operator % (const BigInt& n) const{
+    if( n <= 0 )
+        return BigInt(0);
+    BigInt copy(*this);
+    while(copy >= n)
+        copy = copy - n;
+    return copy;
+}

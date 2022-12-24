@@ -38,6 +38,11 @@ int main(){
     assert(a / a == BigInt(1));
     assert(BigInt(9) + BigInt(1) == BigInt(10));
     assert((a * c) / a == c );
+    assert(BigInt(9) % BigInt(1) == BigInt(0));
+    assert(a % BigInt(100000) == BigInt(11111));
+    assert(a % a == BigInt(0));
+    assert(a % BigInt(0) == BigInt(0));
+    assert(c == c / b + c % b);
 
 
 
