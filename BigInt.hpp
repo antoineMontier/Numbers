@@ -30,6 +30,10 @@ class BigInt{
         const string toString() const;
 
         const string debugToString() const;
+
+        BigInt operator + (const BigInt& n) const;
+
+        bool tidy();
 };
 
 #endif

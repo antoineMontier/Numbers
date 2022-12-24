@@ -9,18 +9,15 @@ int main(){
 
     BigInt c(5);
 
-    BigInt k(112233445566778899);
+    BigInt k(3);
 
-    
-    BigInt x(a), y(c), z(k);
+    std::cout << " a = " << a.debugToString() << std::endl;
+    std::cout << " c = " << c.debugToString() << std::endl;
+    std::cout << " k = " << k.debugToString() << std::endl;
 
-    std::cout << a.debugToString() << std::endl;
-    std::cout << c.debugToString() << std::endl;
-    std::cout << k.debugToString() << std::endl;
-
-    std::cout << x.debugToString() << std::endl;
-    std::cout << y.debugToString() << std::endl;
-    std::cout << z.debugToString() << std::endl;
+    std::cout << " k + a = " << (k + a).debugToString() << std::endl;
+    std::cout << " k + c = " << (k + c).debugToString() << std::endl;
+    std::cout << " k + c + a + k = " << (k + c + a + k).debugToString() << std::endl;
 
 
     std::cout << "All tests passed!" << std::endl;
