@@ -15,6 +15,8 @@ class BigInt{
 
         LinkedList<int>* num;
 
+        bool rec_inf(const BigInt& n, int index) const;
+
     public:
 
         BigInt();
@@ -38,6 +40,13 @@ class BigInt{
         BigInt operator * (const BigInt& n) const;
 
         bool tidy();//test the remove first zeros !
+
+        bool operator < (const BigInt& n) const;
+
+        bool operator == (const BigInt& n) const;
+
+        bool operator!= (const BigInt& n) const; 
+        
 };
 
 #endif

@@ -14,6 +14,7 @@ BigInt::BigInt(int n){
         n /= 10;
         num_digits--;
     }
+    tidy();
 }
 
 BigInt::BigInt(long int n){
@@ -24,12 +25,14 @@ BigInt::BigInt(long int n){
         n /= 10;
         num_digits--;
     }
+    tidy();
 }
 
 BigInt::BigInt(BigInt const& other){
     num = new LinkedList<int>();
     for(int i = 0; i < other.num->size(); i++)
         num->pushTail(other.num->get(i));
+    tidy();
 }
 
 BigInt::~BigInt(){
@@ -59,11 +62,11 @@ BigInt BigInt::operator + (const BigInt& n) const{
     BigInt res;
     for (int i = 0; i < std::max(num->size(), n.num->size()); i++){
         if(i < min(num->size(), n.num->size()))
-            res.num->push(n.num->get(i) + num->get(i));
+            res.num->pushTail(n.num->get(i) + num->get(i));
         else if(i >= num->size() && i < n.num->size())
-            res.num->push(n.num->get(i));
+            res.num->pushTail(n.num->get(i));
         else if(i >= n.num->size() && i < num->size())
-            res.num->push(num->get(i));
+            res.num->pushTail(num->get(i));
         else
             std::cout << " 'operator +' bug" << std::endl;
     }
@@ -125,3 +128,39 @@ BigInt BigInt::operator * (const BigInt& n) const{
     return res;
 }
 
+bool BigInt::operator < (const BigInt& n) const{
+    if(*this == n) return false;
+    if(num->size() < n.num->size())return true;
+    if(num->size() > n.num->size())return false;
+
+    return rec_inf(n, num->size() - 1);
+}
+
+bool BigInt::rec_inf(const BigInt& n, int index) const{
+    //std::cout << "comparing " << num->get(index) << " to " << n.num->get(index) << std::endl;
+    if(index < 0 || index >= num->size())
+        return false;
+    if(num->get(index) < n.num->get(index))
+        return true;
+    if(num->get(index) > n.num->get(index))
+        return false;
+    return rec_inf(n, index - 1);
+}
+
+bool BigInt::operator == (const BigInt& n) const{
+    if(num->size()!= n.num->size())
+        return false;
+    for(int i = 0; i < num->size(); i++)
+        if(num->get(i)!= n.num->get(i))
+            return false;
+    return true;
+}
+
+bool BigInt::operator != (const BigInt& n) const{
+    if(num->size() != n.num->size())
+        return true;
+    for(int i = 0; i < num->size(); i++)
+        if(num->get(i) != n.num->get(i))
+            return true;
+    return false;
+}
