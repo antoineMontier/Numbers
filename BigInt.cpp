@@ -164,3 +164,9 @@ bool BigInt::operator != (const BigInt& n) const{
             return true;
     return false;
 }
+
+bool BigInt::operator> (const BigInt& n) const{return !(*this < n) && *this != n;}
+
+bool BigInt::operator>= (const BigInt& n) const{return !(*this < n) || (*this == n);}
+
+bool BigInt::operator<=(const BigInt& n) const{return *this < n || *this == n;}

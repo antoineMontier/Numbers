@@ -24,6 +24,11 @@ int main(){
     assert(!(a * b < a));
     assert(!(b * c < b));
     assert(!(c * f < c));
+    assert( f >= f);
+    assert( f <= f);
+    assert(!(f > f));
+    assert((f < b));
+    assert((b > f));
 
 
     std::cout << "All tests passed!" << std::endl;
