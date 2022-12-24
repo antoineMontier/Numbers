@@ -64,6 +64,7 @@ class LinkedList{
 
         const string toString() const;
 
+        void clear();
 };
 
 

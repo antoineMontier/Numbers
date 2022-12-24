@@ -35,6 +35,11 @@ int main(){
     assert(c - (k*k) == BigInt(16));
     assert(a*a - a - b*a == BigInt(0));
     assert(a*b -  BigInt(0) == a*b);
+    assert(a / a == BigInt(1));
+    assert(BigInt(9) + BigInt(1) == BigInt(10));
+    assert((a * c) / a == c );
+
+
 
     std::cout << "All tests passed!" << std::endl;
     return 0;

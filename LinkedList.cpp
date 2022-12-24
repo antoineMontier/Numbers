@@ -378,3 +378,11 @@ bool LinkedList<T>::removeAll(T obj){
         }
     return removed;
 }
+
+template <class T>
+void LinkedList<T>::clear(){
+    for (int i = size() - 1; i >= 0 ; i--)
+        pop(i);
+    head = nullptr;
+    tail = nullptr;
+}

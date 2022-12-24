@@ -167,8 +167,35 @@ bool BigInt::operator != (const BigInt& n) const{
     return false;
 }
 
-bool BigInt::operator> (const BigInt& n) const{return !(*this < n) && *this != n;}
+bool BigInt::operator > (const BigInt& n) const{return !(*this < n) && *this != n;}
 
-bool BigInt::operator>= (const BigInt& n) const{return !(*this < n) || (*this == n);}
+bool BigInt::operator >= (const BigInt& n) const{return !(*this < n) || (*this == n);}
 
-bool BigInt::operator<=(const BigInt& n) const{return *this < n || *this == n;}
+bool BigInt::operator <=(const BigInt& n) const{return *this < n || *this == n;}
+
+
+BigInt BigInt::operator / (const BigInt& n) const{
+    if( n > *this ) return BigInt(0);
+    if( n == *this ) return BigInt(1);
+    //std::cout << this->toString() << "  /  " << n.toString() << std::endl;
+    BigInt res(0);
+    BigInt copy(*this);
+    while(copy >= n){
+        //std::cout << "iteration = " << res.toString() <<"   res = " << copy.toString() <<  std::endl;
+        copy = copy - n;
+        res = (res + BigInt(1));
+    }
+    return res;
+}
+
+BigInt& BigInt::operator=(const BigInt& n) {
+    // Clear the current digits of this BigInt
+    num->clear();
+
+    // Copy the digits of the other BigInt to this BigInt
+    for (int i = 0; i < n.num->size(); i++) {
+        num->pushTail(n.num->get(i));
+    }
+
+    return *this;
+}
