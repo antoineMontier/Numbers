@@ -1,6 +1,7 @@
 #include <iostream>
 #include <sstream>
 #include <iomanip>
+#include <cmath>
 #include "LinkedList.cpp"
 
 #ifndef BIGINT_HPP
@@ -21,6 +22,8 @@ class BigInt{
         BigInt(int n);
 
         ~BigInt();
+
+        const string toString() const;
 };
 
 #endif
