@@ -90,18 +90,12 @@ Complexe& Complexe::operator-=(const Complexe& c){
     return *this;
 }
 
-Complexe& Complexe::operator+(const Complexe& c){
-    Complexe *res = new Complexe(*this);
-    res->a += c.a;
-    res->b += c.b;
-    return *res;
+Complexe Complexe::operator+(const Complexe& c){
+    return Complexe(a + c.a, b + c.b);
 }
 
-Complexe& Complexe::operator-(const Complexe& c){
-    Complexe *res = new Complexe(*this);
-    res->a -= c.a;
-    res->b -= c.b;
-    return *res;
+Complexe Complexe::operator-(const Complexe& c){
+    return Complexe(a - c.a, b - c.b);
 }
 
 bool Complexe::operator==(const Complexe& c) const{return a == c.a && b == c.b;}
@@ -147,12 +141,9 @@ Complexe& Complexe::operator*=(const Complexe& c){
     return *this;
 }
 
-Complexe& Complexe::operator*(const Complexe& c){
-    Complexe * res = new Complexe();
-    res->a = a*c.a - b*c.b;
-    res->b = a*c.b + b*c.a;
-    return *res;
-}
+Complexe Complexe::operator*(const Complexe& c){
+    return Complexe(a*c.a - b*c.b, a*c.b + b*c.a);
+    }
 
 Complexe& Complexe::operator/=(const Complexe& c){
     if(c.a == 0 && c.b == 0)
@@ -163,13 +154,8 @@ Complexe& Complexe::operator/=(const Complexe& c){
     return *res;
 }
 
-Complexe& Complexe::operator/(const Complexe& c) {
-    Complexe* res = new Complexe(1, 0);
-    if(c.b == b && c.a == a)
-        return *res;
-    res->a = (c.a*1.0*a +c.b*1.0*b) / (c.a*1.0*c.a + c.b*1.0*c.b);
-    res->b = (c.a*1.0*b - c.b*1.0*a)  / (c.a*1.0*c.a + c.b*1.0*c.b);
-    return *res;
+Complexe Complexe::operator/(const Complexe& c) {
+    return Complexe((c.a*1.0*a +c.b*1.0*b) / (c.a*1.0*c.a + c.b*1.0*c.b), (c.a*1.0*b - c.b*1.0*a)  / (c.a*1.0*c.a + c.b*1.0*c.b));
 }
 
 

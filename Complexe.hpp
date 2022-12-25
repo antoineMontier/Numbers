@@ -37,9 +37,9 @@ class Complexe{
 
         Complexe& operator-=(const Complexe& c);
 
-        Complexe& operator+(const Complexe& c);
+        Complexe operator+(const Complexe& c);
 
-        Complexe& operator-(const Complexe& c);
+        Complexe operator-(const Complexe& c);
 
         bool operator==(const Complexe& c) const;
 
@@ -71,11 +71,11 @@ class Complexe{
 
         Complexe &operator*=(const Complexe& c);
 
-        Complexe &operator*(const Complexe& c);
+        Complexe operator*(const Complexe& c);
 
         Complexe &operator/=(const Complexe& c);
 
-        Complexe &operator/(const Complexe& c);
+        Complexe operator/(const Complexe& c);
 
         Complexe conjugate() const;
 
