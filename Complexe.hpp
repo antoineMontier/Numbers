@@ -55,19 +55,19 @@ class Complexe{
 
         Complexe &operator+=(double d_a);
 
-        Complexe &operator+(double d_a);
+        Complexe operator+(double d_a);
 
         Complexe &operator-=(double d_b);
 
-        Complexe &operator-(double d_b);
+        Complexe operator-(double d_b);
 
         Complexe &operator*=(double d_c);
 
-        Complexe &operator*(double d_c);
+        Complexe operator*(double d_c);
 
         Complexe &operator/=(double d_c);
 
-        Complexe &operator/(double d_c);
+        Complexe operator/(double d_c);
 
         Complexe &operator*=(const Complexe& c);
 

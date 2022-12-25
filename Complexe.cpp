@@ -159,32 +159,22 @@ Complexe Complexe::operator/(const Complexe& c) {
 }
 
 
-Complexe& Complexe::operator+(double d_a){
-    Complexe * res = new Complexe(*this);
-    res->a += d_a;
-    return *res;
+Complexe Complexe::operator+(double d_a){
+    return Complexe(a + d_a, b);
 }
 
-Complexe& Complexe::operator-(double d_b){
-    Complexe * res = new Complexe(*this);
-    res->a -= d_b;
-    return *res;
+Complexe Complexe::operator-(double d_b){
+    return Complexe(a - d_b, b);
 }
 
-Complexe& Complexe::operator*(double d_c){
-    Complexe * res = new Complexe(*this);
-    res->a *= d_c;
-    res->b *= d_c;
-    return *res;
+Complexe Complexe::operator*(double d_c){
+    return Complexe(a * d_c, b*d_c);
 }
 
-Complexe& Complexe::operator/(double d_c){
+Complexe Complexe::operator/(double d_c){
     if(d_c == 0)
         throw std::runtime_error("Division by zero");
-    Complexe * res = new Complexe(*this);
-    res->a /= d_c;
-    res->b /= d_c;
-    return *res;
+    return Complexe(a / d_c, b / d_c);
 }
 
 Complexe Complexe::conjugate() const{return Complexe(a, -b);}
