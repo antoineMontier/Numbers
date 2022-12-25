@@ -65,6 +65,7 @@ int main(){
     assert((a^1) == a);
     assert((a^0) == Complexe(1, 0));
 
+    assert(Complexe::distance(Complexe(0, 0), Complexe(3, 4)) == 5.0);
 
 /*
     BigInt a(1111111111);

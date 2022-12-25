@@ -229,3 +229,7 @@ Complexe Complexe::exp(){
         return Complexe(exp10(a), 0);
     return Complexe(exp10(a)*cos(b), exp10(a)*sin(b)); //replace exp10 by exp ?
 }
+
+double Complexe::distance(const Complexe& c, const Complexe& d){
+    return sqrt((c.a - d.a)*(c.a - d.a) + (c.b - d.b)*(c.b - d.b));
+}

@@ -85,6 +85,8 @@ class Complexe{
 
         double distance(const Complexe& c) const;
 
+        static double distance(const Complexe& c, const Complexe& d);
+
         bool translate(const Complexe& c);
 
         bool translate(double _a, double _b);
