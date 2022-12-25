@@ -45,23 +45,31 @@ class BigInt{
         bool tidy();
 
         bool operator < (const BigInt& n) const;
+        bool operator < (long n) const;
 
         bool operator == (const BigInt& n) const;
+        bool operator == (long n) const;
 
         bool operator != (const BigInt& n) const; 
+        bool operator != (long n) const; 
 
         bool operator > (const BigInt& n) const;
+        bool operator > (long n) const;
 
         bool operator >= (const BigInt& n) const;
+        bool operator >= (long n) const;
 
         bool operator <=(const BigInt& n) const;
+        bool operator <=(long n) const;
 
         BigInt operator % (const BigInt& n) const;
+        BigInt operator % (long n) const;
 
         BigInt operator / (const BigInt& n) const;
         BigInt operator / (long n) const;
 
         BigInt& operator = (const BigInt& n);
+        BigInt& operator = (long n);
 
         void operator *= (const BigInt& n);
         void operator *= (long n);

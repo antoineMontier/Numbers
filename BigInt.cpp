@@ -142,6 +142,8 @@ bool BigInt::operator < (const BigInt& n) const{
 
     return rec_inf(n, num->size() - 1);
 }
+bool BigInt::operator < (long n) const{ return (*this) < BigInt(n); }
+
 
 bool BigInt::rec_inf(const BigInt& n, int index) const{
     //std::cout << "comparing " << num->get(index) << " to " << n.num->get(index) << std::endl;
@@ -162,6 +164,8 @@ bool BigInt::operator == (const BigInt& n) const{
             return false;
     return true;
 }
+bool BigInt::operator == (long n) const{ return (*this) == BigInt(n); }
+
 
 bool BigInt::operator != (const BigInt& n) const{
     if(num->size() != n.num->size())
@@ -171,12 +175,17 @@ bool BigInt::operator != (const BigInt& n) const{
             return true;
     return false;
 }
+bool BigInt::operator != (long n) const{ return (*this) != BigInt(n); }
+
 
 bool BigInt::operator > (const BigInt& n) const{return !(*this < n) && *this != n;}
+bool BigInt::operator > (long n) const{ return (*this) > BigInt(n); }
 
 bool BigInt::operator >= (const BigInt& n) const{return !(*this < n) || (*this == n);}
+bool BigInt::operator >= (long n) const{ return (*this) >= BigInt(n); }
 
 bool BigInt::operator <=(const BigInt& n) const{return *this < n || *this == n;}
+bool BigInt::operator <= (long n) const{ return (*this) <= BigInt(n); }
 
 
 BigInt BigInt::operator / (const BigInt& n) const{
@@ -206,6 +215,8 @@ BigInt& BigInt::operator=(const BigInt& n) {
 
     return *this;
 }
+BigInt& BigInt::operator = (long n) { return ((*this) = BigInt(n)); }
+
 
 BigInt BigInt::operator % (const BigInt& n) const{
     if( n <= 0 )
