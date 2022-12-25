@@ -81,6 +81,14 @@ class BigInt{
         void operator -= (long n);
 
         void operator += (const BigInt& n);
-        void operator += (long n);};
+        void operator += (long n);
+        
+        
+        static BigInt factorial(long n);
+        
+        
+        };
+
+
 
 #endif

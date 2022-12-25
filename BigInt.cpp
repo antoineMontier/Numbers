@@ -238,3 +238,9 @@ void BigInt::operator += (long n){*this = ((*this) + BigInt(n));}
 
 void BigInt::operator -= (const BigInt& n){*this = ((*this) - n);}
 void BigInt::operator -= (long n){*this = ((*this) - BigInt(n));}
+
+BigInt BigInt::factorial(long n){
+    if(n < 2)
+        return BigInt(1);
+    return BigInt(n) * factorial(n - 1);
+}

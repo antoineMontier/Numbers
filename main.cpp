@@ -68,6 +68,10 @@ int main(){
     assert( a * 0 == 0);
     assert( a * 1 == a);
 
+    assert(BigInt::factorial(5) == 120);
+    assert(BigInt::factorial(0) == 1 && BigInt::factorial(1) == 1);
+    assert(BigInt::factorial(80) == BigInt::factorial(79)*80);
+
     std::cout << "All tests passed!" << std::endl;
     return 0;
 }
