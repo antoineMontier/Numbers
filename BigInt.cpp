@@ -73,6 +73,9 @@ BigInt BigInt::operator + (const BigInt& n) const{
     res.tidy();
     return res;
 }
+BigInt BigInt::operator +(long n) const{ return (*this) + BigInt(n); }
+
+
 BigInt BigInt::operator - (const BigInt& n) const{
     BigInt res;
     if(n >= *this) return BigInt(0);
@@ -86,6 +89,7 @@ BigInt BigInt::operator - (const BigInt& n) const{
     res.tidy();
     return res;
 }
+BigInt BigInt::operator -(long n) const{ return (*this) - BigInt(n); }
 
 
 bool BigInt::tidy(){
@@ -129,6 +133,7 @@ BigInt BigInt::operator * (const BigInt& n) const{
     res.tidy();
     return res;
 }
+BigInt BigInt::operator *(long n) const{ return (*this) * BigInt(n); }
 
 bool BigInt::operator < (const BigInt& n) const{
     if(*this == n) return false;
@@ -187,6 +192,8 @@ BigInt BigInt::operator / (const BigInt& n) const{
     }
     return res;
 }
+BigInt BigInt::operator / (long n) const{ return (*this) / BigInt(n); }
+
 
 BigInt& BigInt::operator=(const BigInt& n) {
     // Clear the current digits of this BigInt

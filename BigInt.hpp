@@ -34,10 +34,13 @@ class BigInt{
         const string debugToString() const;
 
         BigInt operator + (const BigInt& n) const;
+        BigInt operator + (long n) const;
 
         BigInt operator - (const BigInt& n) const;
+        BigInt operator - (long n) const;
 
         BigInt operator * (const BigInt& n) const;
+        BigInt operator * (long n) const;
 
         bool tidy();
 
@@ -56,15 +59,19 @@ class BigInt{
         BigInt operator % (const BigInt& n) const;
 
         BigInt operator / (const BigInt& n) const;
+        BigInt operator / (long n) const;
 
         BigInt& operator = (const BigInt& n);
 
         void operator *= (const BigInt& n);
         void operator *= (long n);
+
         void operator /= (const BigInt& n);
         void operator /= (long n);
+
         void operator -= (const BigInt& n);
         void operator -= (long n);
+
         void operator += (const BigInt& n);
         void operator += (long n);};
 

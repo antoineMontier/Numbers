@@ -63,6 +63,10 @@ int main(){
     a *= 2;
     a /= 10;
     assert(a == 36);
+    assert(a - 0 == a);
+    assert(a*b - a*1 == a * (b - 1));
+    assert( a * 0 == 0);
+    assert( a * 1 == a);
 
     std::cout << "All tests passed!" << std::endl;
     return 0;
