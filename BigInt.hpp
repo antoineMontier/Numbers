@@ -39,25 +39,33 @@ class BigInt{
 
         BigInt operator * (const BigInt& n) const;
 
-        bool tidy();//test the remove first zeros !
+        bool tidy();
 
         bool operator < (const BigInt& n) const;
 
         bool operator == (const BigInt& n) const;
 
-        bool operator!= (const BigInt& n) const; 
+        bool operator != (const BigInt& n) const; 
 
-        bool operator> (const BigInt& n) const;
+        bool operator > (const BigInt& n) const;
 
-        bool operator>= (const BigInt& n) const;
+        bool operator >= (const BigInt& n) const;
 
-        bool operator<=(const BigInt& n) const;
+        bool operator <=(const BigInt& n) const;
 
         BigInt operator % (const BigInt& n) const;
 
         BigInt operator / (const BigInt& n) const;
 
-        BigInt& operator=(const BigInt& n);
+        BigInt& operator = (const BigInt& n);
+
+        void operator *= (const BigInt& n);
+
+        void operator /= (const BigInt& n);
+
+        void operator -= (const BigInt& n);
+
+        void operator += (const BigInt& n);
 };
 
 #endif

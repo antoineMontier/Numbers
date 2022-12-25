@@ -208,3 +208,19 @@ BigInt BigInt::operator % (const BigInt& n) const{
         copy = copy - n;
     return copy;
 }
+
+void BigInt::operator *= (const BigInt& n){
+    *this = ((*this) * n);
+}
+
+void BigInt::operator /= (const BigInt& n){
+    *this = ((*this) / n);
+}
+
+void BigInt::operator += (const BigInt& n){
+    *this = ((*this) + n);
+}
+
+void BigInt::operator -= (const BigInt& n){
+    *this = ((*this) - n);
+}

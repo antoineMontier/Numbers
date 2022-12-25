@@ -43,8 +43,16 @@ int main(){
     assert(a % a == BigInt(0));
     assert(a % BigInt(0) == BigInt(0));
     assert(c == c / b + c % b);
-
-
+    a *= BigInt(0);
+    assert(a == 0);
+    a += BigInt(15);
+    assert(a == 15);
+    a -= BigInt(20);
+    assert(a == 0);
+    a += BigInt(180);
+    a *= BigInt(2);
+    a /= BigInt(10);
+    assert(a == 36);
 
     std::cout << "All tests passed!" << std::endl;
     return 0;
