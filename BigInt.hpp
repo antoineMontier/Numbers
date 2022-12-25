@@ -60,12 +60,12 @@ class BigInt{
         BigInt& operator = (const BigInt& n);
 
         void operator *= (const BigInt& n);
-
+        void operator *= (long n);
         void operator /= (const BigInt& n);
-
+        void operator /= (long n);
         void operator -= (const BigInt& n);
-
+        void operator -= (long n);
         void operator += (const BigInt& n);
-};
+        void operator += (long n);};
 
 #endif

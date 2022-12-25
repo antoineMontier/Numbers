@@ -53,6 +53,16 @@ int main(){
     a *= BigInt(2);
     a /= BigInt(10);
     assert(a == 36);
+    a *= 0;
+    assert(a == 0);
+    a += 15;
+    assert(a == 15);
+    a -= 20;
+    assert(a == 0);
+    a += 180;
+    a *= 2;
+    a /= 10;
+    assert(a == 36);
 
     std::cout << "All tests passed!" << std::endl;
     return 0;
