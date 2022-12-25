@@ -83,11 +83,11 @@ class BigInt{
         void operator += (const BigInt& n);
         void operator += (long n);
         
-        
         static BigInt factorial(long n);
         
+        static BigInt fibonnacci(long n);
         
-        };
+};
 
 
 

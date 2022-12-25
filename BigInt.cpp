@@ -244,3 +244,16 @@ BigInt BigInt::factorial(long n){
         return BigInt(1);
     return BigInt(n) * factorial(n - 1);
 }
+
+BigInt BigInt::fibonnacci(long n){
+    if(n == 0) return BigInt(0);
+    if(n <= 2) return BigInt(1);
+
+    BigInt a(0), b(1), c(1);
+    for(long i=1; i<n; i++){
+        c = a + b;
+        a = b;
+        b = c;
+    }
+    return c;
+}

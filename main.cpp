@@ -71,6 +71,8 @@ int main(){
     assert(BigInt::factorial(5) == 120);
     assert(BigInt::factorial(0) == 1 && BigInt::factorial(1) == 1);
     assert(BigInt::factorial(80) == BigInt::factorial(79)*80);
+    assert(BigInt::fibonnacci(10) == 55);
+
 
     std::cout << "All tests passed!" << std::endl;
     return 0;
