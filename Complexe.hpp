@@ -110,8 +110,15 @@ class Complexe{
         /// @return distance
         double distance(const Complexe& c) const;
 
+        /// @brief calculates the distance between two complexes
+        /// @param c first complexe
+        /// @param d second complexe
+        /// @return distance between
         static double distance(const Complexe& c, const Complexe& d);
 
+        /// @brief translate a complexe by another
+        /// @param c translation number
+        /// @return true if successful
         bool translate(const Complexe& c);
 
         bool translate(double _a, double _b);
