@@ -40,6 +40,12 @@ class LinkedList{
         /// @return element removed
         T pop();
 
+        /// @brief removes an element at a precise position, may throw an exception if index < 0 or index >= size
+        /// @param index index
+        /// @return element removed
+        T pop(int index);
+
+
         /// @brief removes an element at the end of the list
         /// @return element removed
         T popTail();
