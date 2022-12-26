@@ -257,3 +257,11 @@ BigInt BigInt::fibonnacci(long n){
     }
     return c;
 }
+
+bool BigInt::palindrome() const{
+    // Compare the digits from left to right and from right to left
+    for (int i = 0; i < num->size() / 2; i++) {
+        if (num->get(i) != num->get(num->size() - 1 - i)) return false;
+    }
+    return true;
+}

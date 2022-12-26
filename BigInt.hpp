@@ -86,6 +86,8 @@ class BigInt{
         static BigInt factorial(long n);
         
         static BigInt fibonnacci(long n);
+
+        bool palindrome() const;
         
 };
 

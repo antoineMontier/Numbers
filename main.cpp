@@ -5,6 +5,7 @@
 
 int main(){
 
+/*
     // Test the addition operator
     Complexe a(2, 3);
     Complexe b(4, 5);
@@ -66,8 +67,9 @@ int main(){
     assert((a^0) == Complexe(1, 0));
 
     assert(Complexe::distance(Complexe(0, 0), Complexe(3, 4)) == 5.0);
+*/
 
-/*
+
     BigInt a(1111111111);
     BigInt b(1111111110);
 
@@ -135,7 +137,16 @@ int main(){
     assert(BigInt::factorial(0) == 1 && BigInt::factorial(1) == 1);
     assert(BigInt::factorial(80) == BigInt::factorial(79)*80);
     assert(BigInt::fibonnacci(10) == 55);
-*/
+    assert(!a.palindrome());
+    a = 1;
+    assert(a.palindrome());
+    a = 33;
+    assert(a.palindrome());
+    a = 383;
+    assert(a.palindrome());
+    a = 7557;
+    assert(a.palindrome());
+
 
     std::cout << "All tests passed!" << std::endl;
     return 0;
