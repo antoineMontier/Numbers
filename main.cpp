@@ -146,6 +146,11 @@ int main(){
     assert(a.palindrome());
     a = 7557;
     assert(a.palindrome());
+    a = 5;
+    assert((a ^ 0) == 1);
+    assert((a ^ 1) == a);
+    assert((a ^ 2) == a*a);
+    assert((a ^ 9) == (a ^3) ^ 2);
 
 
     std::cout << "All tests passed!" << std::endl;

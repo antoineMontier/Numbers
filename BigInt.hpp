@@ -89,6 +89,7 @@ class BigInt{
 
         bool palindrome() const;
         
+        BigInt operator ^ (const BigInt& exp) const;
 };
 
 

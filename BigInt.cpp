@@ -265,3 +265,12 @@ bool BigInt::palindrome() const{
     }
     return true;
 }
+
+BigInt BigInt::operator ^ (const BigInt& exp) const{
+    if(exp == 0) return BigInt(1);
+    if(exp == 1) return BigInt(*this);
+    BigInt result(1);
+    for(BigInt k(0) ; k < exp ; k += 1)
+        result *= *this;
+    return result;
+}
