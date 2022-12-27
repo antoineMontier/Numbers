@@ -5,7 +5,8 @@
 
 int main(){
 
-    Pfloat a(3.15);
+    Pfloat a(1.23456789);
+    std::cout << "\n\neee\n\n" << std::endl;
     std::cout << a.toString() << std::endl;
 
     return 0;
