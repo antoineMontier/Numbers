@@ -15,6 +15,10 @@ class BigInt{
 
         LinkedList<int>* num;
 
+        /// @brief recuresive function to test if a number is greater than another
+        /// @param n number to test
+        /// @param index index of the test
+        /// @return true or false depending on the number comparison
         bool rec_inf(const BigInt& n, int index) const;
 
     public:
@@ -42,6 +46,8 @@ class BigInt{
         BigInt operator * (const BigInt& n) const;
         BigInt operator * (long n) const;
 
+        /// @brief if a number is less than 0 or greater than 9, change it between 0-9 to fit in the cell and add or subtract to the next cells
+        /// @return if changes has been made 
         bool tidy();
 
         bool operator < (const BigInt& n) const;
