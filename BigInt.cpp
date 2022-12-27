@@ -274,3 +274,7 @@ BigInt BigInt::operator ^ (const BigInt& exp) const{
         result *= *this;
     return result;
 }
+
+LinkedList<int> * BigInt::getDigits() const{
+    return num;
+}

@@ -10,6 +10,7 @@ class Pfloat{
     private:
 
         BigInt *digits;
+        /// @brief digits*10^exponent
         long exponent;
 
     public:
@@ -17,6 +18,10 @@ class Pfloat{
         Pfloat();
 
         ~Pfloat();
+
+        Pfloat(long double n);
+
+        const string toString() const;
 };
 
 
