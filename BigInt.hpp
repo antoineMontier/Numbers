@@ -83,10 +83,18 @@ class BigInt{
         void operator += (const BigInt& n);
         void operator += (long n);
         
+        /// @brief get the factorial of a integer number
+        /// @param n number to get factorial
+        /// @return factorial result
         static BigInt factorial(long n);
         
+        /// @brief fibonnacci value of a specific number
+        /// @param n terme to calculate
+        /// @return fibonnacci result
         static BigInt fibonnacci(long n);
 
+        /// @brief check if the number is a palidrome (ex : 1536351)
+        /// @return true if palidrome, false otherwise
         bool palindrome() const;
         
         BigInt operator ^ (const BigInt& exp) const;
