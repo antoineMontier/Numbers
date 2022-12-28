@@ -34,6 +34,7 @@ Pfloat::Pfloat(long double n) {
         digits->push(number_no_dot %10);
         number_no_dot /= 10;
     }
+    tidy();
 
 
 
@@ -86,7 +87,7 @@ Pfloat::Pfloat(const std::string& str){
         number_no_dot /= 10;
     }
     //std::cout << "4" << std::endl;
-
+    tidy();
 }
 
 
@@ -102,3 +103,30 @@ const string Pfloat::toString() const{
 const string Pfloat::debugToString() const{
     return digits->toString();
 }
+
+bool Pfloat::tidy(){
+    bool res = false;
+    int tmp = 0;
+    for(int i = digits->size() - 2; i >= 0 ; i--)
+        if(digits->get(i) < 0){
+            digits->set(i, 10 + digits->get(i));
+            digits->set(i + 1, digits->get(i + 1) - 1);
+        } 
+    for (int i = 0; i < digits->size(); i++){
+        //std::cout <<"              "<< debugToString() << " i = " << i << std::endl;
+        if(digits->get(i) >= 10){
+            res = true;
+            tmp = digits->get(i)/10;
+            digits->set(i, digits->get(i) % 10);
+            if(i < digits->size() - 1)
+                digits->set(i + 1, digits->get(i + 1) + tmp);
+            else
+                digits->pushTail(tmp);
+        }
+    }
+    //remove useless 0
+    while(digits->size() > 0 && digits->get(digits->size() - 1) == 0)
+        digits->popTail();
+    return res;
+}
+

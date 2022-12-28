@@ -33,6 +33,8 @@ class Pfloat{
 
         const string debugToString() const;
 
+        bool tidy();
+
 };
 
 
