@@ -5,8 +5,9 @@
 
 int main(){
 
-    Pfloat a("1234.50");
-    std::cout << a.toString() << "\t|\t" << a.debugToString()<< std::endl;
+    Pfloat a("12.50");
+    Pfloat b("1900.0");
+    std::cout << "a = " << a.toString() << "\nb = " << b.toString() << "\na + b = " << (a+b).toString()<< std::endl;
 
     return 0;
 }

@@ -124,9 +124,58 @@ bool Pfloat::tidy(){
                 digits->pushTail(tmp);
         }
     }
-    //remove useless 0
-    while(digits->size() > 0 && digits->get(digits->size() - 1) == 0)
-        digits->popTail();
     return res;
 }
 
+Pfloat Pfloat::operator + (const Pfloat& x) const{
+    Pfloat res, temp;
+    int sup_current = exponent;
+    int down_current = digits->size() - exponent;
+    int sup_other = x.exponent;
+    int down_other = x.digits->size() - x.exponent;
+    int treat_index = min(down_current, down_other);
+    for(int  i = 0; i < digits->size(); i++)
+        res.digits->pushTail(digits->get(i));//copy "this" list
+    for(int  i = 0; i < x.digits->size(); i++)
+        temp.digits->pushTail(x.digits->get(i));//copy "temp" list
+    res.exponent = exponent;
+    temp.exponent = x.exponent;
+
+    while(temp.exponent =! res.exponent){
+        if(temp.exponent > res.exponent){
+            res.digits->push(0);
+            res.exponent--;
+        }else if(temp.exponent < res.exponent){
+            temp.digits->push(0);
+            temp.exponent--;
+        }
+    }
+    //now the two numbers has the same exponent so we can additionnate them normally
+    for(int i = 0 ; i < max(res.exponent, temp.exponent); i++){
+        ///////TODO
+    }
+
+    res.tidy();
+    return res;
+    
+    //first case, x number doesn't need to add any cells to result
+    /*if(x.exponent <= exponent && x.digits->size() <= digits->size()){
+        for(int i = 0; i < x.digits->size(); i++){
+            
+        }
+    }
+    //second case, x number needs to add cells after decimal dot to the result
+    if(x.exponent <= exponent && x.digits->size() > digits->size()){
+
+    }
+    //third case, x number needs to add cells before decimal dot to the result
+    if(x.exponent > exponent && x.digits->size() <= digits->size()){
+
+    }
+    //fourth case, x number needs to add cells both after and before decimal dot to the result
+    if(x.exponent > exponent && x.digits->size() > digits->size()){
+
+    }*/
+    res.tidy();
+    return res;
+}
