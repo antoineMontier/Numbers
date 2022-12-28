@@ -27,6 +27,8 @@ class Pfloat{
 
         Pfloat(long double n);
 
+        Pfloat(const std::string& str);
+
         const string toString() const;
 
         const string debugToString() const;

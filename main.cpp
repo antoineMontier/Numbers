@@ -5,9 +5,8 @@
 
 int main(){
 
-    Pfloat a(1234.50);
-    std::cout << "\n\neee\n\n" << std::endl;
-    std::cout << a.toString() << "\t" << a.debugToString()<< std::endl;
+    Pfloat a("1234.50");
+    std::cout << a.toString() << "\t|\t" << a.debugToString()<< std::endl;
 
     return 0;
 }
