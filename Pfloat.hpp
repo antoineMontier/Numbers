@@ -1,7 +1,13 @@
 #ifndef PFLOAT_HPP
 #define PFLOAT_HPP
 
-#include "LinkedList.hpp"
+#include <iostream>
+#include <sstream>
+#include <iomanip>
+#include <cmath>
+#include <string>
+#include <cstdlib>
+#include "LinkedList.cpp"
 
 using namespace std;
 
@@ -22,6 +28,9 @@ class Pfloat{
         Pfloat(long double n);
 
         const string toString() const;
+
+        const string debugToString() const;
+
 };
 
 

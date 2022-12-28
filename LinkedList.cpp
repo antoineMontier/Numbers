@@ -67,9 +67,11 @@ void LinkedList<T>::push(T content)
     Cell<T> *c = new Cell(content);
     if (head == nullptr){
         tail = c;
+        head = c;
         return;
     }else if (head == tail){
         c->setNext(tail);
+        head = c;
         return;
     }
     else c->setNext(head);
