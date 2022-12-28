@@ -1,7 +1,7 @@
 #ifndef PFLOAT_HPP
 #define PFLOAT_HPP
 
-#include "BigInt.hpp"
+#include "LinkedList.hpp"
 
 using namespace std;
 
@@ -9,7 +9,7 @@ class Pfloat{
 
     private:
 
-        BigInt *digits;
+        LinkedList<int>* digits;
         /// @brief digits*10^exponent
         long exponent;
 
