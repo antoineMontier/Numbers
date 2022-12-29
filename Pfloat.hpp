@@ -25,6 +25,8 @@ class Pfloat{
 
         ~Pfloat();
 
+        /// @brief creates a new Pfloat from a long
+        /// @param n warning, n must have less than 8 digits, use a sting argument
         Pfloat(long double n);
 
         Pfloat(const std::string& str);
