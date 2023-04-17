@@ -5,9 +5,17 @@
 
 int main(){
 
-    Pfloat a("12.50");
-    Pfloat b("1900.0");
-    std::cout << "a = " << a.toString() << "\nb = " << b.toString() << "\na + b = " << (a+b).toString()<< std::endl;
+    Pfloat a(.123456789);
+
+    std::cout << "a = " << a.toString() << "\n";
+    std::cout << "aa = " << a.debugToString() << "\n";
+    std::cout << "exp = " << a.getExponent() << "\n";
+
+    a.tidy();
+
+    std::cout << "a = " << a.toString() << "\n";
+    std::cout << "aa = " << a.debugToString() << "\n";
+    std::cout << "exp = " << a.getExponent() << "\n";
 
     return 0;
 }
