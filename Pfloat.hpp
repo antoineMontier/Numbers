@@ -27,18 +27,22 @@ class Pfloat{
         ~Pfloat();
 
         /// @brief creates a new Pfloat from a long
-        /// @param n warning, n must have less than 8 digits, use a sting argument ?
+        /// @param n warning, n must have less than 8 digits
         Pfloat(long double n);
 
-        Pfloat(const std::string& str);
+        // Pfloat(const std::string& str);
+
+        Pfloat(const Pfloat& n);
 
         int getExponent() const;
 
         const string toString() const;
 
+        const string toeString() const;
+
         const string debugToString() const;
 
-        bool tidy();
+        bool tidy(); // todo : fix slots with numbers < 0 || > 9 
 
         Pfloat operator + (const Pfloat& x) const;
 

@@ -167,7 +167,7 @@ template <class T>
 T LinkedList<T>::get(int index) const
 {
     if (index < 0 || index >= size())
-        throw std::invalid_argument("list index out of bounds");
+        throw std::invalid_argument("list index out of bounds" + index);
     if (index == 0)
         return head->getContent();
     if (index == size() - 1)
@@ -182,7 +182,7 @@ template <class T>
 void LinkedList<T>::set(int index, T content)
 {
     if (index < 0 || index >= size())
-        throw std::invalid_argument("list index out of bounds");
+        throw std::invalid_argument("list index out of bounds" + index);
     if (index == 0)
         return head->setContent(content);
     if (index == size() - 1)
@@ -197,7 +197,7 @@ template <class T>
 T LinkedList<T>::pop(int index)
 {
     if (index < 0 || index >= size())
-        throw std::invalid_argument("list index out of bounds");
+        throw std::invalid_argument("list index out of bounds" + index);
     if (index == 0)
         return pop();
     if (index == size() - 1)
@@ -219,7 +219,7 @@ template <class T>
 void LinkedList<T>::push(int index, T content)
 {
     if (index < 0 || index > size())
-        throw std::invalid_argument("list index out of bounds");
+        throw std::invalid_argument("list index out of bounds" + index);
     if (index == 0)
         return push(content);
     if (index == size())
