@@ -48,6 +48,8 @@ class Pfloat{
 
         bool operator == (const Pfloat& x) const;
 
+        bool operator != (const Pfloat& x) const;
+
 };
 
 

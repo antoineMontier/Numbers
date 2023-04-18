@@ -169,3 +169,7 @@ bool Pfloat::operator == (const Pfloat& x) const{
     if(t.exponent != x.exponent) return false;
     return true; // all tests passed
 }
+
+bool Pfloat::operator != (const Pfloat& x) const {
+    return !(*this == x);
+}
