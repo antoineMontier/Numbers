@@ -112,8 +112,8 @@ Pfloat Pfloat::operator + (const Pfloat& x) const{
     // considering 'this' has an exp = e1 and 'x' has an exp = e2. the slots will correspond themselves by an offset of moving left the 'x' tab by e2 - e1
     Pfloat res(x); // copy argument
     int max_t = exponent + 1, max_x = res.getExponent() + 1, min_t = max_t - digits->size(), min_x = max_x - res.digits->size();
-    std::cout << "t = " << toeString() << "\nx = " << res.toeString() << "\n";
-    std::cout << "min_t = " << min_t << "\nmax_t = " << max_t << "\nmin_x = " << min_x << "\nmax_x = " << max_x << "\n";
+    // std::cout << "t = " << toeString() << "\nx = " << res.toeString() << "\n";
+    // std::cout << "min_t = " << min_t << "\nmax_t = " << max_t << "\nmin_x = " << min_x << "\nmax_x = " << max_x << "\n";
     
     // add enough slots at the beginning of the array : 
     for(int i = max_x ; i < max_t ; ++i){
@@ -124,23 +124,48 @@ Pfloat Pfloat::operator + (const Pfloat& x) const{
     // add enough slots at the end of the array
     for(int i = min_x ; i > min_t ; --i) res.digits->pushTail(0);
 
-    std::cout << res.debugToString() << std::endl;
+    // std::cout << res.debugToString() << std::endl;
 
     // add digits from 'this' to res : 
     int tt, xx;   
     for(int i = 0 ; i < digits->size(); ++i){
-        std::cout <<"i = "<< i << std::endl;
+        // std::cout <<"i = "<< i << std::endl;
         tt = digits->get(i);
-        std::cout <<"tt = " <<tt << std::endl;
+        // std::cout <<"tt = " <<tt << std::endl;
         xx = res.digits->get(i + res.exponent - exponent);
-        std::cout <<"xx = "<<xx << std::endl;
+        // std::cout <<"xx = "<<xx << std::endl;
         res.digits->set(i + res.exponent - exponent, tt + xx);
     }
     
     res.tidy();
-    std::cout << res.toString() << std::endl;
-    std::cout << res.debugToString() << std::endl;
+    // std::cout << res.toString() << std::endl;
+    // std::cout << res.debugToString() << std::endl;
 
     return res;
 
+}
+
+Pfloat& Pfloat::operator=(const Pfloat& n) {
+    // Clear the current digits of this Pfloat
+    digits->clear();
+
+    // Copy the digits of the other Pfloat to this Pfloat
+    for (int i = 0; i < n.digits->size(); i++)  digits->pushTail(n.digits->get(i));
+    exponent = n.exponent;
+
+    return *this;
+}
+
+bool Pfloat::operator == (const Pfloat& x) const{
+    if(digits->size() == 0 && x.digits->size() == 0) return true;
+    // copy this and x : 
+    Pfloat t = *this;
+    Pfloat xx = x;
+    // tidy
+    t.tidy(); xx.tidy();
+    // compare exponents and digits : 
+    if(t.digits->size() != x.digits->size()) return false;
+    for(int i = 0; i < t.digits->size(); ++i) if(t.digits->get(i) != x.digits->get(i)) return false;
+    if(t.exponent != x.exponent) return false;
+    return true; // all tests passed
 }

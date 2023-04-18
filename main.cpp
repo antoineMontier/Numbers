@@ -5,21 +5,14 @@
 
 int main(){
 
-    Pfloat a(1.4);
-
-
-    // std::cout << "a = " << a.toString() << "\n";
+    Pfloat a(0.2);
     std::cout << "a = " << a.toeString() << "\n";
-    // std::cout << "a = " << a.debugToString() << "\n";
 
-    Pfloat b(8.7);
-
-
-    // std::cout << "b = " << b.toString() << "\n";
+    Pfloat b(0.0);
     std::cout << "b = " << b.toeString() << "\n";
-    // std::cout << "b = " << b.debugToString() << "\n";
 
-    Pfloat c(0);
+    std::cout << "a == b : " << (a == b) << "\n";
+
 
     return 0;
 }

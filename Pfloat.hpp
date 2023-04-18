@@ -30,8 +30,6 @@ class Pfloat{
         /// @param n warning, n must have less than 8 digits
         Pfloat(long double n);
 
-        // Pfloat(const std::string& str);
-
         Pfloat(const Pfloat& n);
 
         int getExponent() const;
@@ -42,10 +40,13 @@ class Pfloat{
 
         const string debugToString() const;
 
-        bool tidy(); // todo : fix slots with numbers < 0 || > 9 
+        bool tidy();
 
         Pfloat operator + (const Pfloat& x) const;
 
+        Pfloat& operator = (const Pfloat& n);
+
+        bool operator == (const Pfloat& x) const;
 
 };
 
