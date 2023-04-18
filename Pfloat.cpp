@@ -207,3 +207,43 @@ bool Pfloat::operator > (const Pfloat& x) const {
 bool Pfloat::operator >= (const Pfloat& x) const {
     return !(*this < x);
 }
+
+Pfloat Pfloat::operator * (const Pfloat& x) const{
+    if(x == Pfloat(0) || *this == Pfloat(0)) return Pfloat(0);
+    if(x == Pfloat(1)) return Pfloat(*this);
+    if(*this == Pfloat(1)) return Pfloat(x);
+    Pfloat res;
+    res.exponent = x.exponent;
+    // add slots to res, depending on how much slots there are in 'x'
+    for(int i = 0; i < x.digits->size(); i++) res.digits->push(0);
+    // prepare a large enough array to hold the result
+    int max_t = exponent + 1, max_x = x.exponent + 1, min_t = max_t - digits->size(), min_x = max_x - x.digits->size();
+    // add enough slots at the beginning of the array : 
+    for(int i = max_x ; i < max_t; ++i){ // // + 1 because one more slot is needed due to the fact multiplication can lead to large numbers in first position
+        res.digits->push(0);
+        res.exponent++;
+    }
+    std::cout << "about to multiply " << debugToString() << "\nand" << x.debugToString() << "\n";
+    // add enough slots at the end of the array
+    for(int i = min_x ; i > min_t ; --i) res.digits->pushTail(0);
+
+    std::cout << "before mult : " << res.debugToString() << std::endl;
+
+    // multiply the numbers using this rule : foreach slots of number1, multiply if with the slots of number2 and store the result at slot index : e1 + e2 - slot_n1 - slot_n2
+    int index;   
+    for(int i = 0 ; i < digits->size(); ++i){
+        for(int j = 0 ; j < x.digits->size() ; ++j){
+            index = (exponent + x.exponent - res.exponent) +  (i + j) - 1;
+            std::cout << "index = " << index << "\t" << res.debugToString() << "\n\t= " << res.digits->get(index) << " + " << digits->get(i) << " * " << x.digits->get(j) << "\n";
+            res.digits->set(index, res.digits->get(index) + digits->get(i) * x.digits->get(j));
+        }
+    }
+    res.digits->reverse();
+    std::cout << "after mult : " << res.debugToString() << std::endl;
+    // set the exponent of the result
+    res.tidy();
+    res.exponent = exponent + x.exponent;
+    std::cout << res.toString() << std::endl;
+
+    return res;
+}

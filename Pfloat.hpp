@@ -48,6 +48,8 @@ class Pfloat{
 
         Pfloat operator + (const Pfloat& x) const;
 
+        Pfloat operator * (const Pfloat& x) const;
+
         Pfloat& operator = (const Pfloat& n);
 
         bool operator == (const Pfloat& x) const;

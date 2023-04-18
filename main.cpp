@@ -46,13 +46,15 @@ int main(){
 
 
 
-    Pfloat a(0.2);
+    Pfloat a(56);
     std::cout << "a = " << a.toeString() << "\n";
 
-    Pfloat b(0.0);
+    Pfloat b(32);
     std::cout << "b = " << b.toeString() << "\n";
 
-    std::cout << "a != b : " << (a != b) << "\n";
+    a * b;
+
+    // std::cout << a.toString() << " * " << b.toString() << " = " << (a * b).toString() << "\n";
 
 
     return 0;
