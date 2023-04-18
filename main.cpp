@@ -19,12 +19,7 @@ int main(){
     std::cout << "b = " << b.toeString() << "\n";
     // std::cout << "b = " << b.debugToString() << "\n";
 
-    Pfloat c;
-
-    for(int i = 0 ; i < 5000 ; ++i)
-        c = c + a;
-
-    std::cout << c.debugToString() << "\n";
+    Pfloat c(0);
 
     return 0;
 }

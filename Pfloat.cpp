@@ -81,10 +81,9 @@ bool Pfloat::tidy(){
         exponent++;
     }
 
-
         // remove leading zeros
     int i = 0;
-    while(digits->get(i) == 0){
+    while(i < digits->size() && digits->get(i) == 0){
         i++;    
         exponent--;
     } 
@@ -93,7 +92,7 @@ bool Pfloat::tidy(){
     // remove trailing zeros
     int static_size = digits->size();
     i = static_size - 1;
-    while(digits->get(i) == 0)--i;
+    while(i >= 0 && digits->get(i) == 0)--i;
     if(i != static_size - 1) for(int j = i ; j < static_size - 1 ; j++) digits->popTail();
 
 
