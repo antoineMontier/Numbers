@@ -173,3 +173,25 @@ bool Pfloat::operator == (const Pfloat& x) const{
 bool Pfloat::operator != (const Pfloat& x) const {
     return !(*this == x);
 }
+
+bool Pfloat::operator < (const Pfloat& x) const {
+    if(*this == x) return false;
+    if(exponent < x.exponent) return true;
+    if(exponent > x.exponent) return false;
+    // same exponents
+    // copy this and x : 
+    Pfloat t = *this, xx = x;
+    // tidy
+    t.tidy(); xx.tidy();
+    return t.rec_inf(x, 0);
+}
+
+bool Pfloat::rec_inf(const Pfloat b, int index_cmp) const{
+    if(digits->size() > index_cmp && b.digits->size() > index_cmp){
+        if(digits->get(index_cmp) > b.digits->get(index_cmp)) return false;
+        if(digits->get(index_cmp) < b.digits->get(index_cmp)) return true;
+        return rec_inf(b, index_cmp + 1); // recursion
+    }else if(digits->size() == index_cmp && b.digits->size() > index_cmp) return true;// b is larger
+    else if(digits->size() > index_cmp && b.digits->size() == index_cmp) return false;
+    else return false; // same size of digits arrays so they are equals
+}

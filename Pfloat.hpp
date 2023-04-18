@@ -20,6 +20,10 @@ class Pfloat{
         /// @brief digits*10^exponent
         long exponent;
 
+        /// @brief we assume the exponents of the two Pfloats are the same and they are both tydied
+        /// @return true if b is greater than this
+        bool rec_inf(const Pfloat b, int index_cmp) const;
+
     public:
 
         Pfloat();
@@ -49,6 +53,8 @@ class Pfloat{
         bool operator == (const Pfloat& x) const;
 
         bool operator != (const Pfloat& x) const;
+
+        bool operator < (const Pfloat& x) const;
 
 };
 
