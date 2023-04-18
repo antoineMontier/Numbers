@@ -43,18 +43,29 @@ int main(){
     assert(!(Pfloat(0.1) > Pfloat(0.1)));
     assert(!(Pfloat(2.0) <= Pfloat(1.5)));
     assert(!(Pfloat(0.4) >= Pfloat(0.5)));
+    // === * tests
+    assert(Pfloat(2) * Pfloat(3) == Pfloat(6));
+    assert(Pfloat(1.5) * Pfloat(2.5) == Pfloat(3.75));
+    assert(Pfloat(0) * Pfloat(5.5) == Pfloat(0));
+    assert(Pfloat(-3.3) * Pfloat(0) == Pfloat(0));
+    assert(Pfloat(1) * Pfloat(1) == Pfloat(1));
+    assert(Pfloat(0.5) * Pfloat(0.5) == Pfloat(0.25));
+    assert(Pfloat(1.23) * Pfloat(4.56) == Pfloat(5.6088));
+    assert(Pfloat(2.5) * Pfloat(3) == Pfloat(7.5));
+    assert(Pfloat(0.1) * Pfloat(0.2) == Pfloat(0.02));
+    assert(Pfloat(2.0) * Pfloat(0.1) == Pfloat(0.2));
 
 
 
-    Pfloat a(56);
+    Pfloat a(.5);
     std::cout << "a = " << a.toeString() << "\n";
 
-    Pfloat b(32);
+    Pfloat b(.5);
     std::cout << "b = " << b.toeString() << "\n";
 
     a * b;
 
-    // std::cout << a.toString() << " * " << b.toString() << " = " << (a * b).toString() << "\n";
+    std::cout << a.toString() << " * " << b.toString() << " = " << (a * b).toString() << "\n";
 
 
     return 0;

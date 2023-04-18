@@ -219,13 +219,13 @@ Pfloat Pfloat::operator * (const Pfloat& x) const{
     // prepare a large enough array to hold the result
     int max_t = exponent + 1, max_x = x.exponent + 1, min_t = max_t - digits->size(), min_x = max_x - x.digits->size();
     // add enough slots at the beginning of the array : 
-    for(int i = max_x ; i < max_t; ++i){ // // + 1 because one more slot is needed due to the fact multiplication can lead to large numbers in first position
+    for(int i = max_x ; i < max_t + max_x; ++i){
         res.digits->push(0);
         res.exponent++;
     }
     std::cout << "about to multiply " << debugToString() << "\nand" << x.debugToString() << "\n";
     // add enough slots at the end of the array
-    for(int i = min_x ; i > min_t ; --i) res.digits->pushTail(0);
+    for(int i = min_x ; i > min_t; --i) res.digits->pushTail(0);
 
     std::cout << "before mult : " << res.debugToString() << std::endl;
 
@@ -233,7 +233,7 @@ Pfloat Pfloat::operator * (const Pfloat& x) const{
     int index;   
     for(int i = 0 ; i < digits->size(); ++i){
         for(int j = 0 ; j < x.digits->size() ; ++j){
-            index = (exponent + x.exponent - res.exponent) +  (i + j) - 1;
+            index = (i + j);
             std::cout << "index = " << index << "\t" << res.debugToString() << "\n\t= " << res.digits->get(index) << " + " << digits->get(i) << " * " << x.digits->get(j) << "\n";
             res.digits->set(index, res.digits->get(index) + digits->get(i) * x.digits->get(j));
         }
@@ -241,8 +241,8 @@ Pfloat Pfloat::operator * (const Pfloat& x) const{
     res.digits->reverse();
     std::cout << "after mult : " << res.debugToString() << std::endl;
     // set the exponent of the result
-    res.tidy();
     res.exponent = exponent + x.exponent;
+    res.tidy();
     std::cout << res.toString() << std::endl;
 
     return res;
