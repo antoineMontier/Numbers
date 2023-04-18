@@ -195,3 +195,15 @@ bool Pfloat::rec_inf(const Pfloat b, int index_cmp) const{
     else if(digits->size() > index_cmp && b.digits->size() == index_cmp) return false;
     else return false; // same size of digits arrays so they are equals
 }
+
+bool Pfloat::operator <= (const Pfloat& x) const {
+    return (*this < x) || (*this == x);
+}
+
+bool Pfloat::operator > (const Pfloat& x) const {
+    return !(*this <= x);
+}
+
+bool Pfloat::operator >= (const Pfloat& x) const {
+    return !(*this < x);
+}
