@@ -54,19 +54,18 @@ int main(){
     assert(Pfloat(2.5) * Pfloat(3) == Pfloat(7.5));
     assert(Pfloat(0.1) * Pfloat(0.2) == Pfloat(0.02));
     assert(Pfloat(2.0) * Pfloat(0.1) == Pfloat(0.2));
+    assert(Pfloat(42.576) * Pfloat(192.3) == Pfloat(8187.3648));
+    assert(Pfloat(8699) * Pfloat(15.68) == Pfloat(136400.32));
+    assert(Pfloat(.5)*Pfloat(.5)*Pfloat(.5)*Pfloat(.5)*Pfloat(.5)*Pfloat(.5) == Pfloat(.015625));
+    
 
+    Pfloat a(64920.6492);
+    // std::cout << "a = " << a.toeString() << "\n";
 
+    Pfloat b(6492);
+    // std::cout << "b = " << b.toeString() << "\n";
 
-    Pfloat a(.5);
-    std::cout << "a = " << a.toeString() << "\n";
-
-    Pfloat b(.5);
-    std::cout << "b = " << b.toeString() << "\n";
-
-    a * b;
-
-    std::cout << a.toString() << " * " << b.toString() << " = " << (a * b).toString() << "\n";
-
+    std::cout << a.toString() << " * " << b.toString() << " =  " << (a*b).toString() << "\n";
 
     return 0;
 }
