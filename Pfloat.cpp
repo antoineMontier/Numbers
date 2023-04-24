@@ -5,6 +5,7 @@ using namespace std;
 Pfloat::Pfloat(){
     exponent = 0;
     digits = new LinkedList<int>();
+    neg = false;
 }
 
 Pfloat::~Pfloat(){
@@ -14,6 +15,7 @@ Pfloat::~Pfloat(){
 const string Pfloat::toString() const{
     if(digits->size() == 0) return "0.0";
     ostringstream res("");
+    if(neg) res << "-";
     // display first zeros if exponent is negative : 
     if(exponent < -1){
         int z = exponent;
@@ -33,6 +35,7 @@ const string Pfloat::toString() const{
 const string Pfloat::toeString() const{
     if(digits->size() == 0) return "0.0";
     ostringstream res("");
+    if(neg) res << "-";
     res << digits->get(0) << ".";
     for(int i = 1; i < digits->size(); ++i) res << digits->get(i);
     if(exponent != 0) res << "e" << exponent;
@@ -49,6 +52,8 @@ int Pfloat::getExponent() const{
 }
 
 Pfloat::Pfloat(long double n) {
+    if(n < 0) neg = true;
+    n = n < 0  ? -n : n;
     digits = new LinkedList<int>();
     exponent = 0;
     std::string s = std::to_string(n);
@@ -94,9 +99,6 @@ bool Pfloat::tidy(){
     i = static_size - 1;
     while(i >= 0 && digits->get(i) == 0)--i;
     if(i != static_size - 1) for(int j = i ; j < static_size - 1 ; j++) digits->popTail();
-
-
-
     return true;
 }
 
@@ -105,6 +107,7 @@ Pfloat::Pfloat(Pfloat const &other){
     for(int i = 0; i < other.digits->size(); i++)
         digits->pushTail(other.digits->get(i));
     exponent = other.getExponent();
+    neg = other.neg;
     tidy();
 }
 
@@ -174,7 +177,12 @@ bool Pfloat::operator != (const Pfloat& x) const {
     return !(*this == x);
 }
 
+
+
 bool Pfloat::operator < (const Pfloat& x) const {
+    if(neg == true && x.neg == false) return true;
+    if(neg == false && x.neg == true) return false;
+    if(neg == true && x.neg == true) 
     if(*this == x) return false;
     if(exponent < x.exponent) return true;
     if(exponent > x.exponent) return false;

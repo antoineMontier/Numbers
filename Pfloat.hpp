@@ -24,7 +24,11 @@ class Pfloat{
         /// @return true if b is greater than this
         bool rec_inf(const Pfloat b, int index_cmp) const;
 
+        bool neg;
+
     public:
+
+        void abs
 
         Pfloat();
 
