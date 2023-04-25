@@ -238,9 +238,20 @@ bool Pfloat::operator >= (const Pfloat& x) const {
 }
 
 Pfloat Pfloat::operator * (const Pfloat& x) const{
+    // === quick cases ===
     if(x == Pfloat(0) || *this == Pfloat(0)) return Pfloat(0);
     if(x == Pfloat(1)) return Pfloat(*this);
     if(*this == Pfloat(1)) return Pfloat(x);
+    if(x == Pfloat(-1)){
+        Pfloat r(*this);
+        r.neg = !r.neg;
+        return r;
+    }
+    if(*this == Pfloat(-1)){
+        Pfloat r(x);
+        r.neg = !r.neg;
+        return r;
+    }
     Pfloat res;
     res.exponent = x.exponent;
     // =============================== add slots to res
