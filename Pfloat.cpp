@@ -131,12 +131,14 @@ Pfloat::Pfloat(Pfloat const &other){
 }
 
 Pfloat Pfloat::operator + (const Pfloat& x) const{
+    if(x.neg && !neg) return *this - x.abs();
+    if(x.neg && neg) return Pfloat(0) - (this->abs() + x.abs());
+    if(!x.neg && neg) return x - this->abs();
+    // here, both this and x are positive
     // considering 'this' has an exp = e1 and 'x' has an exp = e2. the slots will correspond themselves by an offset of moving left the 'x' tab by e2 - e1
     Pfloat res(x); // copy argument
     int max_t = exponent + 1, max_x = res.getExponent() + 1, min_t = max_t - digits->size(), min_x = max_x - res.digits->size();
-    // std::cout << "t = " << toeString() << "\nx = " << res.toeString() << "\n";
-    // std::cout << "min_t = " << min_t << "\nmax_t = " << max_t << "\nmin_x = " << min_x << "\nmax_x = " << max_x << "\n";
-    
+
     // add enough slots at the beginning of the array : 
     for(int i = max_x ; i < max_t ; ++i){
         res.digits->push(0);
@@ -146,22 +148,20 @@ Pfloat Pfloat::operator + (const Pfloat& x) const{
     // add enough slots at the end of the array
     for(int i = min_x ; i > min_t ; --i) res.digits->pushTail(0);
 
-    // std::cout << res.debugToString() << std::endl;
-
     // add digits from 'this' to res : 
     for(int i = 0 ; i < digits->size(); ++i)
         res.digits->set(i + res.exponent - exponent, digits->get(i) + res.digits->get(i + res.exponent - exponent));
-    
-    
     res.tidy();
-    // std::cout << res.toString() << std::endl;
-    // std::cout << res.debugToString() << std::endl;
-
     return res;
 
 }
 
 Pfloat Pfloat::operator - (const Pfloat& x) const{
+    if(!neg && x.neg) return *this + x.abs();
+    if(neg && x.neg) return x.abs() - this->abs();
+    if(neg && !x.neg) return Pfloat(0) - (this->abs() + x);
+    // here, both this and x are positive
+    // std::cout << debugToString() << "\n" << x.debugToString() << "\n";
     Pfloat res(x);
     int max_t = exponent + 1, max_x = res.getExponent() + 1, min_t = max_t - digits->size(), min_x = max_x - res.digits->size();
     
@@ -177,11 +177,10 @@ Pfloat Pfloat::operator - (const Pfloat& x) const{
 
     res.tidy();
     return res;
-
 }
 
 
-Pfloat& Pfloat::operator=(const Pfloat& n) {
+Pfloat& Pfloat::operator = (const Pfloat& n) {
     // Clear the current digits of this Pfloat
     digits->clear();
 

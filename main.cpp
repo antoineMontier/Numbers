@@ -16,7 +16,15 @@ int main(){
     // === + tests
     assert(Pfloat(2) + Pfloat(2) == Pfloat(4));
     assert(Pfloat(0) + Pfloat(2) == Pfloat(2));
-    assert(Pfloat(1.999998) + Pfloat(.000002) == Pfloat(2));
+    assert(Pfloat(1.999998) + Pfloat(0.000002) == Pfloat(2));
+    //assert(Pfloat(-5.23) + Pfloat(1.5) == Pfloat(-3.73));
+    assert(Pfloat(3.33) + Pfloat(-1.5) == Pfloat(1.83));
+    assert(Pfloat(-2.2) + Pfloat(-3.3) == Pfloat(-5.5));
+    // === - tests
+    assert(Pfloat(3.3) - Pfloat(1.5) == Pfloat(1.8));
+    assert(Pfloat(1.5) - Pfloat(3.3) == Pfloat(-1.8));
+    assert(Pfloat(-3.3) - Pfloat(1.5) == Pfloat(-4.8));
+    assert(Pfloat(-1.5) - Pfloat(-3.3) == Pfloat(1.8));
     // === '<' '>' '<=' '>=' tests with +
     assert(Pfloat(0) < Pfloat(1));
     assert(Pfloat(0) < Pfloat(0.123));
@@ -85,12 +93,12 @@ int main(){
     assert(Pfloat(.5)*Pfloat(.5)*Pfloat(.5)*Pfloat(.5)*Pfloat(.5)*Pfloat(.5) == Pfloat(.015625));
     
 
-    Pfloat a(5.5);
+    Pfloat a(-5.23);
     std::cout << "a = " << a.toeString() << "\n";
-    Pfloat b(7.1);
+    Pfloat b(1.5);
     std::cout << "b = " << b.toeString() << "\n";
     
-    std::cout << a.toString() << " - " << b.toString() << " =  " << (a-b).toString() << "\n";
+    std::cout << a.toString() << " + " << b.toString() << " =  " << (a+b).toString() << "\n";
 
     return 0;
 }
