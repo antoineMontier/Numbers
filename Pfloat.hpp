@@ -28,7 +28,7 @@ class Pfloat{
 
     public:
 
-        void abs
+        Pfloat abs() const;
 
         Pfloat();
 

@@ -44,7 +44,11 @@ const string Pfloat::toeString() const{
 
 
 const string Pfloat::debugToString() const{
-    return digits->toString();
+    ostringstream res("");
+    if(neg) res << "-"; else res << "+";
+    res << digits->toString();
+    res << "\te = " << exponent;
+    return res.str();
 }
 
 int Pfloat::getExponent() const{
@@ -53,6 +57,7 @@ int Pfloat::getExponent() const{
 
 Pfloat::Pfloat(long double n) {
     if(n < 0) neg = true;
+    else neg = false;
     n = n < 0  ? -n : n;
     digits = new LinkedList<int>();
     exponent = 0;
@@ -177,12 +182,28 @@ bool Pfloat::operator != (const Pfloat& x) const {
     return !(*this == x);
 }
 
+Pfloat Pfloat::abs() const{
+    Pfloat res(*this);
+    res.neg = false;
+    return res;
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
 bool Pfloat::operator < (const Pfloat& x) const {
     if(neg == true && x.neg == false) return true;
     if(neg == false && x.neg == true) return false;
-    if(neg == true && x.neg == true) 
+    if(neg == true && x.neg == true) return this->abs() > x.abs();
     if(*this == x) return false;
     if(exponent < x.exponent) return true;
     if(exponent > x.exponent) return false;
@@ -244,6 +265,8 @@ Pfloat Pfloat::operator * (const Pfloat& x) const{
     res.exponent = exponent + x.exponent;
     res.tidy();
     // std::cout << res.toString() << std::endl;
-
+    // manage sign : 
+    if(x.neg == this->neg) res.neg = false;
+    else res.neg = true;
     return res;
 }

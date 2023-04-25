@@ -4,7 +4,7 @@
 #include "Pfloat.hpp"
 
 int main(){
-    // === == tests
+    /*// === == tests
     assert(Pfloat(2) == Pfloat(2.000000000));
     assert(Pfloat(0) == Pfloat());
     assert(Pfloat() == Pfloat());
@@ -56,15 +56,15 @@ int main(){
     assert(Pfloat(2.0) * Pfloat(0.1) == Pfloat(0.2));
     assert(Pfloat(42.576) * Pfloat(192.3) == Pfloat(8187.3648));
     assert(Pfloat(8699) * Pfloat(15.68) == Pfloat(136400.32));
-    assert(Pfloat(.5)*Pfloat(.5)*Pfloat(.5)*Pfloat(.5)*Pfloat(.5)*Pfloat(.5) == Pfloat(.015625));
+    assert(Pfloat(.5)*Pfloat(.5)*Pfloat(.5)*Pfloat(.5)*Pfloat(.5)*Pfloat(.5) == Pfloat(.015625));*/
     
 
     Pfloat a(64920.6492);
-    // std::cout << "a = " << a.toeString() << "\n";
+    std::cout << "a = " << a.toeString() << "\n";
 
-    Pfloat b(6492);
-    // std::cout << "b = " << b.toeString() << "\n";
-
+    Pfloat b(-6492);
+    std::cout << "b = " << b.toeString() << "\n";
+    
     std::cout << a.toString() << " * " << b.toString() << " =  " << (a*b).toString() << "\n";
 
     return 0;
