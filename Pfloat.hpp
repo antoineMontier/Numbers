@@ -50,6 +50,8 @@ class Pfloat{
 
         bool tidy();
 
+        Pfloat operator - (const Pfloat& x) const;
+
         Pfloat operator + (const Pfloat& x) const;
 
         Pfloat operator * (const Pfloat& x) const;

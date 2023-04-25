@@ -85,12 +85,12 @@ int main(){
     assert(Pfloat(.5)*Pfloat(.5)*Pfloat(.5)*Pfloat(.5)*Pfloat(.5)*Pfloat(.5) == Pfloat(.015625));
     
 
-    // Pfloat a(64920.6492);
-    // std::cout << "a = " << a.toeString() << "\n";
-    // Pfloat b(-6492);
-    // std::cout << "b = " << b.toeString() << "\n";
-    // 
-    // std::cout << a.toString() << " * " << b.toString() << " =  " << (a*b).toString() << "\n";
+    Pfloat a(5.5);
+    std::cout << "a = " << a.toeString() << "\n";
+    Pfloat b(7.1);
+    std::cout << "b = " << b.toeString() << "\n";
+    
+    std::cout << a.toString() << " - " << b.toString() << " =  " << (a-b).toString() << "\n";
 
     return 0;
 }

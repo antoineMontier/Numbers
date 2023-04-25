@@ -76,7 +76,7 @@ Pfloat::Pfloat(long double n) {
 bool Pfloat::tidy(){
     if(digits->size() == 0) return false;
     
-    // check if each slot has a value between 0 and 9 : 
+    // check if each slot has a value below 9 : 
     for(int i = digits->size() - 1 ; i > 0 ; --i){
         if(digits->get(i) > 9){
             int tmp = digits->get(i) / 10; // get the overflow value
@@ -90,8 +90,22 @@ bool Pfloat::tidy(){
         digits->set(1, digits->get(1) % 10); // first slot is now slot n°1
         exponent++;
     }
+    // check if each slot has a value greater tgan 0 : 
+    for(int i = 1 ; i < digits->size() ; ++i){
+        while(digits->get(i) < 0){
+            digits->set(i, digits->get(i) + 10); // keep the last digit
+            digits->set(i - 1, digits->get(i -1) - 1); // add
+        }
+    }
+    // first slot case : 
+    if(digits->get(0) < 0){
+        neg = !neg;
+        for(int i = 0; i < digits->size() ; ++i)
+            digits->set(i, -digits->get(i));
+        tidy();
+    }
 
-        // remove leading zeros
+    // remove leading zeros
     int i = 0;
     while(i < digits->size() && digits->get(i) == 0){
         i++;    
@@ -135,15 +149,9 @@ Pfloat Pfloat::operator + (const Pfloat& x) const{
     // std::cout << res.debugToString() << std::endl;
 
     // add digits from 'this' to res : 
-    int tt, xx;   
-    for(int i = 0 ; i < digits->size(); ++i){
-        // std::cout <<"i = "<< i << std::endl;
-        tt = digits->get(i);
-        // std::cout <<"tt = " <<tt << std::endl;
-        xx = res.digits->get(i + res.exponent - exponent);
-        // std::cout <<"xx = "<<xx << std::endl;
-        res.digits->set(i + res.exponent - exponent, tt + xx);
-    }
+    for(int i = 0 ; i < digits->size(); ++i)
+        res.digits->set(i + res.exponent - exponent, digits->get(i) + res.digits->get(i + res.exponent - exponent));
+    
     
     res.tidy();
     // std::cout << res.toString() << std::endl;
@@ -152,6 +160,26 @@ Pfloat Pfloat::operator + (const Pfloat& x) const{
     return res;
 
 }
+
+Pfloat Pfloat::operator - (const Pfloat& x) const{
+    Pfloat res(x);
+    int max_t = exponent + 1, max_x = res.getExponent() + 1, min_t = max_t - digits->size(), min_x = max_x - res.digits->size();
+    
+    for(int i = max_x ; i < max_t ; ++i){
+        res.digits->push(0);
+        res.exponent++;
+    }
+
+    for(int i = min_x ; i > min_t ; --i) res.digits->pushTail(0);
+
+    for(int i = 0 ; i < digits->size(); ++i)
+        res.digits->set(i + res.exponent - exponent, digits->get(i) - res.digits->get(i + res.exponent - exponent));
+
+    res.tidy();
+    return res;
+
+}
+
 
 Pfloat& Pfloat::operator=(const Pfloat& n) {
     // Clear the current digits of this Pfloat
