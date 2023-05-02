@@ -42,7 +42,6 @@ const string Pfloat::toeString() const{
     return res.str();
 }
 
-
 const string Pfloat::debugToString() const{
     ostringstream res("");
     if(neg) res << "-"; else res << "+";
@@ -58,13 +57,14 @@ int Pfloat::getExponent() const{
 Pfloat::Pfloat(long double n) {
     if(n < 0) neg = true;
     else neg = false;
-    n = n < 0  ? -n : n;
+    n = neg ? -n : n;
     digits = new LinkedList<int>();
     exponent = 0;
+    if(n == 0.0 || n == -0.0) n = 0;
     std::string s = std::to_string(n);
+
     char* arg_char = (char*)malloc(s.size()*sizeof(char) + 1);
     strcpy(arg_char, s.c_str());
-
     for(int i = 0; i < (int)s.size(); i++){
         if(arg_char[i] == '.')  exponent = i-1;
         else                    digits->pushTail(arg_char[i] - '0');
@@ -74,6 +74,7 @@ Pfloat::Pfloat(long double n) {
 }
 
 bool Pfloat::tidy(){
+    // std::cout << "before" << debugToString() << "\n";
     if(digits->size() == 0) return false;
     
     // check if each slot has a value below 9 : 
@@ -133,9 +134,9 @@ Pfloat::Pfloat(Pfloat const &other){
 }
 
 Pfloat Pfloat::operator + (const Pfloat& x) const{
-    if(x.neg && !neg) return *this - x.abs();
-    if(x.neg && neg) return Pfloat(0) - (this->abs() + x.abs());
-    if(!x.neg && neg) return x - this->abs();
+    if(x.neg && !neg){ /*std::cout << "1e case\n";*/return *this - x.abs();}
+    if(x.neg && neg){ /*std::cout << "2e case\n";*/ return Pfloat(0) - (this->abs() + x.abs());}
+    if(!x.neg && neg){ /*std::cout << "3e case\n";*/ return x - this->abs();}
     // here, both this and x are positive
     // considering 'this' has an exp = e1 and 'x' has an exp = e2. the slots will correspond themselves by an offset of moving left the 'x' tab by e2 - e1
     Pfloat res(x); // copy argument
@@ -155,7 +156,6 @@ Pfloat Pfloat::operator + (const Pfloat& x) const{
         res.digits->set(i + res.exponent - exponent, digits->get(i) + res.digits->get(i + res.exponent - exponent));
     res.tidy();
     return res;
-
 }
 
 Pfloat Pfloat::operator - (const Pfloat& x) const{
@@ -163,7 +163,7 @@ Pfloat Pfloat::operator - (const Pfloat& x) const{
     if(neg && x.neg) return x.abs() - this->abs();
     if(neg && !x.neg) return Pfloat(0) - (this->abs() + x);
     // here, both this and x are positive
-    // std::cout << debugToString() << "\n" << x.debugToString() << "\n";
+    //std::cout << "\n@@@@@\n" << debugToString() << "\n" << x.debugToString() << "\n";
     Pfloat res(x);
     int max_t = exponent + 1, max_x = res.getExponent() + 1, min_t = max_t - digits->size(), min_x = max_x - res.digits->size();
     
@@ -171,16 +171,26 @@ Pfloat Pfloat::operator - (const Pfloat& x) const{
         res.digits->push(0);
         res.exponent++;
     }
+    // std::cout <<"after adding 0 " << res.debugToString() << std::endl;
 
     for(int i = min_x ; i > min_t ; --i) res.digits->pushTail(0);
 
-    for(int i = 0 ; i < digits->size(); ++i)
-        res.digits->set(i + res.exponent - exponent, digits->get(i) - res.digits->get(i + res.exponent - exponent));
+    for(int i = 0 ; i < 0 + res.exponent - exponent ; ++i) res.digits->set(i, -res.digits->get(i)); // make negative the first numbers because they won't be handled by the loops
 
+    for(int i = 0 ; i < digits->size(); ++i){
+        //std::cout << "1st loop accessing i = " << i << " res size = " << res.digits->size() << " this size = " << digits->size() << " setting at i = " << i + res.exponent - exponent <<std::endl;
+        res.digits->set(i + res.exponent - exponent, digits->get(i) - res.digits->get(i + res.exponent - exponent));
+    }
+    for(int i = digits->size(); i < res.digits->size(); ++i){
+        //std::cout << "2nd loop accessing i = " << i << " res size = " << res.digits->size() << " this size = " << digits->size() << " setting at i = " << i + res.exponent - exponent <<std::endl;
+        if(i + res.exponent - exponent < res.digits->size())
+            res.digits->set(i + res.exponent - exponent, 0 - res.digits->get(i + res.exponent - exponent));
+    }
+
+    // std::cout <<"after - " << res.debugToString() << std::endl;
     res.tidy();
     return res;
 }
-
 
 Pfloat& Pfloat::operator = (const Pfloat& n) {
     // Clear the current digits of this Pfloat
@@ -194,12 +204,15 @@ Pfloat& Pfloat::operator = (const Pfloat& n) {
 }
 
 bool Pfloat::operator == (const Pfloat& x) const{
-    if(digits->size() == 0 && x.digits->size() == 0) return true;
+    if((digits->size() == 0 && x.digits->size() == 0) 
+    || (digits->size() == 0 && x.digits->size() == 1 && x.digits->get(0) == 0)
+    || (x.digits->size() == 0 && digits->size() == 1 && digits->get(0) == 0)) return true;
     // copy this and x : 
     Pfloat t = *this;
     Pfloat xx = x;
     // tidy
     t.tidy(); xx.tidy();
+    if(t.neg != xx.neg) return false;
     // compare exponents and digits : 
     if(t.digits->size() != x.digits->size()) return false;
     for(int i = 0; i < t.digits->size(); ++i) if(t.digits->get(i) != x.digits->get(i)) return false;
@@ -216,10 +229,6 @@ Pfloat Pfloat::abs() const{
     res.neg = false;
     return res;
 }
-
-
-
-
 
 bool Pfloat::operator < (const Pfloat& x) const {
     if(neg == true && x.neg == false) return true;

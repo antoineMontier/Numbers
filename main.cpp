@@ -4,11 +4,23 @@
 #include "Pfloat.hpp"
 
 int main(){
+
+    
+    // Pfloat a(123456789.0123456789);
+    // std::cout << "a = " << a.toeString() << "\n";
+    // Pfloat b(-8745.5);
+    // std::cout << "b = " << b.toeString() << "\n";
+    // std::cout << a.toString() << " + " << b.toString() << " =  " << (b+a).toString() << "\n";
+
+
+
+
     // === == tests
     assert(Pfloat(2) == Pfloat(2.000000000));
     assert(Pfloat(0) == Pfloat());
     assert(Pfloat() == Pfloat());
     assert(Pfloat() == Pfloat(0));
+    assert(Pfloat(0) == Pfloat(-0.0));
     // === != tests
     assert(Pfloat() != Pfloat(1));
     assert(Pfloat(11) != Pfloat(1.1));
@@ -16,11 +28,18 @@ int main(){
     // === + tests
     assert(Pfloat(2) + Pfloat(2) == Pfloat(4));
     assert(Pfloat(0) + Pfloat(2) == Pfloat(2));
+    assert(Pfloat(-5.22) + Pfloat(1.5) == Pfloat(-3.72));
     assert(Pfloat(1.999998) + Pfloat(0.000002) == Pfloat(2));
-    //assert(Pfloat(-5.23) + Pfloat(1.5) == Pfloat(-3.73));
+    assert(Pfloat(-5.23) + Pfloat(1.5) == Pfloat(-3.73));
+    assert(Pfloat(5.23) + Pfloat(-1.5) == Pfloat(3.73));
     assert(Pfloat(3.33) + Pfloat(-1.5) == Pfloat(1.83));
     assert(Pfloat(-2.2) + Pfloat(-3.3) == Pfloat(-5.5));
+    assert(Pfloat(78.985) + Pfloat(-8745.5) == Pfloat(-8666.515));
+    assert(Pfloat(12345.67891) + Pfloat(54321.23456) == Pfloat(66666.91347));
+    assert(Pfloat(156) - Pfloat(-.252) + Pfloat(85.2352) == Pfloat(241.4872));
+    assert(Pfloat(-156) - Pfloat(-.252) + Pfloat(-85.2352) == Pfloat(-240.9832));
     // === - tests
+    assert(Pfloat(54321.23456) - Pfloat(12345.67891) == Pfloat(41975.55565));
     assert(Pfloat(3.3) - Pfloat(1.5) == Pfloat(1.8));
     assert(Pfloat(1.5) - Pfloat(3.3) == Pfloat(-1.8));
     assert(Pfloat(-3.3) - Pfloat(1.5) == Pfloat(-4.8));
@@ -91,14 +110,5 @@ int main(){
     assert(Pfloat(42.576) * Pfloat(192.3) == Pfloat(8187.3648));
     assert(Pfloat(8699) * Pfloat(15.68) == Pfloat(136400.32));
     assert(Pfloat(.5)*Pfloat(.5)*Pfloat(.5)*Pfloat(.5)*Pfloat(.5)*Pfloat(.5) == Pfloat(.015625));
-    
-
-    Pfloat a(-5.22);
-    std::cout << "a = " << a.toeString() << "\n";
-    Pfloat b(1.5);
-    std::cout << "b = " << b.toeString() << "\n";
-    
-    std::cout << a.toString() << " + " << b.toString() << " =  " << (a+b).toString() << "\n";
-
     return 0;
 }
