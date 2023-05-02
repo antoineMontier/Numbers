@@ -14,7 +14,6 @@ int main(){
 
 
 
-
     // === == tests
     assert(Pfloat(2) == Pfloat(2.000000000));
     assert(Pfloat(0) == Pfloat());
@@ -35,9 +34,10 @@ int main(){
     assert(Pfloat(3.33) + Pfloat(-1.5) == Pfloat(1.83));
     assert(Pfloat(-2.2) + Pfloat(-3.3) == Pfloat(-5.5));
     assert(Pfloat(78.985) + Pfloat(-8745.5) == Pfloat(-8666.515));
-    assert(Pfloat(12345.67891) + Pfloat(54321.23456) == Pfloat(66666.91347));
-    assert(Pfloat(156) - Pfloat(-.252) + Pfloat(85.2352) == Pfloat(241.4872));
-    assert(Pfloat(-156) - Pfloat(-.252) + Pfloat(-85.2352) == Pfloat(-240.9832));
+    assert(Pfloat(-00000) - Pfloat(-0000) == Pfloat(0));
+    assert(Pfloat(4.23) - Pfloat(0.0025) == Pfloat(4.2275));
+    assert(Pfloat(-4.23) - Pfloat(0.0025) == Pfloat(-4.2325));
+    assert(Pfloat(0.0025) - Pfloat(4.23) == Pfloat(-4.2275));
     // === - tests
     assert(Pfloat(54321.23456) - Pfloat(12345.67891) == Pfloat(41975.55565));
     assert(Pfloat(3.3) - Pfloat(1.5) == Pfloat(1.8));
@@ -110,5 +110,15 @@ int main(){
     assert(Pfloat(42.576) * Pfloat(192.3) == Pfloat(8187.3648));
     assert(Pfloat(8699) * Pfloat(15.68) == Pfloat(136400.32));
     assert(Pfloat(.5)*Pfloat(.5)*Pfloat(.5)*Pfloat(.5)*Pfloat(.5)*Pfloat(.5) == Pfloat(.015625));
+    // === multi-arithmetics tests
+    assert(Pfloat(12345.67891) + Pfloat(54321.23456) == Pfloat(66666.91347));
+    assert(Pfloat(156) - Pfloat(-.252) + Pfloat(85.2352) == Pfloat(241.4872));
+    assert(Pfloat(-156) - Pfloat(-.252) + Pfloat(-85.2352) == Pfloat(-240.9832));
+    assert(Pfloat() - Pfloat(0.0025) - Pfloat(4.23) == Pfloat(-4.2325));
+    assert(Pfloat(.5)*Pfloat(.5)*Pfloat(.5) - Pfloat(.5) == Pfloat(.5)*(Pfloat(.5)*Pfloat(.5) - Pfloat(1)));
+    assert(Pfloat(11.11)*Pfloat(22.22)*Pfloat(7) - Pfloat(11.11)*Pfloat(-7) == Pfloat(11.11)*Pfloat(7)*(Pfloat(22.22) + Pfloat(1)));
+    assert(Pfloat(.654) + Pfloat(.2) - Pfloat(78) + Pfloat(-1200) - Pfloat(.56) == Pfloat(-1277.706));
+    assert(Pfloat(-.2)*Pfloat(-4.2)*(Pfloat(1)-Pfloat(254.02)) - (Pfloat(78) + Pfloat(32.2)) == Pfloat(-322.7368)); // not rounded result = -111.2120008
+    std::cout << "all tests passed" << std::endl;
     return 0;
 }
