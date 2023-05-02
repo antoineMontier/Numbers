@@ -90,7 +90,9 @@ bool Pfloat::tidy(){
         digits->set(1, digits->get(1) % 10); // first slot is now slot n°1
         exponent++;
     }
-    // check if each slot has a value greater tgan 0 : 
+
+    
+    // check if each slot has a value greater than 0 : 
     for(int i = 1 ; i < digits->size() ; ++i){
         while(digits->get(i) < 0){
             digits->set(i, digits->get(i) + 10); // keep the last digit
@@ -214,14 +216,6 @@ Pfloat Pfloat::abs() const{
     res.neg = false;
     return res;
 }
-
-
-
-
-
-
-
-
 
 
 

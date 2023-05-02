@@ -93,7 +93,7 @@ int main(){
     assert(Pfloat(.5)*Pfloat(.5)*Pfloat(.5)*Pfloat(.5)*Pfloat(.5)*Pfloat(.5) == Pfloat(.015625));
     
 
-    Pfloat a(-5.23);
+    Pfloat a(-5.22);
     std::cout << "a = " << a.toeString() << "\n";
     Pfloat b(1.5);
     std::cout << "b = " << b.toeString() << "\n";
