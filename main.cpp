@@ -175,6 +175,14 @@ int main(){
     assert(Pfloat(11.11)*Pfloat(22.22)*Pfloat(7) - Pfloat(11.11)*Pfloat(-7) == Pfloat(11.11)*Pfloat(7)*(Pfloat(22.22) + Pfloat(1)));
     assert(Pfloat(.654) + Pfloat(.2) - Pfloat(78) + Pfloat(-1200) - Pfloat(.56) == Pfloat(-1277.706));
     assert(Pfloat(-.2)*Pfloat(-4.2)*(Pfloat(1)-Pfloat(254.02)) - (Pfloat(78) + Pfloat(32.2)) == Pfloat(-322.7368)); // not rounded result = -111.2120008
+    // === Pow tests
+    assert(Pfloat(1).pow(5) == 1);
+    assert(Pfloat(2).pow(5) == Pfloat(2)*2*2*2*2);
+    assert(Pfloat(3).pow(5).pow(5) == Pfloat(3).pow(25));
+    assert(Pfloat(-4).pow(8) == Pfloat(2).pow(16));
+    assert(Pfloat(-4).pow(9) == Pfloat(2).pow(17)*(-2));
+    assert(Pfloat(0).pow(0) == 1);
+    assert(Pfloat(125425).pow(0) == 1);
     std::cout << "all tests passed" << std::endl;
     return 0;
 }

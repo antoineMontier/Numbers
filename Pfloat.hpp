@@ -80,6 +80,7 @@ class Pfloat{
         bool operator >= (const Pfloat& x) const;
         bool operator >= (const long double& x) const;
 
+        Pfloat pow(const int& x) const;
 };
 
 

@@ -330,3 +330,19 @@ Pfloat Pfloat::operator * (const Pfloat& x) const{
 }
 
 Pfloat Pfloat::operator * (const long double& x) const{return (*this) * Pfloat(x);}
+
+Pfloat Pfloat::pow(const int& n) const{
+    // quick cases
+    if(n < 0) {
+        std::cout << "pow method not implemented for negative power yet!" << std::endl;
+        return Pfloat(1);
+    } 
+    if(n == 0) return Pfloat(1);
+    if(*this == 1) return Pfloat(1);
+    if(*this == 0) return Pfloat(0);
+    if(n == 1) return Pfloat(*this);
+    if(n == 2) return Pfloat(*this)*Pfloat(*this);
+    if(n == 3) return Pfloat(*this)*Pfloat(*this)*Pfloat(*this);
+    if(n % 2 == 0) return Pfloat(*this).pow(n/2).pow(2); // even
+    else return Pfloat(*this).pow(n/2).pow(2)*Pfloat(*this); // odd
+}
