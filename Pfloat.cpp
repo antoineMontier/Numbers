@@ -158,6 +158,9 @@ Pfloat Pfloat::operator + (const Pfloat& x) const{
     return res;
 }
 
+Pfloat Pfloat::operator + (const long double& x) const{return (*this) + Pfloat(x);}
+
+
 Pfloat Pfloat::operator - (const Pfloat& x) const{
     if(!neg && x.neg) return *this + x.abs();
     if(neg && x.neg) return x.abs() - this->abs();
@@ -192,6 +195,9 @@ Pfloat Pfloat::operator - (const Pfloat& x) const{
     return res;
 }
 
+Pfloat Pfloat::operator - (const long double& x) const{return (*this) - Pfloat(x);}
+
+
 Pfloat& Pfloat::operator = (const Pfloat& n) {
     // Clear the current digits of this Pfloat
     digits->clear();
@@ -202,6 +208,9 @@ Pfloat& Pfloat::operator = (const Pfloat& n) {
 
     return *this;
 }
+
+Pfloat& Pfloat::operator = (const long double& x) {return (*this) = Pfloat(x);}
+
 
 bool Pfloat::operator == (const Pfloat& x) const{
     if((digits->size() == 0 && x.digits->size() == 0) 
@@ -219,6 +228,14 @@ bool Pfloat::operator == (const Pfloat& x) const{
     if(t.exponent != x.exponent) return false;
     return true; // all tests passed
 }
+
+bool Pfloat::operator == (const long double& x) const{return (*this) == Pfloat(x);}
+bool Pfloat::operator != (const long double& x) const{return (*this) != Pfloat(x);}
+bool Pfloat::operator > (const long double& x) const{return (*this) > Pfloat(x);}
+bool Pfloat::operator < (const long double& x) const{return (*this) < Pfloat(x);}
+bool Pfloat::operator >= (const long double& x) const{return (*this) >= Pfloat(x);}
+bool Pfloat::operator <= (const long double& x) const{return (*this) <= Pfloat(x);}
+
 
 bool Pfloat::operator != (const Pfloat& x) const {
     return !(*this == x);
@@ -311,3 +328,5 @@ Pfloat Pfloat::operator * (const Pfloat& x) const{
     else res.neg = true;
     return res;
 }
+
+Pfloat Pfloat::operator * (const long double& x) const{return (*this) * Pfloat(x);}

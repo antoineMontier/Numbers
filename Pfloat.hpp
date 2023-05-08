@@ -51,24 +51,34 @@ class Pfloat{
         bool tidy();
 
         Pfloat operator - (const Pfloat& x) const;
+        Pfloat operator - (const long double& x) const;
 
         Pfloat operator + (const Pfloat& x) const;
+        Pfloat operator + (const long double& x) const;
 
         Pfloat operator * (const Pfloat& x) const;
+        Pfloat operator * (const long double& x) const;
 
         Pfloat& operator = (const Pfloat& n);
+        Pfloat& operator = (const long double& n);
 
         bool operator == (const Pfloat& x) const;
+        bool operator == (const long double& x) const;
 
         bool operator != (const Pfloat& x) const;
+        bool operator != (const long double& x) const;
 
         bool operator < (const Pfloat& x) const;
+        bool operator < (const long double& x) const;
 
-        bool operator <=(const Pfloat& x) const;
+        bool operator <= (const Pfloat& x) const;
+        bool operator <= (const long double& x) const;
 
         bool operator > (const Pfloat& x) const;
+        bool operator > (const long double& x) const;
 
-        bool operator >=(const Pfloat& x) const;
+        bool operator >= (const Pfloat& x) const;
+        bool operator >= (const long double& x) const;
 
 };
 
