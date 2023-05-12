@@ -10,6 +10,8 @@
 #include <string.h>
 #include "LinkedList.cpp"
 
+#define STANDARD_PRECISION 24
+
 using namespace std;
 
 class Pfloat{
@@ -25,6 +27,8 @@ class Pfloat{
         bool rec_inf(const Pfloat b, int index_cmp) const;
 
         bool neg;
+
+        int precision;
 
     public:
 

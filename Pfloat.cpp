@@ -3,6 +3,7 @@
 using namespace std;
 
 Pfloat::Pfloat(){
+    precision = STANDARD_PRECISION;
     exponent = 0;
     digits = new LinkedList<int>();
     neg = false;
@@ -55,6 +56,7 @@ int Pfloat::getExponent() const{
 }
 
 Pfloat::Pfloat(long double n) {
+    precision = STANDARD_PRECISION;
     if(n < 0) neg = true;
     else neg = false;
     n = neg ? -n : n;
@@ -74,6 +76,10 @@ Pfloat::Pfloat(long double n) {
 }
 
 bool Pfloat::tidy(){
+    if(precision < 1){
+        throw std::runtime_error("precision must be at least 1");
+        exit(1);
+    }
     // std::cout << "before" << debugToString() << "\n";
     if(digits->size() == 0) return false;
     
@@ -121,10 +127,19 @@ bool Pfloat::tidy(){
     i = static_size - 1;
     while(i >= 0 && digits->get(i) == 0)--i;
     if(i != static_size - 1) for(int j = i ; j < static_size - 1 ; j++) digits->popTail();
-    return true;
+    // assert precision is respected (number of digits is not too large)
+    if(digits->size() > precision){
+        std::cout << "need to round up " << toString() << " digits->size() = " << digits->size() << " precision = " << precision << "\n";
+        if(digits->get(precision) >= 5)
+            digits->set(precision - 1, digits->get(precision - 1) + 1);
+        for(int i = digits->size() - 1; i >= precision  ; --i) digits->popTail();
+        tidy();
+    }
+    return true; 
 }
 
 Pfloat::Pfloat(Pfloat const &other){
+    precision = other.precision;
     digits = new LinkedList<int>();
     for(int i = 0; i < other.digits->size(); i++)
         digits->pushTail(other.digits->get(i));
