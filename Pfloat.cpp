@@ -79,6 +79,19 @@ Pfloat::Pfloat(const std::string str){
     std::regex pattern("^-?[0-9\\.]+$"); // pattern to match
     if(!std::regex_match(str, pattern))
         throw std::runtime_error("provide a string containing only digits, optionnally one '.' and a '-' in first position");
+    precision = STANDARD_PRECISION;
+    if(str[0] == '-') neg = true; else neg = false;
+
+    
+    char* arg_char = (char*)malloc(s.size()*sizeof(char) + 1);
+    strcpy(arg_char, s.c_str());
+    for(int i = 0; i < (int)s.size(); i++){
+        if(arg_char[i] == '.')  exponent = i-1;
+        else                    digits->pushTail(arg_char[i] - '0');
+    }
+    free(arg_char);
+    tidy();
+}
 }
 
 
