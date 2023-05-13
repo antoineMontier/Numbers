@@ -7,6 +7,7 @@
 #include <cmath>
 #include <string>
 #include <cstdlib>
+#include <regex>
 #include <string.h>
 #include "LinkedList.cpp"
 
@@ -43,6 +44,8 @@ class Pfloat{
         Pfloat(long double n);
 
         Pfloat(const Pfloat& n);
+
+        Pfloat(const std::string str);
 
         int getExponent() const;
 

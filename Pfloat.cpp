@@ -75,6 +75,13 @@ Pfloat::Pfloat(long double n) {
     tidy();
 }
 
+Pfloat::Pfloat(const std::string str){
+    std::regex pattern("^-?[0-9\\.]+$"); // pattern to match
+    if(!std::regex_match(str, pattern))
+        throw std::runtime_error("provide a string containing only digits, optionnally one '.' and a '-' in first position");
+}
+
+
 bool Pfloat::tidy(){
     if(precision < 1){
         throw std::runtime_error("precision must be at least 1");
