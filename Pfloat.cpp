@@ -75,23 +75,41 @@ Pfloat::Pfloat(long double n) {
     tidy();
 }
 
-Pfloat::Pfloat(const std::string str){
-    std::regex pattern("^-?[0-9\\.]+$"); // pattern to match
+bool Pfloat::string_matched(std::string const str){
+    std::regex pattern("^-?[0-9\\.]+$");
     if(!std::regex_match(str, pattern))
+        return false;
+    char*cs = (char*)malloc(str.size() + 1);
+    // assert max one point
+    int point_count = 0;
+    for(int i = 0 ; i < (int)str.size() && point_count < 2 ; ++i)
+        point_count += cs[i] == '.';
+    if(point_count > 1){
+        free(cs);
+        return false;
+    }
+
+}   
+
+
+Pfloat::Pfloat(const std::string str){
+    std::cout << str << std::endl;
+     // pattern to match
+    if(!string_matched(str))
         throw std::runtime_error("provide a string containing only digits, optionnally one '.' and a '-' in first position");
     precision = STANDARD_PRECISION;
     if(str[0] == '-') neg = true; else neg = false;
+    digits = new LinkedList<int>();
 
-    
-    char* arg_char = (char*)malloc(s.size()*sizeof(char) + 1);
-    strcpy(arg_char, s.c_str());
-    for(int i = 0; i < (int)s.size(); i++){
+    char* arg_char = (char*)malloc(str.size()*sizeof(char) + 1);
+    strcpy(arg_char, str.c_str());
+    for(int i = 0; i < (int)str.size(); i++){
+        // std::cout << "i = " << i << " char = " << arg_char[i] << std::endl;
         if(arg_char[i] == '.')  exponent = i-1;
         else                    digits->pushTail(arg_char[i] - '0');
     }
     free(arg_char);
     tidy();
-}
 }
 
 

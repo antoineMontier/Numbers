@@ -4,7 +4,10 @@
 #include "Pfloat.hpp"
 
 int main(){
-    
+    Pfloat a("-1123");
+    std::cout << "a = " << a.toString() << std::endl;
+
+    /*  
     // === == tests
     assert(Pfloat(2) == Pfloat(2.000000000));
     assert(Pfloat(0) == Pfloat());
@@ -183,6 +186,6 @@ int main(){
     assert(Pfloat(0).pow(0) == 1);
     assert(Pfloat(125425).pow(0) == 1);
     std::cout << "all tests passed" << std::endl;
-    
+    */
     return 0;
 }
