@@ -75,27 +75,34 @@ Pfloat::Pfloat(long double n) {
     tidy();
 }
 
-bool Pfloat::string_matched(std::string const str){
-    std::regex pattern("^-?[0-9\\.]+$");
-    if(!std::regex_match(str, pattern))
-        return false;
+bool Pfloat::check_string(std::string const str){
     char*cs = (char*)malloc(str.size() + 1);
     // assert max one point
     int point_count = 0;
-    for(int i = 0 ; i < (int)str.size() && point_count < 2 ; ++i)
+    for(int i = 0 ; i < (int)str.size() ; ++i){
         point_count += cs[i] == '.';
-    if(point_count > 1){
-        free(cs);
-        return false;
+        if(point_count > 1){
+            free(cs);
+            throw std::runtime_error("Provide max one '.'");
+            return false;
+        }if((cs[i] < '0' || cs[i] > '9') && (cs[i] != '-' && cs[i] != '.')){
+            free(cs);
+            throw std::runtime_error("Provide digits between 0 and 9");
+            return false;
+        }if(cs[i] == '-' && i != 0){
+            free(cs);
+            throw std::runtime_error("the '-' needs to be placed at the first place of the string");
+            return false;
+        }
     }
-
+    return true;
 }   
 
 
 Pfloat::Pfloat(const std::string str){
     std::cout << str << std::endl;
      // pattern to match
-    if(!string_matched(str))
+    if(!check_string(str))
         throw std::runtime_error("provide a string containing only digits, optionnally one '.' and a '-' in first position");
     precision = STANDARD_PRECISION;
     if(str[0] == '-') neg = true; else neg = false;

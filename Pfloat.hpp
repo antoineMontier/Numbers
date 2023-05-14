@@ -7,7 +7,6 @@
 #include <cmath>
 #include <string>
 #include <cstdlib>
-#include <regex>
 #include <string.h>
 #include "LinkedList.cpp"
 
@@ -27,7 +26,7 @@ class Pfloat{
         /// @return true if b is greater than this
         bool rec_inf(const Pfloat b, int index_cmp) const;
 
-        bool string_matched(std::string const str);
+        bool check_string(std::string const str);
 
         bool neg;
 
