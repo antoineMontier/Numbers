@@ -76,42 +76,77 @@ Pfloat::Pfloat(long double n) {
 }
 
 bool Pfloat::check_string(std::string const str){
+    if(str.size() == 0){
+        throw std::runtime_error("string argument must be non-empty");
+        return false;
+    }if(str.size() == 1 && (str[0] == '-' || str[0] == '.')){
+        throw std::runtime_error("if string length is 1, the string must be a digit");
+        return false;
+    }if(str.size() == 2 && str[0] == '-' && str[1] == '.'){
+        throw std::runtime_error("the string cannot be '-.'");
+        return false;
+    }
+
     char*cs = (char*)malloc(str.size() + 1);
-    // assert max one point
+    strcpy(cs, str.c_str());
+
     int point_count = 0;
     for(int i = 0 ; i < (int)str.size() ; ++i){
-        point_count += cs[i] == '.';
+        if(cs[i] == '.') point_count++;
+        else if(cs[i] == '-'){
+            if(i != 0){
+                free(cs);
+                throw std::runtime_error("the '-' needs to be placed at the first place of the string");
+                return false;
+            }
+        }else if((cs[i] < '0' || cs[i] > '9')){
+            free(cs);
+            throw std::runtime_error("Provide digits between 0 and 9");
+            return false;
+        }
         if(point_count > 1){
             free(cs);
             throw std::runtime_error("Provide max one '.'");
             return false;
-        }if((cs[i] < '0' || cs[i] > '9') && (cs[i] != '-' && cs[i] != '.')){
-            free(cs);
-            throw std::runtime_error("Provide digits between 0 and 9");
-            return false;
-        }if(cs[i] == '-' && i != 0){
-            free(cs);
-            throw std::runtime_error("the '-' needs to be placed at the first place of the string");
-            return false;
         }
     }
+    free(cs);
     return true;
 }   
 
+std::string trim(const std::string& str) {
+    size_t first = str.find_first_not_of(" \t\n\r");
+    if (first == std::string::npos)
+        return "";
+
+    size_t last = str.find_last_not_of(" \t\n\r");
+    return str.substr(first, (last - first + 1));
+}
+
 
 Pfloat::Pfloat(const std::string str){
-    std::cout << str << std::endl;
+    std::string trimmed_str = trim(str);
      // pattern to match
-    if(!check_string(str))
+    
+    if(!check_string(trimmed_str))
         throw std::runtime_error("provide a string containing only digits, optionnally one '.' and a '-' in first position");
+    
+    if (trimmed_str.find('.') == std::string::npos) trimmed_str +=  '.';
+
+
     precision = STANDARD_PRECISION;
-    if(str[0] == '-') neg = true; else neg = false;
+    if(trimmed_str[0] == '-') neg = true; else neg = false;
+    if(neg) trimmed_str = trimmed_str.substr(1); // remove '-' char
+
+
+
     digits = new LinkedList<int>();
 
-    char* arg_char = (char*)malloc(str.size()*sizeof(char) + 1);
-    strcpy(arg_char, str.c_str());
-    for(int i = 0; i < (int)str.size(); i++){
-        // std::cout << "i = " << i << " char = " << arg_char[i] << std::endl;
+    char* arg_char = (char*)malloc(trimmed_str.size()*sizeof(char) + 1);
+    strcpy(arg_char, trimmed_str.c_str());
+
+    exponent = 0;
+    for(int i = 0; i < (int)trimmed_str.size(); i++){
         if(arg_char[i] == '.')  exponent = i-1;
         else                    digits->pushTail(arg_char[i] - '0');
     }
