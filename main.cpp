@@ -5,10 +5,14 @@
 
 int main(){
 
-    // Pfloat a(" .9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999 ");
-    // std::cout << "a = " << a.toString() << std::endl;
+    Pfloat a(" 300 ");
+    Pfloat b(" 2 ");
+    std::cout << "a = " << a.toString() << "\nb = " << b.toString() << std::endl;
 
-    
+    std::cout << "a / b = " << (a / b).toString() << std::endl;
+
+
+    /*
     // === == tests
     assert(Pfloat("2") == Pfloat(2.000000000));
     assert(Pfloat("0") == Pfloat());
@@ -188,6 +192,6 @@ int main(){
     assert(Pfloat(125425).pow(0) == 1);
     assert(Pfloat(.5).pow(50) == Pfloat("0.00000000000000088817841970012523233890533447265625"));
     std::cout << "all tests passed" << std::endl;
-    
+    */
     return 0;
 }

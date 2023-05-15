@@ -357,7 +357,6 @@ bool Pfloat::rec_inf(const Pfloat b, int index_cmp) const{
     else return false; // same size of digits arrays so they are equals
 }
 
-
 Pfloat Pfloat::operator * (const Pfloat& x) const{
     // === quick cases ===
     if(x == Pfloat(0) || *this == Pfloat(0)) return Pfloat(0);
@@ -408,6 +407,36 @@ Pfloat Pfloat::pow(const int& n) const{
     if(n % 2 == 0) return Pfloat(*this).pow(n/2).pow(2); // even
     else return Pfloat(*this).pow(n/2).pow(2)*Pfloat(*this); // odd
 }
+
+Pfloat Pfloat::operator / (const Pfloat& x) const{
+    if(x == 0) throw std::invalid_argument("cannot divide by zero");
+    if(x == 1) return Pfloat(*this);
+    Pfloat cpy(*this);
+
+    // === euclidean division
+
+    LinkedList<int> *l = new LinkedList<int>();
+    long mult_count;
+    while( l->size() <= cpy.precision + 1 && cpy != 0 ){ // + 1 because we need to round according to the precision + 1 digit
+
+        // === multiply number by 10 until it is bigger than 'x'
+        while (cpy < x){ cpy.exponent++; mult_count++; }
+
+        // === now let's find how many time we can enter the 'x' number to fill cpy
+        int times = 1;
+        while( x*(times + 1) <= cpy ) times++;
+        l->pushTail(times);
+        cpy = cpy - x*times; // TODO: change with '-='
+
+    }
+    Pfloat res(0);
+    res.precision = this->precision;
+    res.exponent = this->exponent - x.exponent;
+    for(int i = 0 ; i < l->size(); ++i) res.digits->pushTail(l->get(i));
+    delete l;
+    return res;
+}
+
 
 // === One-line functions =================================
 int Pfloat::getExponent() const{return exponent;}
