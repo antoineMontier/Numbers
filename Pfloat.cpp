@@ -75,15 +75,49 @@ Pfloat::Pfloat(long double n) {
     tidy();
 }
 
-bool Pfloat::check_string(std::string const str){
-    if(str.size() == 0){
-        throw std::runtime_error("string argument must be non-empty");
+bool Pfloat::check_exp_string(std::string const str) const{
+
+    // check first digits :
+    size_t pos = str.find('e');
+    if(size_t(pos) == std::string::npos) return check_string(str); // no 'e' so, it's a basic checkup
+
+    std::string digits = str.substr(0, pos);
+    // std::cout << "d = " << digits << std::endl;
+    if(digits.size() == 0){
+        throw std::invalid_argument("argument cannot start with 'e'");
         return false;
-    }if(str.size() == 1 && (str[0] == '-' || str[0] == '.')){
-        throw std::runtime_error("if string length is 1, the string must be a digit");
+    }
+
+    if(!check_string(digits)) return false; // check the first part of the string
+
+    std::string exp = str.substr(pos+1);
+    // std::cout << "e = " << exp << std::endl;
+
+    if(exp.size() == 0){
+        throw std::invalid_argument("argument cannot end with 'e'");
+        return false;
+    }
+    
+    if (exp[0] != '-' && (exp[0] < '0' || exp[0] > '9')){
+        throw std::invalid_argument("exponent must be an int composed of digits betweeen 0 and 9, with optionnally a '-' in first position");
+    }
+    for(int i = 1; i < (int)exp.size(); i++)
+        if(exp[i] > '9' || exp[i] < '0'){
+            throw std::invalid_argument("exponent must be an integer");
+            return false;
+        }
+    return true;
+}
+
+bool Pfloat::check_string(std::string const str) const{
+    if(str.size() == 0){
+        throw std::invalid_argument("string argument must be non-empty");
+        return false;
+    }if(str.size() == 1 && (str[0] == '-' || str[0] == '.' || str[0] == '+')){
+        throw std::invalid_argument("if string length is 1, the string must be a digit");
         return false;
     }if(str.size() == 2 && str[0] == '-' && str[1] == '.'){
-        throw std::runtime_error("the string cannot be '-.'");
+        throw std::invalid_argument("the string cannot be '-.'");
         return false;
     }
 
@@ -96,17 +130,23 @@ bool Pfloat::check_string(std::string const str){
         else if(cs[i] == '-'){
             if(i != 0){
                 free(cs);
-                throw std::runtime_error("the '-' needs to be placed at the first place of the string");
+                throw std::invalid_argument("the '-' needs to be placed at the first place of the string");
+                return false;
+            }
+        }else if(cs[i] == '+'){
+            if(i != 0){
+                free(cs);
+                throw std::invalid_argument("the '+' needs to be placed at the first place of the string");
                 return false;
             }
         }else if((cs[i] < '0' || cs[i] > '9')){
             free(cs);
-            throw std::runtime_error("Provide digits between 0 and 9");
+            throw std::invalid_argument("Provide digits between 0 and 9");
             return false;
         }
         if(point_count > 1){
             free(cs);
-            throw std::runtime_error("Provide max one '.'");
+            throw std::invalid_argument("Provide max one '.'");
             return false;
         }
     }
@@ -125,31 +165,46 @@ std::string trim(const std::string& str) {
 
 
 Pfloat::Pfloat(const std::string str){
+
     std::string trimmed_str = trim(str);
+    // bool exponential_writing = (trimmed_str.find('e') != std::string::npos);
+
      // pattern to match
     
-    if(!check_string(trimmed_str))
-        throw std::runtime_error("provide a string containing only digits, optionnally one '.' and a '-' in first position");
+    if(!check_exp_string(trimmed_str))
+        throw std::invalid_argument("provide a string containing only digits, optionnally one '.' and a '-' in first position");
     
-    if (trimmed_str.find('.') == std::string::npos) trimmed_str +=  '.';
 
 
     precision = STANDARD_PRECISION;
     if(trimmed_str[0] == '-') neg = true; else neg = false;
-    if(neg) trimmed_str = trimmed_str.substr(1); // remove '-' char
+    if(neg || trimmed_str[0] == '+') trimmed_str = trimmed_str.substr(1); // remove '-' / '+' char
 
+    std::string exp = "0";
+    size_t pos = trimmed_str.find('e');
+    if(pos != std::string::npos){
+        exp = trimmed_str.substr(pos + 1);
+        // std::cout <<  trimmed_str << " pos = "<< pos << std::endl;
+
+        trimmed_str = trimmed_str.substr(0, pos);
+
+    }
+    
+    if (trimmed_str.find('.') == std::string::npos) trimmed_str +=  '.';
+    
+    // std::cout <<  trimmed_str << std::endl;
 
 
     digits = new LinkedList<int>();
 
     char* arg_char = (char*)malloc(trimmed_str.size()*sizeof(char) + 1);
     strcpy(arg_char, trimmed_str.c_str());
-
     exponent = 0;
     for(int i = 0; i < (int)trimmed_str.size(); i++){
         if(arg_char[i] == '.')  exponent = i-1;
         else                    digits->pushTail(arg_char[i] - '0');
     }
+    exponent += std::stol(exp); // adds the exponent
     free(arg_char);
     tidy();
 }
@@ -157,7 +212,7 @@ Pfloat::Pfloat(const std::string str){
 
 bool Pfloat::tidy(){
     if(precision < 1){
-        throw std::runtime_error("precision must be at least 1");
+        throw std::invalid_argument("precision must be at least 1");
         exit(1);
     }
     // std::cout << "before" << debugToString() << "\n";
@@ -209,7 +264,7 @@ bool Pfloat::tidy(){
     if(i != static_size - 1) for(int j = i ; j < static_size - 1 ; j++) digits->popTail();
     // assert precision is respected (number of digits is not too large)
     if(digits->size() > precision){
-        std::cout << "need to round up " << toString() << " digits->size() = " << digits->size() << " precision = " << precision << "\n";
+        // std::cout << "need to round up " << toString() << " digits->size() = " << digits->size() << " precision = " << precision << "\n";
         if(digits->get(precision) >= 5)
             digits->set(precision - 1, digits->get(precision - 1) + 1);
         for(int i = digits->size() - 1; i >= precision  ; --i) digits->popTail();

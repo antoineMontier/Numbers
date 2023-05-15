@@ -26,7 +26,9 @@ class Pfloat{
         /// @return true if b is greater than this
         bool rec_inf(const Pfloat b, int index_cmp) const;
 
-        bool check_string(std::string const str);
+        bool check_string(std::string const str) const; // TODO: make this static
+
+        bool check_exp_string(std::string const str) const; // TODO: make this static
 
         bool neg;
 
@@ -46,6 +48,8 @@ class Pfloat{
 
         Pfloat(const Pfloat& n);
 
+        /// @brief creates a new Pfloat from a string
+        /// @param str format XXX.xxx or XXX.XXXeXXX
         Pfloat(const std::string str);
 
         int getExponent() const;

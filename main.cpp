@@ -4,7 +4,8 @@
 #include "Pfloat.hpp"
 
 int main(){
-    // Pfloat a(" 78 ");
+
+    // Pfloat a(" .9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999 ");
     // std::cout << "a = " << a.toString() << std::endl;
 
     
@@ -30,16 +31,16 @@ int main(){
     assert(Pfloat(2) + Pfloat(2) == Pfloat(4));
     assert(Pfloat("0") + Pfloat(2) == Pfloat(2));
     assert(Pfloat(-5.22) + Pfloat("1.5") == Pfloat(-3.72));
-    assert(Pfloat("1.999998") + Pfloat(0.000002) == Pfloat(2));
+    assert(Pfloat("1.999998") + Pfloat("2e-6") == Pfloat(2));
     assert(Pfloat(-5.23) + Pfloat(1.5) == Pfloat(-3.73));
     assert(Pfloat(5.23) + Pfloat(-1.5) == Pfloat("3.73"));
     assert(Pfloat("3.33") + Pfloat(-1.5) == Pfloat(1.83));
     assert(Pfloat(-2.2) + Pfloat("-3.3") == Pfloat(-5.5));
     assert(Pfloat(78.985) + Pfloat(-8745.5) == Pfloat(-8666.515));
-    assert(Pfloat(-00000) - Pfloat("-0000") == Pfloat(0));
+    assert(Pfloat("00000e9") - Pfloat("-0000") == Pfloat(0));
     assert(Pfloat(4.23) - Pfloat(0.0025) == Pfloat("4.2275"));
     assert(Pfloat(-4.23) - Pfloat("0.0025") == Pfloat(-4.2325));
-    assert(Pfloat(0.0025) - Pfloat(4.23) == Pfloat(-4.2275));
+    assert(Pfloat("0.0025e0") - Pfloat(4.23) == Pfloat(-4.2275));
     assert(Pfloat(2) + 2 == 4);
     assert(Pfloat(0) + 2 == 2);
     assert(Pfloat(-5.22) + 1.5 == -3.72);
@@ -76,9 +77,9 @@ int main(){
     assert(!(Pfloat(.12345) < Pfloat(.123450)));
     assert(Pfloat(.12345) < Pfloat(".123451"));
     assert(Pfloat(1.23) > Pfloat(1.22));
-    assert(Pfloat(0.9) <= Pfloat(0.9));
+    assert(Pfloat("90e-2") <= Pfloat(0.9));
     assert(Pfloat(0.1) >= Pfloat(0.05));
-    assert(!(Pfloat(0.5) < Pfloat(0.5)));
+    assert(!(Pfloat("5e-1") < Pfloat(0.5)));
     assert(!(Pfloat(0.1) > Pfloat(0.2)));
     assert(!(Pfloat(2.0) <= Pfloat(1.5)));
     assert(!(Pfloat(0.3) >= Pfloat(0.4)));
@@ -103,13 +104,13 @@ int main(){
     assert(Pfloat(-.12345) > Pfloat(-.123451));
     assert(Pfloat(-1.23) < Pfloat(-1.22));
     assert(Pfloat(-0.9) >= Pfloat(-0.9));
-    assert(Pfloat(-0.1) <= Pfloat(-0.05));
+    assert(Pfloat(-0.1) <= Pfloat("-50e-3"));
     assert(!(Pfloat("-0.5") > Pfloat(-0.5)));
     assert(!(Pfloat(-0.1) < Pfloat("-0.2")));
     assert(!(Pfloat("-2.0") >= Pfloat(-1.5)));
     assert(!(Pfloat(-0.3) <= Pfloat(-0.4)));
     assert(Pfloat("-0.00001") > Pfloat(-0.0001));
-    assert(Pfloat(-100000) < Pfloat(-10000));
+    assert(Pfloat(-100000) < Pfloat("1e6"));
     assert(Pfloat("-0.9999") >= Pfloat(-1.0));
     assert(Pfloat(-0.9999) <= Pfloat(-0.999));
     assert(!(Pfloat(-0.5) > Pfloat(-0.3)));
@@ -185,6 +186,7 @@ int main(){
     assert(Pfloat(-4).pow(9) == Pfloat(2).pow(17)*(-2));
     assert(Pfloat(0).pow(0) == 1);
     assert(Pfloat(125425).pow(0) == 1);
+    assert(Pfloat(.5).pow(50) == Pfloat("0.00000000000000088817841970012523233890533447265625"));
     std::cout << "all tests passed" << std::endl;
     
     return 0;
