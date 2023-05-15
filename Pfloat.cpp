@@ -9,16 +9,12 @@ Pfloat::Pfloat(){
     neg = false;
 }
 
-Pfloat::~Pfloat(){
-    delete digits;
-}
-
 const string Pfloat::toString() const{
     if(digits->size() == 0) return "0.0";
     ostringstream res("");
     if(neg) res << "-";
-    // display first zeros if exponent is negative : 
-    if(exponent < -1){
+
+    if(exponent < -1){// display first zeros if exponent is negative : 
         int z = exponent;
         res << "0.";
         while(z++ + 1 < 0) res << "0";
@@ -28,8 +24,8 @@ const string Pfloat::toString() const{
         if(exponent == i-1) res << ".";
         res << digits->get(i);
     }
-    // add zeros at the end if needed
-    for(int i = digits->size() ; i <= exponent ; ++i) res << "0";
+    
+    for(int i = digits->size() ; i <= exponent ; ++i) res << "0"; // add zeros at the end if needed
     return res.str();
 }
 
@@ -46,13 +42,8 @@ const string Pfloat::toeString() const{
 const string Pfloat::debugToString() const{
     ostringstream res("");
     if(neg) res << "-"; else res << "+";
-    res << digits->toString();
-    res << "\te = " << exponent;
+    res << digits->toString() << "\te = " << exponent;
     return res.str();
-}
-
-int Pfloat::getExponent() const{
-    return exponent;
 }
 
 Pfloat::Pfloat(long double n) {
@@ -76,13 +67,10 @@ Pfloat::Pfloat(long double n) {
 }
 
 bool Pfloat::check_exp_string(std::string const str) const{
-
     // check first digits :
     size_t pos = str.find('e');
     if(size_t(pos) == std::string::npos) return check_string(str); // no 'e' so, it's a basic checkup
-
     std::string digits = str.substr(0, pos);
-    // std::cout << "d = " << digits << std::endl;
     if(digits.size() == 0){
         throw std::invalid_argument("argument cannot start with 'e'");
         return false;
@@ -91,16 +79,14 @@ bool Pfloat::check_exp_string(std::string const str) const{
     if(!check_string(digits)) return false; // check the first part of the string
 
     std::string exp = str.substr(pos+1);
-    // std::cout << "e = " << exp << std::endl;
 
     if(exp.size() == 0){
         throw std::invalid_argument("argument cannot end with 'e'");
         return false;
     }
-    
-    if (exp[0] != '-' && (exp[0] < '0' || exp[0] > '9')){
+    if (exp[0] != '-' && (exp[0] < '0' || exp[0] > '9'))
         throw std::invalid_argument("exponent must be an int composed of digits betweeen 0 and 9, with optionnally a '-' in first position");
-    }
+    
     for(int i = 1; i < (int)exp.size(); i++)
         if(exp[i] > '9' || exp[i] < '0'){
             throw std::invalid_argument("exponent must be an integer");
@@ -164,17 +150,10 @@ std::string trim(const std::string& str) {
 }
 
 Pfloat::Pfloat(const std::string str){
-
     std::string trimmed_str = trim(str);
-    // bool exponential_writing = (trimmed_str.find('e') != std::string::npos);
-
-     // pattern to match
-    
     if(!check_exp_string(trimmed_str))
         throw std::invalid_argument("provide a string containing only digits, optionnally one '.' and a '-' in first position");
     
-
-
     precision = STANDARD_PRECISION;
     if(trimmed_str[0] == '-') neg = true; else neg = false;
     if(neg || trimmed_str[0] == '+') trimmed_str = trimmed_str.substr(1); // remove '-' / '+' char
@@ -183,17 +162,11 @@ Pfloat::Pfloat(const std::string str){
     size_t pos = trimmed_str.find('e');
     if(pos != std::string::npos){
         exp = trimmed_str.substr(pos + 1);
-        // std::cout <<  trimmed_str << " pos = "<< pos << std::endl;
-
         trimmed_str = trimmed_str.substr(0, pos);
-
     }
     
     if (trimmed_str.find('.') == std::string::npos) trimmed_str +=  '.';
     
-    // std::cout <<  trimmed_str << std::endl;
-
-
     digits = new LinkedList<int>();
 
     char* arg_char = (char*)malloc(trimmed_str.size()*sizeof(char) + 1);
@@ -203,7 +176,7 @@ Pfloat::Pfloat(const std::string str){
         if(arg_char[i] == '.')  exponent = i-1;
         else                    digits->pushTail(arg_char[i] - '0');
     }
-    exponent += std::stol(exp); // adds the exponent
+    exponent += std::stol(exp); // add the int value of the exponent
     free(arg_char);
     tidy();
 }
@@ -217,13 +190,13 @@ bool Pfloat::tidy(){
     if(digits->size() == 0) return false;
     
     // check if each slot has a value below 9 : 
-    for(int i = digits->size() - 1 ; i > 0 ; --i){
+    for(int i = digits->size() - 1 ; i > 0 ; --i)
         if(digits->get(i) > 9){
             int tmp = digits->get(i) / 10; // get the overflow value
             digits->set(i, digits->get(i) % 10); // keep the last digit
             digits->set(i - 1, tmp + digits->get(i -1)); // add
         }
-    }
+
     // first slot case : 
     if(digits->get(0) > 9){
         digits->push(digits->get(0) / 10);
@@ -233,12 +206,12 @@ bool Pfloat::tidy(){
 
     
     // check if each slot has a value greater than 0 : 
-    for(int i = 1 ; i < digits->size() ; ++i){
+    for(int i = 1 ; i < digits->size() ; ++i)
         while(digits->get(i) < 0){
             digits->set(i, digits->get(i) + 10); // keep the last digit
             digits->set(i - 1, digits->get(i -1) - 1); // add
         }
-    }
+
     // first slot case : 
     if(digits->get(0) < 0){
         neg = !neg;
@@ -262,7 +235,6 @@ bool Pfloat::tidy(){
     if(i != static_size - 1) for(int j = i ; j < static_size - 1 ; j++) digits->popTail();
     // assert precision is respected (number of digits is not too large)
     if(digits->size() > precision){
-        // std::cout << "need to round up " << toString() << " digits->size() = " << digits->size() << " precision = " << precision << "\n";
         if(digits->get(precision) >= 5)
             digits->set(precision - 1, digits->get(precision - 1) + 1);
         for(int i = digits->size() - 1; i >= precision  ; --i) digits->popTail();
@@ -282,9 +254,9 @@ Pfloat::Pfloat(Pfloat const &other){
 }
 
 Pfloat Pfloat::operator + (const Pfloat& x) const{
-    if(x.neg && !neg){ /*std::cout << "1e case\n";*/return *this - x.abs();}
-    if(x.neg && neg){ /*std::cout << "2e case\n";*/ return Pfloat(0) - (this->abs() + x.abs());}
-    if(!x.neg && neg){ /*std::cout << "3e case\n";*/ return x - this->abs();}
+    if(x.neg && !neg) return *this - x.abs();
+    if(x.neg && neg) return Pfloat(0) - (this->abs() + x.abs());
+    if(!x.neg && neg) return x - this->abs();
     // here, both this and x are positive
     // considering 'this' has an exp = e1 and 'x' has an exp = e2. the slots will correspond themselves by an offset of moving left the 'x' tab by e2 - e1
     Pfloat res(x); // copy argument
@@ -311,7 +283,6 @@ Pfloat Pfloat::operator - (const Pfloat& x) const{
     if(neg && x.neg) return x.abs() - this->abs();
     if(neg && !x.neg) return Pfloat(0) - (this->abs() + x);
     // here, both this and x are positive
-    //std::cout << "\n@@@@@\n" << debugToString() << "\n" << x.debugToString() << "\n";
     Pfloat res(x);
     int max_t = exponent + 1, max_x = res.getExponent() + 1, min_t = max_t - digits->size(), min_x = max_x - res.digits->size();
     
@@ -319,35 +290,24 @@ Pfloat Pfloat::operator - (const Pfloat& x) const{
         res.digits->push(0);
         res.exponent++;
     }
-    // std::cout <<"after adding 0 " << res.debugToString() << std::endl;
 
-    for(int i = min_x ; i > min_t ; --i) res.digits->pushTail(0);
-
-    for(int i = 0 ; i < 0 + res.exponent - exponent ; ++i) res.digits->set(i, -res.digits->get(i)); // make negative the first numbers because they won't be handled by the loops
-
-    for(int i = 0 ; i < digits->size(); ++i){
-        //std::cout << "1st loop accessing i = " << i << " res size = " << res.digits->size() << " this size = " << digits->size() << " setting at i = " << i + res.exponent - exponent <<std::endl;
-        res.digits->set(i + res.exponent - exponent, digits->get(i) - res.digits->get(i + res.exponent - exponent));
-    }
-    for(int i = digits->size(); i < res.digits->size(); ++i){
-        //std::cout << "2nd loop accessing i = " << i << " res size = " << res.digits->size() << " this size = " << digits->size() << " setting at i = " << i + res.exponent - exponent <<std::endl;
-        if(i + res.exponent - exponent < res.digits->size())
-            res.digits->set(i + res.exponent - exponent, 0 - res.digits->get(i + res.exponent - exponent));
-    }
-
-    // std::cout <<"after - " << res.debugToString() << std::endl;
+    for(int i = min_x   ; i > min_t                         ; --i) res.digits->pushTail(0);
+    for(int i = 0       ; i < 0 + res.exponent - exponent   ; ++i) res.digits->set(i, -res.digits->get(i)); // make negative the first numbers because they won't be handled by the loops
+    for(int i = 0       ; i < digits->size()                ; ++i) res.digits->set(i + res.exponent - exponent, digits->get(i) - res.digits->get(i + res.exponent - exponent));
+    
+    for(int i = digits->size(); i < res.digits->size(); ++i)
+        if(i + res.exponent - exponent < res.digits->size()) res.digits->set(i + res.exponent - exponent, 0 - res.digits->get(i + res.exponent - exponent));
+    
     res.tidy();
     return res;
 }
 
 Pfloat& Pfloat::operator = (const Pfloat& n) {
-    // Clear the current digits of this Pfloat
     digits->clear();
-
     // Copy the digits of the other Pfloat to this Pfloat
     for (int i = 0; i < n.digits->size(); i++)  digits->pushTail(n.digits->get(i));
     exponent = n.exponent;
-
+    precision = n.precision;
     return *this;
 }
 
@@ -368,10 +328,6 @@ bool Pfloat::operator == (const Pfloat& x) const{
     return true; // all tests passed
 }
 
-bool Pfloat::operator != (const Pfloat& x) const {
-    return !(*this == x);
-}
-
 Pfloat Pfloat::abs() const{
     Pfloat res(*this);
     res.neg = false;
@@ -385,11 +341,9 @@ bool Pfloat::operator < (const Pfloat& x) const {
     if(*this == x) return false;
     if(exponent < x.exponent) return true;
     if(exponent > x.exponent) return false;
-    // same exponents
-    // copy this and x : 
+    // same exponents // copy this and x : 
     Pfloat t = *this, xx = x;
-    // tidy
-    t.tidy(); xx.tidy();
+    t.tidy(); xx.tidy(); // tidy
     return t.rec_inf(x, 0);
 }
 
@@ -403,17 +357,6 @@ bool Pfloat::rec_inf(const Pfloat b, int index_cmp) const{
     else return false; // same size of digits arrays so they are equals
 }
 
-bool Pfloat::operator <= (const Pfloat& x) const {
-    return (*this < x) || (*this == x);
-}
-
-bool Pfloat::operator > (const Pfloat& x) const {
-    return !(*this <= x);
-}
-
-bool Pfloat::operator >= (const Pfloat& x) const {
-    return !(*this < x);
-}
 
 Pfloat Pfloat::operator * (const Pfloat& x) const{
     // === quick cases ===
@@ -433,27 +376,17 @@ Pfloat Pfloat::operator * (const Pfloat& x) const{
     Pfloat res;
     res.exponent = x.exponent;
     // =============================== add slots to res
-    
     for(int i = 0 ; i < digits->size() + x.digits->size(); ++i) res.digits->push(0);
 
-    // ===============================
-    // std::cout << "about to multiply " << debugToString() << "\nand" << x.debugToString() << "\nbefore mult : " << res.debugToString() << std::endl;
-
     // multiply the numbers using this rule : foreach slots of number1, multiply if with the slots of number2 and store the result at slot index : e1 + e2 - slot_n1 - slot_n2
-    int index;   
-    for(int i = 0 ; i < digits->size(); ++i){
-        for(int j = 0 ; j < x.digits->size() ; ++j){
-            index = (i + j);
+    for(int i = 0 ; i < digits->size(); ++i) for(int j = 0 ; j < x.digits->size() ; ++j)
             // std::cout << "index = " << index << "\t" << res.debugToString() << "\n\t= " << res.digits->get(index) << " + " << digits->get(i) << " * " << x.digits->get(j) << "\n";
-            res.digits->set(index, res.digits->get(index) + digits->get(i) * x.digits->get(j));
-        }
-    }
+            res.digits->set(i + j, res.digits->get(i + j) + digits->get(i) * x.digits->get(j));
+        
     res.digits->reverse();
-    // std::cout << "after mult : " << res.debugToString() << std::endl;
     // set the exponent of the result
     res.exponent = exponent + x.exponent;
     res.tidy();
-    // std::cout << res.toString() << std::endl;
     // manage sign : 
     if(x.neg == this->neg) res.neg = false;
     else res.neg = true;
@@ -477,6 +410,9 @@ Pfloat Pfloat::pow(const int& n) const{
 }
 
 // === One-line functions =================================
+int Pfloat::getExponent() const{return exponent;}
+Pfloat::~Pfloat(){delete digits;}
+
 Pfloat Pfloat::operator + (const long double& x) const{return (*this) + Pfloat(x);}
 Pfloat Pfloat::operator + (const std::string& str) const{return (*this) + Pfloat(str);}
 
@@ -489,18 +425,22 @@ Pfloat& Pfloat::operator = (const std::string& str) {return (*this) = Pfloat(str
 bool Pfloat::operator == (const long double& x) const{return (*this) == Pfloat(x);}
 bool Pfloat::operator == (const std::string& str) const{return (*this) == Pfloat(str);}
 
+bool Pfloat::operator != (const Pfloat& x) const {return !(*this == x);}
 bool Pfloat::operator != (const long double& x) const{return (*this) != Pfloat(x);}
 bool Pfloat::operator != (const std::string& str) const{return (*this) != Pfloat(str);}
 
+bool Pfloat::operator > (const Pfloat& x) const {return !(*this <= x);}
 bool Pfloat::operator > (const long double& x) const{return (*this) > Pfloat(x);}
 bool Pfloat::operator > (const std::string& str) const{return (*this) > Pfloat(str);}
 
 bool Pfloat::operator < (const long double& x) const{return (*this) < Pfloat(x);}
 bool Pfloat::operator < (const std::string& str) const{return (*this) < Pfloat(str);}
 
+bool Pfloat::operator >= (const Pfloat& x) const {return !(*this < x);}
 bool Pfloat::operator >= (const long double& x) const{return (*this) >= Pfloat(x);}
 bool Pfloat::operator >= (const std::string& str) const{return (*this) >= Pfloat(str);}
 
+bool Pfloat::operator <= (const Pfloat& x) const {return (*this < x) || (*this == x);}
 bool Pfloat::operator <= (const long double& x) const{return (*this) <= Pfloat(x);}
 bool Pfloat::operator <= (const std::string& str) const{return (*this) <= Pfloat(str);}
 
