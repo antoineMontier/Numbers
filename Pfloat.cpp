@@ -163,7 +163,6 @@ std::string trim(const std::string& str) {
     return str.substr(first, (last - first + 1));
 }
 
-
 Pfloat::Pfloat(const std::string str){
 
     std::string trimmed_str = trim(str);
@@ -208,7 +207,6 @@ Pfloat::Pfloat(const std::string str){
     free(arg_char);
     tidy();
 }
-
 
 bool Pfloat::tidy(){
     if(precision < 1){
@@ -308,9 +306,6 @@ Pfloat Pfloat::operator + (const Pfloat& x) const{
     return res;
 }
 
-Pfloat Pfloat::operator + (const long double& x) const{return (*this) + Pfloat(x);}
-
-
 Pfloat Pfloat::operator - (const Pfloat& x) const{
     if(!neg && x.neg) return *this + x.abs();
     if(neg && x.neg) return x.abs() - this->abs();
@@ -345,9 +340,6 @@ Pfloat Pfloat::operator - (const Pfloat& x) const{
     return res;
 }
 
-Pfloat Pfloat::operator - (const long double& x) const{return (*this) - Pfloat(x);}
-
-
 Pfloat& Pfloat::operator = (const Pfloat& n) {
     // Clear the current digits of this Pfloat
     digits->clear();
@@ -358,9 +350,6 @@ Pfloat& Pfloat::operator = (const Pfloat& n) {
 
     return *this;
 }
-
-Pfloat& Pfloat::operator = (const long double& x) {return (*this) = Pfloat(x);}
-
 
 bool Pfloat::operator == (const Pfloat& x) const{
     if((digits->size() == 0 && x.digits->size() == 0) 
@@ -378,14 +367,6 @@ bool Pfloat::operator == (const Pfloat& x) const{
     if(t.exponent != x.exponent) return false;
     return true; // all tests passed
 }
-
-bool Pfloat::operator == (const long double& x) const{return (*this) == Pfloat(x);}
-bool Pfloat::operator != (const long double& x) const{return (*this) != Pfloat(x);}
-bool Pfloat::operator > (const long double& x) const{return (*this) > Pfloat(x);}
-bool Pfloat::operator < (const long double& x) const{return (*this) < Pfloat(x);}
-bool Pfloat::operator >= (const long double& x) const{return (*this) >= Pfloat(x);}
-bool Pfloat::operator <= (const long double& x) const{return (*this) <= Pfloat(x);}
-
 
 bool Pfloat::operator != (const Pfloat& x) const {
     return !(*this == x);
@@ -479,8 +460,6 @@ Pfloat Pfloat::operator * (const Pfloat& x) const{
     return res;
 }
 
-Pfloat Pfloat::operator * (const long double& x) const{return (*this) * Pfloat(x);}
-
 Pfloat Pfloat::pow(const int& n) const{
     // quick cases
     if(n < 0) {
@@ -496,3 +475,35 @@ Pfloat Pfloat::pow(const int& n) const{
     if(n % 2 == 0) return Pfloat(*this).pow(n/2).pow(2); // even
     else return Pfloat(*this).pow(n/2).pow(2)*Pfloat(*this); // odd
 }
+
+// === One-line functions =================================
+Pfloat Pfloat::operator + (const long double& x) const{return (*this) + Pfloat(x);}
+Pfloat Pfloat::operator + (const std::string& str) const{return (*this) + Pfloat(str);}
+
+Pfloat Pfloat::operator - (const long double& x) const{return (*this) - Pfloat(x);}
+Pfloat Pfloat::operator - (const std::string& str) const{return (*this) - Pfloat(str);}
+
+Pfloat& Pfloat::operator = (const long double& x) {return (*this) = Pfloat(x);}
+Pfloat& Pfloat::operator = (const std::string& str) {return (*this) = Pfloat(str);}
+
+bool Pfloat::operator == (const long double& x) const{return (*this) == Pfloat(x);}
+bool Pfloat::operator == (const std::string& str) const{return (*this) == Pfloat(str);}
+
+bool Pfloat::operator != (const long double& x) const{return (*this) != Pfloat(x);}
+bool Pfloat::operator != (const std::string& str) const{return (*this) != Pfloat(str);}
+
+bool Pfloat::operator > (const long double& x) const{return (*this) > Pfloat(x);}
+bool Pfloat::operator > (const std::string& str) const{return (*this) > Pfloat(str);}
+
+bool Pfloat::operator < (const long double& x) const{return (*this) < Pfloat(x);}
+bool Pfloat::operator < (const std::string& str) const{return (*this) < Pfloat(str);}
+
+bool Pfloat::operator >= (const long double& x) const{return (*this) >= Pfloat(x);}
+bool Pfloat::operator >= (const std::string& str) const{return (*this) >= Pfloat(str);}
+
+bool Pfloat::operator <= (const long double& x) const{return (*this) <= Pfloat(x);}
+bool Pfloat::operator <= (const std::string& str) const{return (*this) <= Pfloat(str);}
+
+Pfloat Pfloat::operator * (const long double& x) const{return (*this) * Pfloat(x);}
+Pfloat Pfloat::operator * (const std::string& str) const{return (*this) * Pfloat(str);}
+// ========================================================

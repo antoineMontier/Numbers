@@ -37,9 +37,9 @@ int main(){
     assert(Pfloat("3.33") + Pfloat(-1.5) == Pfloat(1.83));
     assert(Pfloat(-2.2) + Pfloat("-3.3") == Pfloat(-5.5));
     assert(Pfloat(78.985) + Pfloat(-8745.5) == Pfloat(-8666.515));
-    assert(Pfloat("00000e9") - Pfloat("-0000") == Pfloat(0));
+    assert(Pfloat("00000e9") - "-0000" == Pfloat(0));
     assert(Pfloat(4.23) - Pfloat(0.0025) == Pfloat("4.2275"));
-    assert(Pfloat(-4.23) - Pfloat("0.0025") == Pfloat(-4.2325));
+    assert(Pfloat(-4.23) - "0.0025" == Pfloat(-4.2325));
     assert(Pfloat("0.0025e0") - Pfloat(4.23) == Pfloat(-4.2275));
     assert(Pfloat(2) + 2 == 4);
     assert(Pfloat(0) + 2 == 2);
@@ -55,12 +55,12 @@ int main(){
     assert(Pfloat(-4.23) - 0.0025 == -4.2325);
     assert(Pfloat(0.0025) - 4.23 == -4.2275);
     // === - tests
-    assert(Pfloat(54321.23456) - Pfloat("12345.67891") == Pfloat(41975.55565));
+    assert(Pfloat(54321.23456) - "12345.67891" == Pfloat(41975.55565));
     assert(Pfloat(3.3) - Pfloat(1.5) == Pfloat(1.8));
     assert(Pfloat(1.5) - Pfloat(3.3) == Pfloat(-1.8));
     assert(Pfloat("-3.3") - Pfloat(1.5) == Pfloat(-4.8));
     assert(Pfloat(-1.5) - Pfloat(-3.3) == Pfloat(1.8));
-    assert(Pfloat(54321.23456) - (12345.67891) == Pfloat("41975.55565"));
+    assert(Pfloat(54321.23456) - (12345.67891) == "41975.55565");
     assert(Pfloat(3.3) - (1.5) == (1.8));
     assert(Pfloat(1.5) - (3.3) == (-1.8));
     assert(Pfloat(-3.3) - (1.5) == (-4.8));
