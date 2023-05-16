@@ -416,12 +416,11 @@ Pfloat Pfloat::operator / (const Pfloat& x) const{
     // === euclidean division
 
     LinkedList<int> *l = new LinkedList<int>();
-    long mult_count;
+    long mult_count = -1;
     while( l->size() <= cpy.precision + 1 && cpy != 0 ){ // + 1 because we need to round according to the precision + 1 digit
 
         // === multiply number by 10 until it is bigger than 'x'
         while (cpy < x){ cpy.exponent++; mult_count++; }
-
         // === now let's find how many time we can enter the 'x' number to fill cpy
         int times = 1;
         while( x*(times + 1) <= cpy ) times++;
@@ -431,8 +430,15 @@ Pfloat Pfloat::operator / (const Pfloat& x) const{
     }
     Pfloat res(0);
     res.precision = this->precision;
-    res.exponent = this->exponent - x.exponent;
     for(int i = 0 ; i < l->size(); ++i) res.digits->pushTail(l->get(i));
+
+    std::cout << " a::e = " << this->exponent << "\t x::e = " << x.exponent << "\tmult_count = "  << mult_count << std::endl;
+    std::cout << "this->exponent - x.exponent - mult_count = " << this->exponent - x.exponent - mult_count << std::endl;
+    // res.exponent = 0;
+    res.tidy();
+    res.exponent = this->exponent - x.exponent - mult_count;
+    std::cout << "res.exponent = " << res.exponent << std::endl;
+
     delete l;
     return res;
 }
