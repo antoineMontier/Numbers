@@ -198,8 +198,8 @@ bool Pfloat::tidy(){
         }
 
     // first slot case : 
-    if(digits->get(0) > 9){
-        digits->push(digits->get(0) / 10);
+    while(digits->get(0) > 9){
+        digits->push(digits->get(0)/ 10);
         digits->set(1, digits->get(1) % 10); // first slot is now slot n°1
         exponent++;
     }
@@ -411,32 +411,49 @@ Pfloat Pfloat::pow(const int& n) const{
 Pfloat Pfloat::operator / (const Pfloat& x) const{
     if(x == 0) throw std::invalid_argument("cannot divide by zero");
     if(x == 1) return Pfloat(*this);
+    if(x == *this) return Pfloat(1);
     Pfloat cpy(*this);
+    Pfloat divisor(x);
 
     // === euclidean division
 
     LinkedList<int> *l = new LinkedList<int>();
-    long mult_count = -1;
+    long mult_count = 0;
     while( l->size() <= cpy.precision + 1 && cpy != 0 ){ // + 1 because we need to round according to the precision + 1 digit
 
         // === multiply number by 10 until it is bigger than 'x'
-        while (cpy < x){ cpy.exponent++; mult_count++; }
-        // === now let's find how many time we can enter the 'x' number to fill cpy
+        bool mult_count_incremented = false;
+        while (divisor.exponent < cpy.exponent){
+            divisor.exponent++;
+            mult_count--;
+        }
+        while (cpy < divisor){ 
+            cpy.exponent++; 
+            if(mult_count_incremented)
+                mult_count++;
+            mult_count_incremented = true;
+        }
+        // === now let's find how many time we can enter the 'divisor' number to fill cpy
         int times = 1;
-        while( x*(times + 1) <= cpy ) times++;
+        while( divisor*(times + 1) <= cpy ) times++;
         l->pushTail(times);
-        cpy = cpy - x*times; // TODO: change with '-='
+        cpy = cpy - divisor*times; // TODO: change with '-='
 
     }
     Pfloat res(0);
+    res.exponent = 0;
     res.precision = this->precision;
     for(int i = 0 ; i < l->size(); ++i) res.digits->pushTail(l->get(i));
-
-    std::cout << " a::e = " << this->exponent << "\t x::e = " << x.exponent << "\tmult_count = "  << mult_count << std::endl;
-    std::cout << "this->exponent - x.exponent - mult_count = " << this->exponent - x.exponent - mult_count << std::endl;
+    std::cout << "res = " << res.debugToString() << std::endl;
+    std::cout << " a::e = " << this->exponent << "\t x::e = " << divisor.exponent << "\tmult_count = "  << mult_count << std::endl;
+    std::cout << "this->exponent - divisor.exponent - mult_count = " << this->exponent - divisor.exponent - mult_count << std::endl;
     // res.exponent = 0;
     res.tidy();
-    res.exponent = this->exponent - x.exponent - mult_count;
+
+    res.exponent = this->exponent - divisor.exponent - mult_count - 1;
+
+    std::cout << "res = " << res.debugToString() << std::endl;
+
     std::cout << "res.exponent = " << res.exponent << std::endl;
 
     delete l;

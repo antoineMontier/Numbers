@@ -5,8 +5,8 @@
 
 int main(){
 
-    Pfloat a(" 3e2 ");
-    Pfloat b(" 4 ");
+    Pfloat a(" 7 ");
+    Pfloat b(" 6 ");
     std::cout << "a = " << a.toString() << "\nb = " << b.toString() << std::endl;
 
     std::cout << "a / b = " << (a / b).toString() << std::endl;
