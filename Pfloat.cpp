@@ -416,20 +416,24 @@ Pfloat Pfloat::operator / (const Pfloat& x) const{
     Pfloat divisor(x);
 
     // === euclidean division
-
+    bool smaller = *this < x;
     LinkedList<int> *l = new LinkedList<int>();
     long mult_count = 0;
     while( l->size() <= cpy.precision + 1 && cpy != 0 ){ // + 1 because we need to round according to the precision + 1 digit
 
         // === multiply number by 10 until it is bigger than 'x'
-        bool mult_count_incremented = false;
-        while (divisor.exponent < cpy.exponent){
+        bool mult_count_incremented = false, mult_count_decremented = false;
+        /*while (divisor.exponent + 1 < cpy.exponent){
             divisor.exponent++;
-            mult_count--;
-        }
+            //if(mult_count_decremented)
+                mult_count--;
+            mult_count_decremented = true;
+        }*/        
+        cpy.exponent++;
         while (cpy < divisor){ 
             cpy.exponent++; 
-            if(mult_count_incremented)
+            if(!smaller) l->pushTail(0);
+            //if(mult_count_incremented)
                 mult_count++;
             mult_count_incremented = true;
         }
@@ -438,19 +442,21 @@ Pfloat Pfloat::operator / (const Pfloat& x) const{
         while( divisor*(times + 1) <= cpy ) times++;
         l->pushTail(times);
         cpy = cpy - divisor*times; // TODO: change with '-='
-
     }
+    int res_size = l->size();
+    int first_slot_digits = std::to_string(l->get(0)).size() - 1;
     Pfloat res(0);
     res.exponent = 0;
     res.precision = this->precision;
     for(int i = 0 ; i < l->size(); ++i) res.digits->pushTail(l->get(i));
     std::cout << "res = " << res.debugToString() << std::endl;
-    std::cout << " a::e = " << this->exponent << "\t x::e = " << divisor.exponent << "\tmult_count = "  << mult_count << std::endl;
-    std::cout << "this->exponent - divisor.exponent - mult_count = " << this->exponent - divisor.exponent - mult_count << std::endl;
+    std::cout << "this::e = " << this->exponent << "\tdiv::e = " << divisor.exponent << "\tmult_count = "  << mult_count << "\tres_size = " << res_size << std::endl;
+    std::cout << "this::e - div::e - mult_count = " << this->exponent - divisor.exponent - mult_count << std::endl;
     // res.exponent = 0;
+    
+    res.exponent = this->exponent - divisor.exponent - first_slot_digits;
+    if(smaller) res.exponent--;
     res.tidy();
-
-    res.exponent = this->exponent - divisor.exponent - mult_count - 1;
 
     std::cout << "res = " << res.debugToString() << std::endl;
 

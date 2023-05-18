@@ -5,12 +5,15 @@
 
 int main(){
 
-    Pfloat a(" 7 ");
-    Pfloat b(" 6 ");
-    std::cout << "a = " << a.toString() << "\nb = " << b.toString() << std::endl;
+    Pfloat a(" .89 ");
+    Pfloat b(" 500 ");
+    std::cout << a.toString() << " / " << b.toString() << " =" << std::endl;
 
-    std::cout << "a / b = " << (a / b).toString() << std::endl;
-
+    std::cout << (a / b).toString() << std::endl;
+    // assert(Pfloat(.89) / Pfloat(500) == Pfloat(0.00178));
+    // assert(Pfloat(8.569) / Pfloat(2.852) == Pfloat("3.00455820476858345021038"));
+    // assert(Pfloat(20) / Pfloat(956) == Pfloat("0.0292529252925292529252925"));
+    // assert(Pfloat("7852") / Pfloat("3000") == Pfloat("2.61733333333333333333333"));
 
     /*
     // === == tests
