@@ -409,7 +409,7 @@ Pfloat Pfloat::pow(const int& n) const{
 }
 
 Pfloat Pfloat::operator % (const Pfloat& x) const {
-    if(this->neg || x.neg) throw std::invalid_argument("% operator works only on positive numbers");
+    if(this->neg || x.neg || x == 0) throw std::invalid_argument("% operator works only on positive numbers");
     Pfloat t(*this);
     if(x > t) return t;
     Pfloat y(x);
@@ -430,7 +430,7 @@ Pfloat Pfloat::operator % (const Pfloat& x) const {
 }
 
 Pfloat Pfloat::quotient(const Pfloat& x) const{
-    if(this->neg || x.neg) throw std::invalid_argument("quotient function only works on positive numbers");
+    if(this->neg || x.neg || x == 0) throw std::invalid_argument("quotient function only works on positive numbers");
     Pfloat t(*this);
     if(x == 1) return t;
     if(x == *this) return Pfloat(1);
@@ -449,6 +449,7 @@ Pfloat Pfloat::quotient(const Pfloat& x) const{
             res = res + Pfloat(10).pow(exp_count);
         }
         exp_count--;
+        y.exponent--;
     }   
 
     return res;

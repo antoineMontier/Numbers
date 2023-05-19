@@ -5,17 +5,17 @@
 
 int main(){
 
-    Pfloat a(" 60000000 ");
-    Pfloat b(" 12 ");
-    std::cout << a.toString() << " // " << b.toString() << " =" << std::endl;
+    // Pfloat a(" 60000000 ");
+    // Pfloat b(" 12 ");
+    // std::cout << a.toString() << " // " << b.toString() << " =" << std::endl;
 
-    std::cout << a.quotient(b).toString() << std::endl;
+    // std::cout << Pfloat(123).quotient(2).toString() << std::endl;
     // assert(Pfloat(.89) / Pfloat(500) == Pfloat(0.00178));
     // assert(Pfloat(8.569) / Pfloat(2.852) == Pfloat("3.00455820476858345021038"));
     // assert(Pfloat(20) / Pfloat(956) == Pfloat("0.0292529252925292529252925"));
     // assert(Pfloat("7852") / Pfloat("3000") == Pfloat("2.61733333333333333333333"));
 
-    /*
+    
     // === == tests
     assert(Pfloat("2") == Pfloat(2.000000000));
     assert(Pfloat("0") == Pfloat());
@@ -185,7 +185,7 @@ int main(){
     assert(Pfloat(11.11)*Pfloat(22.22)*Pfloat(7) - Pfloat(11.11)*Pfloat(-7) == Pfloat(11.11)*Pfloat(7)*(Pfloat(22.22) + Pfloat(1)));
     assert(Pfloat(.654) + Pfloat(".2") - Pfloat(78) + Pfloat(-1200) - Pfloat(.56) == Pfloat(-1277.706));
     assert(Pfloat(-.2)*Pfloat(-4.2)*(Pfloat(1)-Pfloat(254.02)) - (Pfloat(78) + Pfloat(32.2)) == Pfloat("-322.7368")); // not rounded result = -111.2120008
-    // === Pow tests
+    // === pow tests
     assert(Pfloat(1).pow(5) == 1);
     assert(Pfloat(2).pow(5) == Pfloat(2)*2*2*2*2);
     assert(Pfloat(3).pow(5).pow(5) == Pfloat(3).pow(25));
@@ -194,7 +194,18 @@ int main(){
     assert(Pfloat(0).pow(0) == 1);
     assert(Pfloat(125425).pow(0) == 1);
     assert(Pfloat(.5).pow(50) == Pfloat("0.00000000000000088817841970012523233890533447265625"));
+    // === % tests
+    assert(Pfloat(60) % Pfloat(30) == 0);
+    assert(Pfloat(750) % Pfloat(751) == 750);
+    assert(Pfloat(123456).pow(4) % Pfloat(123456) == 0);
+    assert(Pfloat(123456789) % 3 == 0);
+    // === quotient tests
+    assert(Pfloat(40).quotient(5) == 8);
+    assert(Pfloat(0).quotient(5) == 0);
+    assert(Pfloat(40).quotient(1) == 40);
+    assert(Pfloat(123456).quotient(82) == 1505);
+    assert(Pfloat("7458456985423654").quotient(465425) == "16025045894");
     std::cout << "all tests passed" << std::endl;
-    */
+    
     return 0;
 }
