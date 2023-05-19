@@ -414,7 +414,7 @@ Pfloat Pfloat::operator % (const Pfloat& x) const {
     if(x > t) return t;
     Pfloat y(x);
 
-    int exp_count = 0;
+    long exp_count = 0;
     while(y.exponent + 1 < t.exponent){
         y.exponent++;
         exp_count++;
@@ -429,7 +429,33 @@ Pfloat Pfloat::operator % (const Pfloat& x) const {
     return t;
 }
 
-/*Pfloat Pfloat::operator / (const Pfloat& x) const{
+Pfloat Pfloat::quotient(const Pfloat& x) const{
+    if(this->neg || x.neg) throw std::invalid_argument("quotient function only works on positive numbers");
+    Pfloat t(*this);
+    if(x == 1) return t;
+    if(x == *this) return Pfloat(1);
+    if(x > t) return Pfloat(0);
+    Pfloat y(x);
+    Pfloat res(0);
+    
+    long exp_count = 0;
+    while(y.exponent + 1 < t.exponent){
+        y.exponent++;
+        exp_count++;
+    }
+    while(exp_count >= 0){
+        while(t >= y){
+            t = t - y; // TODO: replace with -=
+            res = res + Pfloat(10).pow(exp_count);
+        }
+        exp_count--;
+    }   
+
+    return res;
+}
+
+
+Pfloat Pfloat::operator / (const Pfloat& x) const{
     if(x == 0) throw std::invalid_argument("cannot divide by zero");
     if(x == 1) return Pfloat(*this);
     if(x == *this) return Pfloat(1);
@@ -464,7 +490,8 @@ Pfloat Pfloat::operator % (const Pfloat& x) const {
 
     delete l;
     return res;
-}*/
+}
+
 
 
 // === One-line functions =================================

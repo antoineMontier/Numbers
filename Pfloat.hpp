@@ -78,7 +78,10 @@ class Pfloat{
 
         Pfloat operator / (const Pfloat& x) const;
 
-        Pfloat operator % (const Pfloat& p) const;
+        Pfloat operator % (const Pfloat& x) const;
+
+        Pfloat quotient(const Pfloat& x) const;
+
 
         Pfloat& operator = (const Pfloat& n);
         Pfloat& operator = (const long double& n);
