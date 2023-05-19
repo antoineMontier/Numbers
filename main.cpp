@@ -9,7 +9,7 @@ int main(){
     // Pfloat b(" 12 ");
     // std::cout << a.toString() << " // " << b.toString() << " =" << std::endl;
 
-    // std::cout << Pfloat(123).quotient(2).toString() << std::endl;
+    std::cout << (Pfloat(8.569) / Pfloat(2.852)).toString() << std::endl;
     // assert(Pfloat(.89) / Pfloat(500) == Pfloat(0.00178));
     // assert(Pfloat(8.569) / Pfloat(2.852) == Pfloat("3.00455820476858345021038"));
     // assert(Pfloat(20) / Pfloat(956) == Pfloat("0.0292529252925292529252925"));

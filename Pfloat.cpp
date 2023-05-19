@@ -460,36 +460,39 @@ Pfloat Pfloat::operator / (const Pfloat& x) const{
     if(x == 0) throw std::invalid_argument("cannot divide by zero");
     if(x == 1) return Pfloat(*this);
     if(x == *this) return Pfloat(1);
-    Pfloat cpy(*this);
-    Pfloat divisor(x);
 
-    // === euclidean division
-    bool smaller = *this < x;
-    LinkedList<int> *l = new LinkedList<int>();
+    Pfloat cpy(*this % x); // compute division on the modulo
+    Pfloat quotient(this->quotient(x)); //
+
     long mult_count = 0;
-    int turn = 0;
+    LinkedList<int> *l = new LinkedList<int>();
+    std::cout << "dividing " << cpy.toString() << " by " << x.toString() << std::endl;
     while( l->size() <= cpy.precision + 1 && cpy != 0 ){ // + 1 because we need to round according to the precision + 1 digit
-
-
-
-        turn++;
+        bool first_increase = true;
+        while (cpy < x){
+            std::cout << "increasing" << std::endl;
+            cpy.exponent++;
+            if(!first_increase)
+                mult_count++;
+            first_increase  =false;
+        }
+        // === now let's find how many time we can enter the 'divisor' number to fill cpy
+        int times = 1;
+        while( x*(times + 1) <= cpy ) times++;
+        l->pushTail(times);
+        cpy = cpy - x*times; // TODO: change with '-='
+        std::cout << " 1 loop over \n";
+        cpy.exponent++;
     }
-    int res_size = l->size();
-    int first_slot_digits = std::to_string(l->get(0)).size() - 1;
+    std::cout << "l = " << l->toString() << std::endl;
+
     Pfloat res(0);
-    res.exponent = 0;
-    res.precision = this->precision;
     for(int i = 0 ; i < l->size(); ++i) res.digits->pushTail(l->get(i));
-    
-    res.exponent = this->exponent - divisor.exponent - first_slot_digits;
-    if(smaller) res.exponent--;
-    res.tidy();
-
-    std::cout << "res = " << res.debugToString() << std::endl;
-
-    std::cout << "res.exponent = " << res.exponent << std::endl;
-
+    std::cout << "res = " << res.toString() << std::endl;
+    res.exponent = - 1 - mult_count;
     delete l;
+    res = res + quotient;
+    res.tidy();
     return res;
 }
 
