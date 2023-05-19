@@ -426,6 +426,7 @@ Pfloat Pfloat::operator % (const Pfloat& x) const {
         exp_count--;
         y.exponent--;
     }
+    t.tidy();
     return t;
 }
 
@@ -451,7 +452,7 @@ Pfloat Pfloat::quotient(const Pfloat& x) const{
         exp_count--;
         y.exponent--;
     }   
-
+    res.tidy();
     return res;
 }
 
@@ -461,37 +462,20 @@ Pfloat Pfloat::operator / (const Pfloat& x) const{
     if(x == 1) return Pfloat(*this);
     if(x == *this) return Pfloat(1);
 
-    Pfloat cpy(*this % x); // compute division on the modulo
-    Pfloat quotient(this->quotient(x)); //
-
-    long mult_count = 0;
-    LinkedList<int> *l = new LinkedList<int>();
-    std::cout << "dividing " << cpy.toString() << " by " << x.toString() << std::endl;
-    while( l->size() <= cpy.precision + 1 && cpy != 0 ){ // + 1 because we need to round according to the precision + 1 digit
-        bool first_increase = true;
-        while (cpy < x){
-            std::cout << "increasing" << std::endl;
-            cpy.exponent++;
-            if(!first_increase)
-                mult_count++;
-            first_increase  =false;
-        }
-        // === now let's find how many time we can enter the 'divisor' number to fill cpy
-        int times = 1;
-        while( x*(times + 1) <= cpy ) times++;
-        l->pushTail(times);
-        cpy = cpy - x*times; // TODO: change with '-='
-        std::cout << " 1 loop over \n";
-        cpy.exponent++;
+    Pfloat to_divide(*this); // compute division on the modulo
+    long exp_increase = 0;
+    while(to_divide.exponent - x.exponent < to_divide.precision){
+        to_divide.exponent++;
+        exp_increase++;
     }
-    std::cout << "l = " << l->toString() << std::endl;
-
     Pfloat res(0);
-    for(int i = 0 ; i < l->size(); ++i) res.digits->pushTail(l->get(i));
-    std::cout << "res = " << res.toString() << std::endl;
-    res.exponent = - 1 - mult_count;
-    delete l;
-    res = res + quotient;
+    res = to_divide.quotient(x);
+    res.exponent -= exp_increase;
+    std::cout << res.toString() << std::endl;
+    Pfloat mod(0);
+    mod = to_divide % res;
+    std::cout << "eee" <<mod.toString() << std::endl;
+    if(mod.digits->get(0) >= 5) res.digits->set(res.digits->size() - 1, res.digits->get(res.digits->size() - 1) + 1);
     res.tidy();
     return res;
 }
