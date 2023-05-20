@@ -445,24 +445,25 @@ Pfloat Pfloat::quotient(const Pfloat& x) const{
         exp_count++;
     }
     while(exp_count >= 0){
-        while(t >= y){
+        while(t > y){
             t = t - y; // TODO: replace with -=
             res = res + Pfloat(10).pow(exp_count);
         }
         exp_count--;
         y.exponent--;
     }   
+    if(t == x)
+        res = res + 1;
     res.tidy();
     return res;
 }
-
 
 Pfloat Pfloat::operator / (const Pfloat& x) const{
     if(x == 0) throw std::invalid_argument("cannot divide by zero");
     if(x == 1) return Pfloat(*this);
     if(x == *this) return Pfloat(1);
 
-    Pfloat to_divide(*this); // compute division on the modulo
+    Pfloat to_divide(*this);
     long exp_increase = 0;
     while(to_divide.exponent - x.exponent < to_divide.precision){
         to_divide.exponent++;
@@ -471,12 +472,12 @@ Pfloat Pfloat::operator / (const Pfloat& x) const{
     Pfloat res(0);
     res = to_divide.quotient(x);
     res.exponent -= exp_increase;
-    std::cout << res.toString() << std::endl;
     Pfloat mod(0);
     mod = to_divide % res;
-    std::cout << "eee" <<mod.toString() << std::endl;
+    std::cout << "mod = " <<mod.toString() << std::endl;
     if(mod.digits->get(0) >= 5) res.digits->set(res.digits->size() - 1, res.digits->get(res.digits->size() - 1) + 1);
     res.tidy();
+    std::cout << res.toString() << std::endl;
     return res;
 }
 
