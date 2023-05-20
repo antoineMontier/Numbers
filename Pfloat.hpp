@@ -10,7 +10,7 @@
 #include <string.h>
 #include "LinkedList.cpp"
 
-#define STANDARD_PRECISION 51
+#define STANDARD_PRECISION 10
 
 using namespace std;
 
