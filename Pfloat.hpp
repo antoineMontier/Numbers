@@ -10,11 +10,11 @@
 #include <string.h>
 #include "LinkedList.cpp"
 
-#define STANDARD_PRECISION 30
+#define STANDARD_PRECISION 51
 
 using namespace std;
 
-class Pfloat{
+class Pfloat{ 
 
     private:
 

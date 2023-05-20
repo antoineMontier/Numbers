@@ -444,7 +444,7 @@ Pfloat Pfloat::quotient(const Pfloat& x) const{
         y.exponent++;
         exp_count++;
     }
-    while(exp_count >= 0){
+    while(exp_count >= 0){ 
         while(t > y){
             t = t - y; // TODO: replace with -=
             res = res + Pfloat(10).pow(exp_count);
@@ -452,7 +452,7 @@ Pfloat Pfloat::quotient(const Pfloat& x) const{
         exp_count--;
         y.exponent--;
     }   
-    if(t == x)
+    if(t == x )
         res = res + 1;
     res.tidy();
     return res;
