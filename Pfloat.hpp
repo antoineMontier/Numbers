@@ -10,7 +10,7 @@
 #include <string.h>
 #include "LinkedList.cpp"
 
-#define STANDARD_PRECISION 10
+#define STANDARD_PRECISION 24
 
 using namespace std;
 
@@ -33,6 +33,8 @@ class Pfloat{
         bool neg;
 
         int precision;
+
+        Pfloat quotient(const Pfloat& x) const;
 
     public:
 
@@ -79,9 +81,6 @@ class Pfloat{
         Pfloat operator / (const Pfloat& x) const;
 
         Pfloat operator % (const Pfloat& x) const;
-
-        Pfloat quotient(const Pfloat& x) const;
-
 
         Pfloat& operator = (const Pfloat& n);
         Pfloat& operator = (const long double& n);

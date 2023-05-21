@@ -307,7 +307,7 @@ Pfloat& Pfloat::operator = (const Pfloat& n) {
     // Copy the digits of the other Pfloat to this Pfloat
     for (int i = 0; i < n.digits->size(); i++)  digits->pushTail(n.digits->get(i));
     exponent = n.exponent;
-    precision = n.precision;
+    precision = n.precision; 
     return *this;
 }
 
@@ -463,8 +463,6 @@ Pfloat Pfloat::quotient(const Pfloat& x) const{
     } 
 
     while(exp_count >= 0){ 
-        std::cout << "\t \tr::p = " << res.precision << "\tt::p = " << t.precision << "\ty::p = " << y.precision << "\tten::p = " << ten.precision << std::endl;
-
         while(t > y){
             t = t - y; // TODO: replace with -=
             tmp = ten.pow(exp_count);
@@ -473,20 +471,8 @@ Pfloat Pfloat::quotient(const Pfloat& x) const{
         }
         exp_count--;
         y.exponent--;
-        std::cout << "res = " << res.toString() << std::endl;
-        std::cout << "t = " << t.toString() << std::endl;
-        std::cout << "y = " << y.toString() << std::endl;
     }   
-    // if(t >= y) {
-    //     tmp = 1;
-    //     tmp.precision = res.precision;
-    //     res = res + tmp;
-    // }
-    // res.tidy(); 
-
-    std::cout << "\t \tprecision = " << res.precision << "\tq::res = " << res.debugToString() << std::endl;
     res.precision--;
-
     return res;
 }
 
@@ -502,14 +488,13 @@ Pfloat Pfloat::operator / (const Pfloat& x) const{
         exp_increase++;
     }
     Pfloat res(0);
-    res = to_divide.quotient(x);
+    res = to_divide.abs().quotient(x.abs()); // compute division
     res.exponent -= exp_increase;
     Pfloat mod(0);
     mod = to_divide % res;
-    std::cout << "mod = " << mod.toString() << std::endl;
     if(mod.digits->size() != 0 && mod.digits->get(0) >= 5) res.digits->set(res.digits->size() - 1, res.digits->get(res.digits->size() - 1) + 1);
-    //res.tidy();
-    std::cout << res.toString() << "\tp = " << res.precision << std::endl;
+    res.tidy();
+    res.neg = neg != x.neg;
     return res;
 }
 
