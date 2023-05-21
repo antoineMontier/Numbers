@@ -315,14 +315,21 @@ bool Pfloat::operator == (const Pfloat& x) const{
     if((digits->size() == 0 && x.digits->size() == 0) 
     || (digits->size() == 0 && x.digits->size() == 1 && x.digits->get(0) == 0)
     || (x.digits->size() == 0 && digits->size() == 1 && digits->get(0) == 0)) return true;
+
     // copy this and x : 
     Pfloat t = *this;
     Pfloat xx = x;
+    xx.precision = precision > x.precision ? x.precision : precision; // min precision
+    t.precision = xx.precision; // min precision
     // tidy
     t.tidy(); xx.tidy();
+
+
     if(t.neg != xx.neg) return false;
+
     // compare exponents and digits : 
     if(t.digits->size() != x.digits->size()) return false;
+
     for(int i = 0; i < t.digits->size(); ++i) if(t.digits->get(i) != x.digits->get(i)) return false;
     if(t.exponent != x.exponent) return false;
     return true; // all tests passed

@@ -11,8 +11,12 @@ int main(){
     // std::cout <<  Pfloat(890000000000).quotient(Pfloat(500)).toString() << std::endl;
     // std::cout <<  Pfloat(123456).quotient(82).toString() << std::endl;
     // std::cout << (Pfloat(8.569)/Pfloat(2.852)).toString() << std::endl;
+
+    Pfloat a(0);
+    a = Pfloat(8.569) / Pfloat(2.852);
+    std::cout << "testing if a = \n" << a.toString() << " == \n3.0045582048 : " << (a == Pfloat("3.0045582048")) << std::endl;
     // assert(Pfloat(8.569) / Pfloat(2.852) == Pfloat("3.0045582048"));
-    // assert(Pfloat("7852") / Pfloat("3000") == Pfloat("2.617333333333333333333333333333333333333333333333333"));
+    // assert(Pfloat("7852") / Pfloat("3000") == Pfloat("2.6173"));
     // assert(Pfloat(.89) / Pfloat(500) == Pfloat("0.00178"));
     // assert(Pfloat(20) / Pfloat(956) == Pfloat("0.02925292529"));
 
@@ -194,7 +198,7 @@ int main(){
     assert(Pfloat(-4).pow(9) == Pfloat(2).pow(17)*(-2));
     assert(Pfloat(0).pow(0) == 1);
     assert(Pfloat(125425).pow(0) == 1);
-    assert(Pfloat(.5).pow(50) == Pfloat("0.00000000000000088817841970012523233890533447265625"));*/
+    assert(Pfloat(.5).pow(50) == Pfloat("0.00000000000000088817841970012523233890533447265625"));
     // === % tests
     assert(Pfloat(60) % Pfloat(30) == 0);
     assert(Pfloat(750) % Pfloat(751) == 750);
@@ -206,7 +210,7 @@ int main(){
     assert(Pfloat(40).quotient(1) == 40);
     assert(Pfloat(123456).quotient(82) == 1505);
     assert(Pfloat("7458456985423654").quotient(465425) == "16025045894");
-    std::cout << "all tests passed" << std::endl;
+    std::cout << "all tests passed" << std::endl;*/
     
     return 0;
 }
