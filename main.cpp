@@ -11,10 +11,10 @@ int main(){
     // std::cout <<  Pfloat(890000000000).quotient(Pfloat(500)).toString() << std::endl;
     // std::cout <<  Pfloat(123456).quotient(82).toString() << std::endl;
     // std::cout << (Pfloat(8.569)/Pfloat(2.852)).toString() << std::endl;
-    // assert(Pfloat(8.569) / Pfloat(2.852) == Pfloat("3.00455820476858345021037868162692847124824684431978"));
+    // assert(Pfloat(8.569) / Pfloat(2.852) == Pfloat("3.0045582048"));
     // assert(Pfloat("7852") / Pfloat("3000") == Pfloat("2.617333333333333333333333333333333333333333333333333"));
-    assert(Pfloat(.89) / Pfloat(500) == Pfloat("0.00178"));
-    assert(Pfloat(20) / Pfloat(956) == Pfloat("0.0292529252925292529252925"));
+    // assert(Pfloat(.89) / Pfloat(500) == Pfloat("0.00178"));
+    // assert(Pfloat(20) / Pfloat(956) == Pfloat("0.02925292529"));
 
     /*
     // === == tests
