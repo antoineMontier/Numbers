@@ -191,13 +191,13 @@ int main(){
         assert(Pfloat(123456789) % 3 == 0);
         // === / tests
         assert(Pfloat(8.569) / Pfloat(2.852) == Pfloat("3.0045582047685834502103787"));
-        assert(Pfloat("7852") / Pfloat("3000") == Pfloat("2.61733333333333333333333333333333"));
-        assert(Pfloat(.89) / Pfloat(500) == Pfloat("0.00178"));
-        assert(Pfloat(20) / Pfloat(956) == Pfloat("0.0209205020920502092050209"));
+        assert(Pfloat("7852") / "3000" == Pfloat("2.61733333333333333333333333333333"));
+        assert(Pfloat(.89) / 500 == Pfloat("0.00178"));
+        assert(Pfloat(20) / 956 == Pfloat("0.0209205020920502092050209"));
         assert(Pfloat(.014551) / Pfloat(5) == Pfloat("0.0029102"));
         assert(Pfloat(121) / Pfloat(11) == 11);
         assert(Pfloat(20) / Pfloat(5) == 4);
-        assert(Pfloat(782.6842) / Pfloat("-85412654.2585412") == "-9.1635625516430099645791856e-6");
+        assert(Pfloat(782.6842) / "-85412654.2585412" == "-9.1635625516430099645791856e-6");
         std::cout << "all tests passed" << std::endl;
 }
     return 0;

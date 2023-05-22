@@ -533,4 +533,10 @@ bool Pfloat::operator <=    (const std::string& str)    const   {return (*this) 
 
 Pfloat Pfloat::operator *   (const long double& x)      const   {return (*this) * Pfloat(x);}
 Pfloat Pfloat::operator *   (const std::string& str)    const   {return (*this) * Pfloat(str);}
+
+Pfloat Pfloat::operator /   (const long double& x)      const   {return (*this) / Pfloat(x);}
+Pfloat Pfloat::operator /   (const std::string& str)    const   {return (*this) / Pfloat(str);}
+
+Pfloat Pfloat::operator %   (const long double& x)      const   {return (*this) % Pfloat(x);}
+Pfloat Pfloat::operator %   (const std::string& str)    const   {return (*this) % Pfloat(str);}
 // ========================================================

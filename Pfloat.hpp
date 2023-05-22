@@ -79,8 +79,12 @@ class Pfloat{
         Pfloat operator * (const std::string& str) const;
 
         Pfloat operator / (const Pfloat& x) const;
+        Pfloat operator / (const long double& x) const;
+        Pfloat operator / (const std::string& str) const;
 
         Pfloat operator % (const Pfloat& x) const;
+        Pfloat operator % (const long double& x) const;
+        Pfloat operator % (const std::string& str) const;
 
         Pfloat& operator = (const Pfloat& n);
         Pfloat& operator = (const long double& n);
