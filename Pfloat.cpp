@@ -438,29 +438,26 @@ Pfloat Pfloat::operator % (const Pfloat& x) const {
 }
 
 Pfloat Pfloat::quotient(const Pfloat& x) const{
+
     if(this->neg || x.neg || x == 0) throw std::invalid_argument("quotient function only works on positive numbers");
     Pfloat t(*this);
-    if(x == 1) return t;
-    if(x == *this) return Pfloat(1);
-    if(x > t) return Pfloat(0);
-    t.precision += 2;
-    
-    Pfloat y(x);
-    y.precision += 2;
 
-    Pfloat res(0);
-    res.precision += 2;
+    if(x == 1)      return t;
+    if(x == *this)  return Pfloat(1);
+    if(x > t)       return Pfloat(0);
 
-    Pfloat ten(10);
-    ten.precision += 2;
+    Pfloat y    (x);
+    Pfloat res  (0);
+    Pfloat ten  (10);
+    Pfloat tmp  (0);
 
-    Pfloat tmp(0);
+    t.precision     += 2;
+    y.precision     += 2;
+    res.precision   += 2;
+    ten.precision   += 2;
 
-    long exp_count = 0;
-    while(y.exponent + 1 < t.exponent){
-        y.exponent++;
-        exp_count++;
-    } 
+    long exp_count = t.exponent - y.exponent - 1;
+    y.exponent += exp_count;
 
     while(exp_count >= 0){ 
         while(t > y){
@@ -477,21 +474,23 @@ Pfloat Pfloat::quotient(const Pfloat& x) const{
 }
 
 Pfloat Pfloat::operator / (const Pfloat& x) const{
-    if(x == 0) throw std::invalid_argument("cannot divide by zero");
-    if(x == 1) return Pfloat(*this);
-    if(x == *this) return Pfloat(1);
+    if(x == 0)      throw std::invalid_argument("cannot divide by zero");
+    if(x == 1)      return Pfloat(*this);
+    if(x == *this)  return Pfloat(1);
 
     Pfloat to_divide(*this);
-    long exp_increase = to_divide.precision + x.exponent - to_divide.exponent + 2;
+
+    long exp_increase   = to_divide.precision + x.exponent - to_divide.exponent + 2;
     to_divide.exponent += exp_increase;
+
     Pfloat res(0);
     res = to_divide.abs().quotient(x.abs()); // compute division
     res.exponent -= exp_increase;
     Pfloat mod(0);
     mod = to_divide % res;
-    if(mod.digits->size() != 0 && mod.digits->get(0) >= 5) res.digits->set(res.digits->size() - 1, res.digits->get(res.digits->size() - 1) + 1);
+    if(mod.digits->size() != 0 && mod.digits->get(0) >= 5) res.digits->set(res.digits->size() - 1, res.digits->get(res.digits->size() - 1) + 1); // round
     res.tidy();
-    res.neg = neg != x.neg;
+    res.neg = neg != x.neg; // basic negation rule
     return res;
 }
 
@@ -501,37 +500,37 @@ Pfloat Pfloat::operator / (const Pfloat& x) const{
 int Pfloat::getExponent() const{return exponent;}
 Pfloat::~Pfloat(){delete digits;}
 
-Pfloat Pfloat::operator + (const long double& x) const{return (*this) + Pfloat(x);}
-Pfloat Pfloat::operator + (const std::string& str) const{return (*this) + Pfloat(str);}
+Pfloat Pfloat::operator +   (const long double& x)      const   {return (*this) + Pfloat(x);}
+Pfloat Pfloat::operator +   (const std::string& str)    const   {return (*this) + Pfloat(str);}
 
-Pfloat Pfloat::operator - (const long double& x) const{return (*this) - Pfloat(x);}
-Pfloat Pfloat::operator - (const std::string& str) const{return (*this) - Pfloat(str);}
+Pfloat Pfloat::operator -   (const long double& x)      const   {return (*this) - Pfloat(x);}
+Pfloat Pfloat::operator -   (const std::string& str)    const   {return (*this) - Pfloat(str);}
 
-Pfloat& Pfloat::operator = (const long double& x) {return (*this) = Pfloat(x);}
-Pfloat& Pfloat::operator = (const std::string& str) {return (*this) = Pfloat(str);}
+Pfloat& Pfloat::operator =  (const long double& x)              {return (*this) = Pfloat(x);}
+Pfloat& Pfloat::operator =  (const std::string& str)            {return (*this) = Pfloat(str);}
 
-bool Pfloat::operator == (const long double& x) const{return (*this) == Pfloat(x);}
-bool Pfloat::operator == (const std::string& str) const{return (*this) == Pfloat(str);}
+bool Pfloat::operator ==    (const long double& x)      const   {return (*this) == Pfloat(x);}
+bool Pfloat::operator ==    (const std::string& str)    const   {return (*this) == Pfloat(str);}
 
-bool Pfloat::operator != (const Pfloat& x) const {return !(*this == x);}
-bool Pfloat::operator != (const long double& x) const{return (*this) != Pfloat(x);}
-bool Pfloat::operator != (const std::string& str) const{return (*this) != Pfloat(str);}
+bool Pfloat::operator !=    (const Pfloat& x)           const   {return !(*this == x);}
+bool Pfloat::operator !=    (const long double& x)      const   {return (*this) != Pfloat(x);}
+bool Pfloat::operator !=    (const std::string& str)    const   {return (*this) != Pfloat(str);}
 
-bool Pfloat::operator > (const Pfloat& x) const {return !(*this <= x);}
-bool Pfloat::operator > (const long double& x) const{return (*this) > Pfloat(x);}
-bool Pfloat::operator > (const std::string& str) const{return (*this) > Pfloat(str);}
+bool Pfloat::operator >     (const Pfloat& x)           const   {return !(*this <= x);}
+bool Pfloat::operator >     (const long double& x)      const   {return (*this) > Pfloat(x);}
+bool Pfloat::operator >     (const std::string& str)    const   {return (*this) > Pfloat(str);}
 
-bool Pfloat::operator < (const long double& x) const{return (*this) < Pfloat(x);}
-bool Pfloat::operator < (const std::string& str) const{return (*this) < Pfloat(str);}
+bool Pfloat::operator <     (const long double& x)      const   {return (*this) < Pfloat(x);}
+bool Pfloat::operator <     (const std::string& str)    const   {return (*this) < Pfloat(str);}
 
-bool Pfloat::operator >= (const Pfloat& x) const {return !(*this < x);}
-bool Pfloat::operator >= (const long double& x) const{return (*this) >= Pfloat(x);}
-bool Pfloat::operator >= (const std::string& str) const{return (*this) >= Pfloat(str);}
+bool Pfloat::operator >=    (const Pfloat& x)           const   {return !(*this < x);}
+bool Pfloat::operator >=    (const long double& x)      const   {return (*this) >= Pfloat(x);}
+bool Pfloat::operator >=    (const std::string& str)    const   {return (*this) >= Pfloat(str);}
 
-bool Pfloat::operator <= (const Pfloat& x) const {return (*this < x) || (*this == x);}
-bool Pfloat::operator <= (const long double& x) const{return (*this) <= Pfloat(x);}
-bool Pfloat::operator <= (const std::string& str) const{return (*this) <= Pfloat(str);}
+bool Pfloat::operator <=    (const Pfloat& x)           const   {return (*this < x) || (*this == x);}
+bool Pfloat::operator <=    (const long double& x)      const   {return (*this) <= Pfloat(x);}
+bool Pfloat::operator <=    (const std::string& str)    const   {return (*this) <= Pfloat(str);}
 
-Pfloat Pfloat::operator * (const long double& x) const{return (*this) * Pfloat(x);}
-Pfloat Pfloat::operator * (const std::string& str) const{return (*this) * Pfloat(str);}
+Pfloat Pfloat::operator *   (const long double& x)      const   {return (*this) * Pfloat(x);}
+Pfloat Pfloat::operator *   (const std::string& str)    const   {return (*this) * Pfloat(str);}
 // ========================================================
