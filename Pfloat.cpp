@@ -482,11 +482,8 @@ Pfloat Pfloat::operator / (const Pfloat& x) const{
     if(x == *this) return Pfloat(1);
 
     Pfloat to_divide(*this);
-    long exp_increase = 0;
-    while(to_divide.exponent - x.exponent < to_divide.precision + 2){
-        to_divide.exponent++;
-        exp_increase++;
-    }
+    long exp_increase = to_divide.precision + x.exponent - to_divide.exponent + 2;
+    to_divide.exponent += exp_increase;
     Pfloat res(0);
     res = to_divide.abs().quotient(x.abs()); // compute division
     res.exponent -= exp_increase;
