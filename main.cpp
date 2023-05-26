@@ -4,14 +4,14 @@
 #include "Pfloat.hpp"
 
 int main(){
-    Pfloat a(0);
-    Pfloat b(1);
+    Pfloat a(8);
+    Pfloat b(3);
 
-    std::cout << "a=" << a.toString() << "\nb=" << b.toString() << std::endl;
+    std::cout << "a=" << a << "\nb=" << b << std::endl;
     a = b;
-    std::cout << "a=" << a.toString() << "\nb=" << b.toString() << std::endl;
-    a += 1;
-    std::cout << "a=" << a.toString() << "\nb=" << b.toString() << std::endl;
+    std::cout << "a=" << a << "\nb=" << b << std::endl;
+    a %= 2;
+    std::cout << "a=" << a << "\nb=" << b << std::endl;
 
     if(STANDARD_PRECISION >= 24){
         // === == tests

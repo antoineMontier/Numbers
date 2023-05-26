@@ -36,6 +36,9 @@ class Pfloat{
 
         Pfloat quotient(const Pfloat& x) const;
 
+        const string toString() const;
+
+
     public:
 
         Pfloat abs() const;
@@ -56,7 +59,7 @@ class Pfloat{
 
         int getExponent() const;
 
-        const string toString() const;
+        friend std::ostream& operator<<(std::ostream& os, const Pfloat& x);
 
         const string toeString() const;
 
