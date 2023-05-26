@@ -10,7 +10,7 @@
 #include <string.h>
 #include "LinkedList.cpp"
 
-#define STANDARD_PRECISION 24
+#define STANDARD_PRECISION 22
 
 using namespace std;
 
@@ -69,22 +69,37 @@ class Pfloat{
         Pfloat operator - (const Pfloat& x) const;
         Pfloat operator - (const long double& x) const;
         Pfloat operator - (const std::string& str) const;
+        Pfloat& operator -= (const Pfloat& x);
+        Pfloat& operator -= (const long double& x);
+        Pfloat& operator -= (const std::string& str);
 
         Pfloat operator + (const Pfloat& x) const;
         Pfloat operator + (const long double& x) const;
         Pfloat operator + (const std::string& str) const;
+        Pfloat& operator += (const Pfloat& x);
+        Pfloat& operator += (const long double& x);
+        Pfloat& operator += (const std::string& str);
 
         Pfloat operator * (const Pfloat& x) const;
         Pfloat operator * (const long double& x) const;
         Pfloat operator * (const std::string& str) const;
+        Pfloat& operator *= (const Pfloat& x);
+        Pfloat& operator *= (const long double& x);
+        Pfloat& operator *= (const std::string& str);
 
         Pfloat operator / (const Pfloat& x) const;
         Pfloat operator / (const long double& x) const;
         Pfloat operator / (const std::string& str) const;
+        Pfloat& operator /= (const Pfloat& x);
+        Pfloat& operator /= (const long double& x);
+        Pfloat& operator /= (const std::string& str);
 
         Pfloat operator % (const Pfloat& x) const;
         Pfloat operator % (const long double& x) const;
         Pfloat operator % (const std::string& str) const;
+        Pfloat& operator %= (const Pfloat& x);
+        Pfloat& operator %= (const long double& x);
+        Pfloat& operator %= (const std::string& str);
 
         Pfloat& operator = (const Pfloat& n);
         Pfloat& operator = (const long double& n);

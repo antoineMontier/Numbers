@@ -4,7 +4,15 @@
 #include "Pfloat.hpp"
 
 int main(){
-   
+    Pfloat a(0);
+    Pfloat b(1);
+
+    std::cout << "a=" << a.toString() << "\nb=" << b.toString() << std::endl;
+    a = b;
+    std::cout << "a=" << a.toString() << "\nb=" << b.toString() << std::endl;
+    a += 1;
+    std::cout << "a=" << a.toString() << "\nb=" << b.toString() << std::endl;
+
     if(STANDARD_PRECISION >= 24){
         // === == tests
         assert(Pfloat("2") == Pfloat(2.000000000));
