@@ -497,8 +497,8 @@ Pfloat Pfloat::operator / (const Pfloat& x) const{
 
 
 // === One-line functions =================================
-int Pfloat::getExponent() const{return exponent;}
-Pfloat::~Pfloat(){delete digits;}
+int 	Pfloat::getExponent	() const	{return exponent;}
+		Pfloat::~Pfloat		()			{delete digits;}
 
 Pfloat  Pfloat::operator +  (const long double& x	)	const   	{return (*this) + Pfloat(x);	}
 Pfloat  Pfloat::operator +  (const std::string& str	)   const   	{return (*this) + Pfloat(str);	}
@@ -551,11 +551,9 @@ bool 	Pfloat::operator >= (const Pfloat& x		)    const		{return !(*this < x);			
 bool 	Pfloat::operator >= (const long double& x	)    const   	{return (*this) >= Pfloat(x);	}
 bool 	Pfloat::operator >= (const std::string& str	)    const   	{return (*this) >= Pfloat(str);	}
 
-bool 	Pfloat::operator <= (const Pfloat& x		)    const   	{return (*this < x) || (*this == x);}
+bool 	Pfloat::operator <= (const Pfloat& x		)    const   	{return (*this < x)||(*this==x);}
 bool 	Pfloat::operator <= (const long double& x	)    const   	{return (*this) <= Pfloat(x);	}
 bool 	Pfloat::operator <= (const std::string& str	)    const   	{return (*this) <= Pfloat(str);	}
 
-std::ostream& 	operator<< 	(std::ostream& os, const Pfloat& x) 	
-+{return os << x.toString();}
-
+std::ostream& 	operator<< 	(std::ostream& os, const Pfloat& x) 	{return os << x.toString();		}
 // ========================================================
