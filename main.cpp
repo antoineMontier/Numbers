@@ -206,6 +206,8 @@ int main(){
         assert(Pfloat(121) / Pfloat(11) == 11);
         assert(Pfloat(20) / Pfloat(5) == 4);
         assert(Pfloat(782.6842) / "-85412654.2585412" == "-9.1635625516430099645791856e-6");
+        assert( Pfloat(1) / 1 == 1);
+        assert( Pfloat(0) / 1 == 0);
         std::cout << "all tests passed" << std::endl;
 }
     return 0;
