@@ -496,6 +496,8 @@ Pfloat Pfloat::operator / (const Pfloat& x) const{
 
 
 
+
+
 // === One-line functions =================================
 int 	Pfloat::getExponent	() const	{return exponent;}
 		Pfloat::~Pfloat		()			{delete digits;}

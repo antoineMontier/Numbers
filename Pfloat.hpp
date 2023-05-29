@@ -30,17 +30,26 @@ class Pfloat{
 
         bool check_exp_string(std::string const str) const; // TODO: make this static
 
+        /// @brief tells whether or not the given Pfloat object is negative
         bool neg;
 
+        /// @brief max number of digits
         int precision;
 
+        /// @brief divides a Pfloat object by another
+        /// @param x divisor
+        /// @return Integer Pfloat object
         Pfloat quotient(const Pfloat& x) const;
 
+        /// @brief standard toString function
+        /// @return string with this format : '-0.000123'
         const string toString() const;
 
 
     public:
 
+        /// @brief gets the absolute value of a Pfloat
+        /// @return the copied Pfloat object non negative
         Pfloat abs() const;
 
         Pfloat();
@@ -57,6 +66,8 @@ class Pfloat{
         /// @param str format XXX.xxx or XXX.XXXeXXX
         Pfloat(const std::string str);
 
+        /// @brief gets the exponent of the Pfloat (debug purposes)
+        /// @return the exponent
         int getExponent() const;
 
         friend std::ostream& operator<<(std::ostream& os, const Pfloat& x);
@@ -65,27 +76,27 @@ class Pfloat{
 
         const string debugToString() const;
 
-        Pfloat pow(const int& x) const;
+        Pfloat  pow(const int& x) const;
 
-        bool tidy();
+        bool    tidy();
 
-        Pfloat operator - (const Pfloat& x) const;
-        Pfloat operator - (const long double& x) const;
-        Pfloat operator - (const std::string& str) const;
+        Pfloat  operator - (const Pfloat& x) const;
+        Pfloat  operator - (const long double& x) const;
+        Pfloat  operator - (const std::string& str) const;
         Pfloat& operator -= (const Pfloat& x);
         Pfloat& operator -= (const long double& x);
         Pfloat& operator -= (const std::string& str);
 
-        Pfloat operator + (const Pfloat& x) const;
-        Pfloat operator + (const long double& x) const;
-        Pfloat operator + (const std::string& str) const;
+        Pfloat  operator + (const Pfloat& x) const;
+        Pfloat  operator + (const long double& x) const;
+        Pfloat  operator + (const std::string& str) const;
         Pfloat& operator += (const Pfloat& x);
         Pfloat& operator += (const long double& x);
         Pfloat& operator += (const std::string& str);
 
-        Pfloat operator * (const Pfloat& x) const;
-        Pfloat operator * (const long double& x) const;
-        Pfloat operator * (const std::string& str) const;
+        Pfloat  operator * (const Pfloat& x) const;
+        Pfloat  operator * (const long double& x) const;
+        Pfloat  operator * (const std::string& str) const;
         Pfloat& operator *= (const Pfloat& x);
         Pfloat& operator *= (const long double& x);
         Pfloat& operator *= (const std::string& str);
