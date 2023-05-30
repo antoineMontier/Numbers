@@ -72,12 +72,21 @@ class Pfloat{
 
         friend std::ostream& operator<<(std::ostream& os, const Pfloat& x);
 
+        /// @brief toString function with this format : xxxeXXX
+        /// @return string representation of the Pfloat object
         const string toeString() const;
 
+        /// @brief toString function with this format : +/- [x, x, x, x] e = X
+        /// @return 
         const string debugToString() const;
 
+        /// @brief powers the Pfloat object
+        /// @param x the power of the Pfloat 
+        /// @return new Pfloat result
         Pfloat  pow(const int& x) const;
 
+        /// @brief tidy up the number
+        /// @return true if successful
         bool    tidy();
 
         Pfloat  operator - (const Pfloat& x) const;
