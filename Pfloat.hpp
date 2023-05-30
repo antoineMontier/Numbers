@@ -45,6 +45,12 @@ class Pfloat{
         /// @return string with this format : '-0.000123'
         const string toString() const;
 
+		/// @brief 
+		/// @param x POSITIVE INTEGER ONLY
+		/// @return 
+		Pfloat  pow_rec(const int x, const int p) const;
+
+		Pfloat(const Pfloat& n, const int p);
 
     public:
 
@@ -89,68 +95,68 @@ class Pfloat{
         /// @return true if successful
         bool    tidy();
 
-        Pfloat  operator - (const Pfloat& x) const;
-        Pfloat  operator - (const long double& x) const;
-        Pfloat  operator - (const std::string& str) const;
-        Pfloat& operator -= (const Pfloat& x);
-        Pfloat& operator -= (const long double& x);
-        Pfloat& operator -= (const std::string& str);
+        Pfloat  operator -  (const Pfloat& x        ) const;
+        Pfloat  operator -  (const long double& x   ) const;
+        Pfloat  operator -  (const std::string& str ) const;
+        Pfloat& operator -= (const Pfloat& x        );
+        Pfloat& operator -= (const long double& x   );
+        Pfloat& operator -= (const std::string& str );
 
-        Pfloat  operator + (const Pfloat& x) const;
-        Pfloat  operator + (const long double& x) const;
-        Pfloat  operator + (const std::string& str) const;
-        Pfloat& operator += (const Pfloat& x);
-        Pfloat& operator += (const long double& x);
-        Pfloat& operator += (const std::string& str);
+        Pfloat  operator +  (const Pfloat& x 		) const;
+        Pfloat  operator +  (const long double& x   ) const;
+        Pfloat  operator +  (const std::string& str ) const;
+        Pfloat& operator += (const Pfloat& x        );
+        Pfloat& operator += (const long double& x   );
+        Pfloat& operator += (const std::string& str );
 
-        Pfloat  operator * (const Pfloat& x) const;
-        Pfloat  operator * (const long double& x) const;
-        Pfloat  operator * (const std::string& str) const;
-        Pfloat& operator *= (const Pfloat& x);
-        Pfloat& operator *= (const long double& x);
-        Pfloat& operator *= (const std::string& str);
+        Pfloat  operator *  (const Pfloat& x        ) const;
+        Pfloat  operator *  (const long double& x   ) const;
+        Pfloat  operator *  (const std::string& str ) const;
+        Pfloat& operator *= (const Pfloat& x        );
+        Pfloat& operator *= (const long double& x   );
+        Pfloat& operator *= (const std::string& str );
 
-        Pfloat operator / (const Pfloat& x) const;
-        Pfloat operator / (const long double& x) const;
-        Pfloat operator / (const std::string& str) const;
-        Pfloat& operator /= (const Pfloat& x);
-        Pfloat& operator /= (const long double& x);
-        Pfloat& operator /= (const std::string& str);
+        Pfloat  operator /  (const Pfloat& x        ) const;
+        Pfloat  operator /  (const long double& x   ) const;
+        Pfloat  operator /  (const std::string& str ) const;
+        Pfloat& operator /= (const Pfloat& x        );
+        Pfloat& operator /= (const long double& x   );
+        Pfloat& operator /= (const std::string& str );
 
-        Pfloat operator % (const Pfloat& x) const;
-        Pfloat operator % (const long double& x) const;
-        Pfloat operator % (const std::string& str) const;
-        Pfloat& operator %= (const Pfloat& x);
-        Pfloat& operator %= (const long double& x);
-        Pfloat& operator %= (const std::string& str);
+        Pfloat  operator %  (const Pfloat& x        ) const;
+        Pfloat  operator %  (const long double& x   ) const;
+        Pfloat  operator %  (const std::string& str ) const;
+        Pfloat& operator %= (const Pfloat& x        );
+        Pfloat& operator %= (const long double& x   );
+        Pfloat& operator %= (const std::string& str );
 
-        Pfloat& operator = (const Pfloat& n);
-        Pfloat& operator = (const long double& n);
-        Pfloat& operator = (const std::string& str);
+        Pfloat& operator =  (const Pfloat& n        );
+        Pfloat& operator =  (const long double& n   );
+        Pfloat& operator =  (const std::string& str );
 
-        bool operator == (const Pfloat& x) const;
-        bool operator == (const long double& x) const;
-        bool operator == (const std::string& str) const;
+        bool    operator == (const Pfloat& x        ) const;
+        bool    operator == (const long double& x   ) const;
+        bool    operator == (const std::string& str ) const;
 
-        bool operator != (const Pfloat& x) const;
-        bool operator != (const long double& x) const;
-        bool operator != (const std::string& str) const;
+        bool    operator != (const Pfloat& x        ) const;
+        bool    operator != (const long double& x   ) const;
+        bool    operator != (const std::string& str ) const;
 
-        bool operator < (const Pfloat& x) const;
-        bool operator < (const long double& x) const;
-        bool operator < (const std::string& str) const;
+        bool    operator <  (const Pfloat& x        ) const;
+        bool    operator <  (const long double& x   ) const;
+        bool    operator <  (const std::string& str ) const;
 
-        bool operator <= (const Pfloat& x) const;
-        bool operator <= (const long double& x) const;
-        bool operator <= (const std::string& str) const;
+        bool    operator <= (const Pfloat& x        ) const;
+        bool    operator <= (const long double& x   ) const;
+        bool    operator <= (const std::string& str ) const;
 
-        bool operator > (const Pfloat& x) const;
-        bool operator > (const long double& x) const;
-        bool operator > (const std::string& str) const;
+        bool    operator >  (const Pfloat& x        ) const;
+        bool    operator >  (const long double& x   ) const;
+        bool    operator >  (const std::string& str ) const;
 
-        bool operator >= (const Pfloat& x) const;
-        bool operator >= (const long double& x) const;
-        bool operator >= (const std::string& str) const;
+        bool    operator >= (const Pfloat& x        ) const;
+        bool    operator >= (const long double& x   ) const;
+        bool    operator >= (const std::string& str ) const;
 };
 
 

@@ -253,6 +253,17 @@ Pfloat::Pfloat(Pfloat const &other){
 	tidy();
 }
 
+Pfloat::Pfloat(const Pfloat& other, const int p){
+	precision = p;
+	digits = new LinkedList<int>();
+	for(int i = 0; i < other.digits->size(); i++)
+		digits->pushTail(other.digits->get(i));
+	exponent = other.getExponent();
+	neg = other.neg;
+	tidy();
+}
+
+
 Pfloat Pfloat::operator + (const Pfloat& x) const{
 	if(x.neg && !neg) return *this - x.abs();
 	if(x.neg && neg) return Pfloat(0) - (this->abs() + x.abs());
@@ -400,19 +411,29 @@ Pfloat Pfloat::operator * (const Pfloat& x) const{
 }
 
 Pfloat Pfloat::pow(const int& n) const{
+	if(*this == 1	) return Pfloat(1);
+	if(*this == 0	) return Pfloat(0);
+
+	Pfloat res(0, precision + 10), cpy(*this, precision + 10);
+
+	int p = n > 0 ? n : -n; // get the absolute value.
+
+	res = cpy.pow_rec(p, cpy.precision);
+	std::cout << res.toeString() << "\tres::p = " << res.precision << "\tcpy::p = " << cpy.precision << std::endl;
+	res.precision = precision;
+	std::cout << res.toeString() << std::endl;
+	res.tidy();
+	return res;
+}
+
+Pfloat Pfloat::pow_rec(const int n, const int p) const {
 	// quick cases
-	if(n < 0) {
-		std::cout << "pow method not implemented for negative power yet!" << std::endl;
-		return Pfloat(1);
-	}
-	if(n == 0) return Pfloat(1);
-	if(*this == 1) return Pfloat(1);
-	if(*this == 0) return Pfloat(0);
-	if(n == 1) return Pfloat(*this);
-	if(n == 2) return Pfloat(*this)*Pfloat(*this);
-	if(n == 3) return Pfloat(*this)*Pfloat(*this)*Pfloat(*this);
-	if(n % 2 == 0) return Pfloat(*this).pow(n/2).pow(2); // even
-	else return Pfloat(*this).pow(n/2).pow(2)*Pfloat(*this); // odd
+	if(		n == 0	) 	return Pfloat(1	   , p);
+	if(		n == 1	) 	return Pfloat(*this, p);
+	if(		n == 2	) 	return Pfloat(*this, p)*Pfloat(*this, p);
+	if(		n == 3	) 	return Pfloat(*this, p)*Pfloat(*this, p)*Pfloat(*this, p);
+	if( n % 2 == 0	) 	return Pfloat(*this, p).pow_rec(n/2 , p).pow_rec(2, p); // even
+	else 				return Pfloat(*this, p).pow_rec(n/2 , p).pow_rec(2, p)*Pfloat(*this, p); // odd
 }
 
 Pfloat Pfloat::operator % (const Pfloat& x) const {
@@ -469,6 +490,8 @@ Pfloat Pfloat::quotient(const Pfloat& x) const{
 		exp_count--;
 		y.exponent--;
 	}
+	std::cout << res << std::endl;
+
 	res.precision--;
 	return res;
 }
@@ -489,8 +512,11 @@ Pfloat Pfloat::operator / (const Pfloat& x) const{
 	Pfloat mod(0);
 	mod = to_divide % res;
 	if(mod.digits->size() != 0 && mod.digits->get(0) >= 5) res.digits->set(res.digits->size() - 1, res.digits->get(res.digits->size() - 1) + 1); // round
+	std::cout << res.precision << "\n" << res << std::endl;
+
 	res.tidy();
 	res.neg = neg != x.neg; // basic negation rule
+	std::cout << res.precision << std::endl;
 	return res;
 }
 
@@ -557,5 +583,5 @@ bool 	Pfloat::operator <= (const Pfloat& x		)    const   	{return (*this < x)||(
 bool 	Pfloat::operator <= (const long double& x	)    const   	{return (*this) <= Pfloat(x);	}
 bool 	Pfloat::operator <= (const std::string& str	)    const   	{return (*this) <= Pfloat(str);	}
 
-std::ostream& 	operator<< 	(std::ostream& os, const Pfloat& x) 	{return os << x.toString();		}
+std::ostream& 	operator <<	(std::ostream& os, const Pfloat& x) 	{return os << x.toString();		}
 // ========================================================
