@@ -376,7 +376,7 @@ bool Pfloat::rec_inf(const Pfloat b, int index_cmp) const{
 
 Pfloat Pfloat::operator * (const Pfloat& x) const{
 	// === quick cases ===
-	if(x == Pfloat(0) || *this == Pfloat(0)) return Pfloat(0);
+	if(x == Pfloat(0) || *this == Pfloat(0)) return Pfloat(0, x.precision > precision ? precision : x.precision);
 	if(x == Pfloat(1)) return Pfloat(*this);
 	if(*this == Pfloat(1)) return Pfloat(x);
 	if(x == Pfloat(-1)){
@@ -390,6 +390,7 @@ Pfloat Pfloat::operator * (const Pfloat& x) const{
 		return r;
 	}
 	Pfloat res;
+	res.precision = x.precision > precision ? precision : x.precision;
 	res.exponent = x.exponent;
 	// =============================== add slots to res
 	for(int i = 0 ; i < digits->size() + x.digits->size(); ++i) res.digits->push(0);
@@ -410,60 +411,30 @@ Pfloat Pfloat::operator * (const Pfloat& x) const{
 }
 
 Pfloat Pfloat::pow(const int& n) const{
-	if(*this == 1	) return Pfloat(1);
-	if(*this == 0	) return Pfloat(0);
+	if(*this == 1	) return Pfloat(1, precision);
+	if(    n == 0 	) return Pfloat(1, precision);
+	if(*this == 0	) return Pfloat(0, precision);
 
 	Pfloat res(0, precision + 10), cpy(*this, precision + 10);
 
 	int p = n > 0 ? n : -n; // get the absolute value.
 
 	res = cpy.pow_rec(p, cpy.precision);
-	std::cout << res.toeString() << "\tres::p = " << res.precision << "\tcpy::p = " << cpy.precision << std::endl;
 	res.precision = precision;
-	std::cout << res.toeString() << std::endl;
 	// TODO: invert the number if n is negative
 	res.tidy(); 
 	return res;
 }
 
 Pfloat Pfloat::pow_rec(const int n, const int p) const {
-	std::cout << "p="<< precision << "\n";
 	// quick cases
-	if(		n == 0	){ 
-		std::cout << "n == 0\n";
-		return Pfloat(1	   , p);
-	}
-	if(		n == 1	){ 
-		std::cout << "n == 1\n";
-		return Pfloat(*this, p);
-	}
-	if(		n == 2	){ 
-		std::cout << "n == 2\n";
-		Pfloat a(*this, p);
-		std::cout << "\ta::p = " << a.precision << std::endl;
-		Pfloat res(0, p);
-				std::cout << "\tres::p = " << res.precision << std::endl;
-
-		res = a*a;
-		std::cout << "\ta::p = " << a.precision << std::endl;
-		std::cout << "\tres::p = " << res.precision << std::endl;
-
-		return res;
-	}
-	if(		n == 3	){ 
-		std::cout << "n == 3\n";
-		return Pfloat(*this, p)*Pfloat(*this, p)*Pfloat(*this, p);
-	}
-	if( n % 2 == 0	){ 
-		std::cout << "2 == 0\n";
-
-		return Pfloat(*this, p).pow_rec(n/2 , p).pow_rec(2, p); 
-	}
-	else{
-		std::cout << "1 == 0\n";
-	 	return Pfloat(*this, p).pow_rec(n/2 , p).pow_rec(2, p)*Pfloat(*this, p); // odd
-	}
-
+	if(		n == 0	)	return Pfloat(1	   , p);
+	if(		n == 1	) 	return Pfloat(*this, p);
+	if(		n == 2	)	return Pfloat(*this, p)*Pfloat(*this, p);
+	if(		n == 3	)	return Pfloat(*this, p)*Pfloat(*this, p)*Pfloat(*this, p);
+	if( n % 2 == 0	)	return Pfloat(*this, p).pow_rec(n/2 , p).pow_rec(2, p);					 // even
+	else	 			return Pfloat(*this, p).pow_rec(n/2 , p).pow_rec(2, p)*Pfloat(*this, p); // odd
+	
 	
 }
 
