@@ -263,7 +263,6 @@ Pfloat::Pfloat(const Pfloat& other, const int p){
 	tidy();
 }
 
-
 Pfloat Pfloat::operator + (const Pfloat& x) const{
 	if(x.neg && !neg) return *this - x.abs();
 	if(x.neg && neg) return Pfloat(0) - (this->abs() + x.abs());
@@ -417,12 +416,13 @@ Pfloat Pfloat::pow(const int& n) const{
 	Pfloat res(0, precision + 10), cpy(*this, precision + 10);
 
 	int p = n > 0 ? n : -n; // get the absolute value.
-
+	
 	res = cpy.pow_rec(p, cpy.precision);
 	std::cout << res.toeString() << "\tres::p = " << res.precision << "\tcpy::p = " << cpy.precision << std::endl;
 	res.precision = precision;
 	std::cout << res.toeString() << std::endl;
-	res.tidy();
+	// TODO: invert the number if n is negative
+	res.tidy(); 
 	return res;
 }
 
