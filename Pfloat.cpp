@@ -416,7 +416,7 @@ Pfloat Pfloat::pow(const int& n) const{
 	Pfloat res(0, precision + 10), cpy(*this, precision + 10);
 
 	int p = n > 0 ? n : -n; // get the absolute value.
-	
+
 	res = cpy.pow_rec(p, cpy.precision);
 	std::cout << res.toeString() << "\tres::p = " << res.precision << "\tcpy::p = " << cpy.precision << std::endl;
 	res.precision = precision;
@@ -427,13 +427,44 @@ Pfloat Pfloat::pow(const int& n) const{
 }
 
 Pfloat Pfloat::pow_rec(const int n, const int p) const {
+	std::cout << "p="<< precision << "\n";
 	// quick cases
-	if(		n == 0	) 	return Pfloat(1	   , p);
-	if(		n == 1	) 	return Pfloat(*this, p);
-	if(		n == 2	) 	return Pfloat(*this, p)*Pfloat(*this, p);
-	if(		n == 3	) 	return Pfloat(*this, p)*Pfloat(*this, p)*Pfloat(*this, p);
-	if( n % 2 == 0	) 	return Pfloat(*this, p).pow_rec(n/2 , p).pow_rec(2, p); // even
-	else 				return Pfloat(*this, p).pow_rec(n/2 , p).pow_rec(2, p)*Pfloat(*this, p); // odd
+	if(		n == 0	){ 
+		std::cout << "n == 0\n";
+		return Pfloat(1	   , p);
+	}
+	if(		n == 1	){ 
+		std::cout << "n == 1\n";
+		return Pfloat(*this, p);
+	}
+	if(		n == 2	){ 
+		std::cout << "n == 2\n";
+		Pfloat a(*this, p);
+		std::cout << "\ta::p = " << a.precision << std::endl;
+		Pfloat res(0, p);
+				std::cout << "\tres::p = " << res.precision << std::endl;
+
+		res = a*a;
+		std::cout << "\ta::p = " << a.precision << std::endl;
+		std::cout << "\tres::p = " << res.precision << std::endl;
+
+		return res;
+	}
+	if(		n == 3	){ 
+		std::cout << "n == 3\n";
+		return Pfloat(*this, p)*Pfloat(*this, p)*Pfloat(*this, p);
+	}
+	if( n % 2 == 0	){ 
+		std::cout << "2 == 0\n";
+
+		return Pfloat(*this, p).pow_rec(n/2 , p).pow_rec(2, p); 
+	}
+	else{
+		std::cout << "1 == 0\n";
+	 	return Pfloat(*this, p).pow_rec(n/2 , p).pow_rec(2, p)*Pfloat(*this, p); // odd
+	}
+
+	
 }
 
 Pfloat Pfloat::operator % (const Pfloat& x) const {
