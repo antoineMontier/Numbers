@@ -415,14 +415,16 @@ Pfloat Pfloat::pow(const int& n) const{
 	if(    n == 0 	) return Pfloat(1, precision);
 	if(*this == 0	) return Pfloat(0, precision);
 
-	Pfloat res(0, precision + 10), cpy(*this, precision + 10);
+	Pfloat res(0, precision + 3), cpy(abs(), precision + 3);
 
 	int p = n > 0 ? n : -n; // get the absolute value.
 
 	res = cpy.pow_rec(p, cpy.precision);
+	if(n < 0) res = Pfloat(1, precision + 3) / res;
+	
 	res.precision = precision;
-	// TODO: invert the number if n is negative
 	res.tidy(); 
+	if(neg && n % 2 == 1) res.neg = true;
 	return res;
 }
 
@@ -492,7 +494,6 @@ Pfloat Pfloat::quotient(const Pfloat& x) const{
 		exp_count--;
 		y.exponent--;
 	}
-	std::cout << res << std::endl;
 
 	res.precision--;
 	return res;
@@ -514,11 +515,9 @@ Pfloat Pfloat::operator / (const Pfloat& x) const{
 	Pfloat mod(0);
 	mod = to_divide % res;
 	if(mod.digits->size() != 0 && mod.digits->get(0) >= 5) res.digits->set(res.digits->size() - 1, res.digits->get(res.digits->size() - 1) + 1); // round
-	std::cout << res.precision << "\n" << res << std::endl;
 
 	res.tidy();
 	res.neg = neg != x.neg; // basic negation rule
-	std::cout << res.precision << std::endl;
 	return res;
 }
 
