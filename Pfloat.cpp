@@ -317,7 +317,7 @@ Pfloat& Pfloat::operator = (const Pfloat& n) {
 	// Copy the digits of the other Pfloat to this Pfloat
 	for (int i = 0; i < n.digits->size(); i++)  digits->pushTail(n.digits->get(i));
 	exponent = n.exponent;
-	precision = n.precision;
+	precision = n.precision; 
 	return *this;
 }
 
