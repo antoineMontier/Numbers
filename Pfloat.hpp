@@ -12,6 +12,12 @@
 
 #define STANDARD_PRECISION 24
 
+// === display modes ===
+#define AUTOMATIC   (-1254)
+#define NORMAL      (-7273)
+#define SCIENTIFIC  (+5828)
+#define DEBUG       (-9827)
+
 using namespace std;
 
 class Pfloat{ 
@@ -22,6 +28,14 @@ class Pfloat{
         /// @brief digits*10^exponent
         long exponent;
 
+        int mode;
+
+        /// @brief tells whether or not the given Pfloat object is negative
+        bool neg;
+
+        /// @brief max number of digits
+        int precision;
+
         /// @brief we assume the exponents of the two Pfloats are the same and they are both tydied
         /// @return true if b is greater than this
         bool rec_inf(const Pfloat b, int index_cmp) const;
@@ -29,12 +43,6 @@ class Pfloat{
         bool check_string(std::string const str) const; // TODO: make this static
 
         bool check_exp_string(std::string const str) const; // TODO: make this static
-
-        /// @brief tells whether or not the given Pfloat object is negative
-        bool neg;
-
-        /// @brief max number of digits
-        int precision;
 
         /// @brief divides a Pfloat object by another
         /// @param x divisor
@@ -44,6 +52,14 @@ class Pfloat{
         /// @brief standard toString function
         /// @return string with this format : '-0.000123'
         const string toString() const;
+
+        /// @brief toString function with this format : xxxeXXX
+        /// @return string representation of the Pfloat object
+        const string toeString() const;
+
+        /// @brief toString function with this format : +/- [x, x, x, x] e = X
+        /// @return 
+        const string debugToString() const;
 
 		/// @brief 
 		/// @param x POSITIVE INTEGER ONLY
@@ -78,14 +94,6 @@ class Pfloat{
 
         friend std::ostream& operator<<(std::ostream& os, const Pfloat& x);
 
-        /// @brief toString function with this format : xxxeXXX
-        /// @return string representation of the Pfloat object
-        const string toeString() const;
-
-        /// @brief toString function with this format : +/- [x, x, x, x] e = X
-        /// @return 
-        const string debugToString() const;
-
         /// @brief powers the Pfloat object
         /// @param x the power of the Pfloat 
         /// @return new Pfloat result
@@ -94,6 +102,17 @@ class Pfloat{
         /// @brief tidy up the number
         /// @return true if successful
         bool    tidy();
+
+        /// @brief increase or decrease the exponent of the Pfloat object
+        /// @param shift positive integer for increase, negative integer for decrease
+        void    exp_shift(const int shift);
+
+        /// @brief sets the display mode : NORMAL : 0.000125 | SCIENTIFIC : 1.25e-4 | DEBUG : +[1, 2, 5] e = -4 | AUTOMATIC : switches between NORMAL and SCIENTIFIC
+        /// @param display_mode NORMAL | SCIENTIFIC | DEBUG | AUTOMATIC
+        /// @return if the displaye has been set or not. If not, be sure to enter one of the 4 types
+        bool    set_display(const int display_mode){
+
+        }
 
         Pfloat  operator -  (const Pfloat& x        ) const;
         Pfloat  operator -  (const long double& x   ) const;

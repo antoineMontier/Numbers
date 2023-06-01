@@ -4,9 +4,6 @@
 #include "Pfloat.hpp"
 
 int main(){
-
-    std::cout << Pfloat(.098412).pow(-45).toeString() << std::endl;
-    std::cout << "2.05512097856175643591567025649920784708859375889046697815365372e45" << "\n";
     if(STANDARD_PRECISION >= 24){
         // === == tests
         assert(Pfloat("2") == Pfloat(2.000000000));

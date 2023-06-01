@@ -521,13 +521,18 @@ Pfloat Pfloat::operator / (const Pfloat& x) const{
 	return res;
 }
 
-
+bool  Pfloat::set_display(const int x){
+	if(x != NORMAL && x != AUTOMATIC && x != SCIENTIFIC && x != DEBUG) return false;
+	mode = x;
+	return true;
+}
 
 
 
 // === One-line functions =================================
-int 	Pfloat::getExponent	() const	{return exponent;}
-		Pfloat::~Pfloat		()			{delete digits;}
+int 	Pfloat::getExponent	(						) 	const		{return exponent;				}
+		Pfloat::~Pfloat		(						)				{delete digits;					}
+void 	Pfloat::exp_shift	(const int shift		)				{exponent += shift;				}
 
 Pfloat  Pfloat::operator +  (const long double& x	)	const   	{return (*this) + Pfloat(x);	}
 Pfloat  Pfloat::operator +  (const std::string& str	)   const   	{return (*this) + Pfloat(str);	}
