@@ -527,6 +527,21 @@ bool  Pfloat::set_display(const int x){
 	return true;
 }
 
+std::ostream& operator << (std::ostream& os, const Pfloat& x) {
+	switch(x.mode){
+		case NORMAL:
+			return os << x.toString();
+		case SCIENTIFIC:
+			return os << x.toeString();
+		case DEBUG:
+			return os << x.debugToString();
+		case AUTOMATIC:
+			// TODO
+		default:
+			throw std::runtime_error("error on the display mode in Pfloat class");
+	}
+}
+
 
 
 // === One-line functions =================================
@@ -589,5 +604,4 @@ bool 	Pfloat::operator <= (const Pfloat& x		)    const   	{return (*this < x)||(
 bool 	Pfloat::operator <= (const long double& x	)    const   	{return (*this) <= Pfloat(x);	}
 bool 	Pfloat::operator <= (const std::string& str	)    const   	{return (*this) <= Pfloat(str);	}
 
-std::ostream& 	operator <<	(std::ostream& os, const Pfloat& x) 	{return os << x.toString();		}
 // ========================================================

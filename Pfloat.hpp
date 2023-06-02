@@ -28,7 +28,7 @@ class Pfloat{
         /// @brief digits*10^exponent
         long exponent;
 
-        int mode;
+        int mode; // TODO: make this static
 
         /// @brief tells whether or not the given Pfloat object is negative
         bool neg;
