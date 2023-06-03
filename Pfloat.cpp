@@ -68,7 +68,7 @@ Pfloat::Pfloat(long double n) {
 	tidy();
 }
 
-bool Pfloat::check_exp_string(std::string const str) const{
+bool Pfloat::check_exp_string(std::string const str){
 	// check first digits :
 	size_t pos = str.find('e');
 	if(size_t(pos) == std::string::npos) return check_string(str); // no 'e' so, it's a basic checkup
@@ -97,7 +97,7 @@ bool Pfloat::check_exp_string(std::string const str) const{
 	return true;
 }
 
-bool Pfloat::check_string(std::string const str) const{
+bool Pfloat::check_string(std::string const str){
 	if(str.size() == 0){
 		throw std::invalid_argument("string argument must be non-empty");
 		return false;

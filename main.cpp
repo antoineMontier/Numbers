@@ -10,7 +10,7 @@ int main(){
     a = 2000;
     std::cout << "a = " << a << std::endl;
 
-    if(STANDARD_PRECISION >= 24 && 0){
+    if(STANDARD_PRECISION >= 24){
         // === == tests
         assert(Pfloat("2") == Pfloat(2.000000000));
         assert(Pfloat("0") == Pfloat());
