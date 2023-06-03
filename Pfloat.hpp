@@ -28,7 +28,7 @@ class Pfloat{
         /// @brief digits*10^exponent
         long exponent;
 
-        int mode; // TODO: make this static
+        static int mode;
 
         /// @brief tells whether or not the given Pfloat object is negative
         bool neg;
@@ -110,7 +110,7 @@ class Pfloat{
         /// @brief sets the display mode : NORMAL : 0.000125 | SCIENTIFIC : 1.25e-4 | DEBUG : +[1, 2, 5] e = -4 | AUTOMATIC : switches between NORMAL and SCIENTIFIC
         /// @param display_mode NORMAL | SCIENTIFIC | DEBUG | AUTOMATIC
         /// @return if the displaye has been set or not. If not, be sure to enter one of the 4 types
-        bool    set_display (const int display_mode  );
+        static  bool set_display (const int display_mode  );
 
         Pfloat  operator -  (const Pfloat& x        ) const;
         Pfloat  operator -  (const long double& x   ) const;

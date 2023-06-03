@@ -2,6 +2,8 @@
 
 using namespace std;
 
+int Pfloat::mode = AUTOMATIC; // default mode is automatic mode
+
 Pfloat::Pfloat(){
 	precision = STANDARD_PRECISION;
 	exponent = 0;

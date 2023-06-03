@@ -6,7 +6,7 @@
 int main(){
 
     Pfloat a;
-    a.set_display(AUTOMATIC);
+    Pfloat::set_display(DEBUG);
     a = 2000;
     std::cout << "a = " << a << std::endl;
 
