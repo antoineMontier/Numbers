@@ -536,7 +536,9 @@ std::ostream& operator << (std::ostream& os, const Pfloat& x) {
 		case DEBUG:
 			return os << x.debugToString();
 		case AUTOMATIC:
-			// TODO
+			// if more than 3 trailing zeroes, use 'e' notation
+			if(abs(x.exponent) - x.digits->size() >= 3) 	return os << x.toeString();
+			else									return os << x.toString();
 		default:
 			throw std::runtime_error("error on the display mode in Pfloat class");
 	}
