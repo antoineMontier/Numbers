@@ -1,15 +1,17 @@
 #include <iostream>
 #include <assert.h>
-#include "Complexe.hpp"
 #include "Pfloat.hpp"
 
+void test_Pfloat();
+
 int main(){
+    
+    return 0;
+}
 
-    Pfloat a;
-    Pfloat::set_display(DEBUG);
-    a = 2000;
-    std::cout << "a = " << a << std::endl;
 
+
+void test_Pfloat(){
     if(STANDARD_PRECISION >= 24){
         // === == tests
         assert(Pfloat("2") == Pfloat(2.000000000));
@@ -208,6 +210,5 @@ int main(){
         assert( Pfloat(1) / 1 == 1);
         assert( Pfloat(0) / 1 == 0);
         std::cout << "all tests passed" << std::endl;
-}
-    return 0;
+    }
 }

@@ -443,7 +443,7 @@ Pfloat Pfloat::pow_rec(const int n, const int p) const {
 }
 
 Pfloat Pfloat::operator % (const Pfloat& x) const {
-	if(this->neg || x.neg || x == 0) throw std::invalid_argument("% operator works only on positive numbers");
+	if(this->neg || x.neg || x == 0) throw std::invalid_argument("\% operator works only on positive numbers");
 	Pfloat t(*this);
 	if(x > t) return t;
 	Pfloat y(x);
@@ -607,5 +607,3 @@ bool 	Pfloat::operator >= (const std::string& str	)    const   	{return (*this) 
 bool 	Pfloat::operator <= (const Pfloat& x		)    const   	{return (*this < x)||(*this==x);}
 bool 	Pfloat::operator <= (const long double& x	)    const   	{return (*this) <= Pfloat(x);	}
 bool 	Pfloat::operator <= (const std::string& str	)    const   	{return (*this) <= Pfloat(str);	}
-
-// ========================================================
