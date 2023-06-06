@@ -1,6 +1,8 @@
 #ifndef COMPLEXE_HPP
 #define COMPLEXE_HPP
 
+#include "Pfloat.hpp"
+
 #include <iostream>
 #include <sstream>
 #include <iomanip>
@@ -11,7 +13,7 @@ using namespace std;
 
 class Complexe{
     private :
-        double a, b;
+        Pfloat a, b;
 
     public:
     
@@ -21,7 +23,7 @@ class Complexe{
         /// @brief create a + bi
         /// @param _a real number
         /// @param _b imaginary number
-        Complexe(double _a, double _b);
+        Complexe(Pfloat _a, Pfloat _b);
 
         /// @brief copy a complexe number
         /// @param c the number to copy
@@ -33,19 +35,19 @@ class Complexe{
 
         /// @brief set the real number
         /// @param _a new real number
-        void setRe(double _a);
+        void setRe(Pfloat _a);
 
         /// @brief set the imaginary number
         /// @param _b new imaginary number
-        void setIm(double _b);
+        void setIm(Pfloat _b);
 
         /// @brief get the real number
         /// @return real number
-        double getRe() const;
+        Pfloat getRe() const;
 
         /// @brief get the imaginary number
         /// @return imaginary number
-        double getIm() const;
+        Pfloat getIm() const;
 
         Complexe& operator=(const Complexe& c);
 
@@ -69,21 +71,21 @@ class Complexe{
 
         bool operator>=(const Complexe& c) const;
 
-        Complexe &operator+=(double d_a);
+        Complexe &operator+=(Pfloat d_a);
 
-        Complexe operator+(double d_a);
+        Complexe operator+(Pfloat d_a);
 
-        Complexe &operator-=(double d_b);
+        Complexe &operator-=(Pfloat d_b);
 
-        Complexe operator-(double d_b);
+        Complexe operator-(Pfloat d_b);
 
-        Complexe &operator*=(double d_c);
+        Complexe &operator*=(Pfloat d_c);
 
-        Complexe operator*(double d_c);
+        Complexe operator*(Pfloat d_c);
 
-        Complexe &operator/=(double d_c);
+        Complexe &operator/=(Pfloat d_c);
 
-        Complexe operator/(double d_c);
+        Complexe operator/(Pfloat d_c);
 
         Complexe &operator*=(const Complexe& c);
 
@@ -99,46 +101,46 @@ class Complexe{
 
         /// @brief calulates the distance between (0 + 0i) and current complexe
         /// @return module 
-        double abs() const;
+        Pfloat abs() const;
 
         /// @brief calulates the angle between (0 + 0i) and current complexe
         /// @return angle between 0 and 2*pi
-        double arg() const;
+        Pfloat arg() const;
 
         /// @brief calulates the distance between complexe c and current complexe
         /// @param c other complexe
         /// @return distance
-        double distance(const Complexe& c) const;
+        Pfloat distance(const Complexe& c) const;
 
         /// @brief calculates the distance between two complexes
         /// @param c first complexe
         /// @param d second complexe
         /// @return distance between
-        static double distance(const Complexe& c, const Complexe& d);
+        static Pfloat distance(const Complexe& c, const Complexe& d);
 
         /// @brief translate a complexe by another
         /// @param c translation number
         /// @return true if successful
         bool translate(const Complexe& c);
 
-        bool translate(double _a, double _b);
+        bool translate(Pfloat _a, Pfloat _b);
 
-        bool translate(double _a);
+        bool translate(Pfloat _a);
 
         /// @brief zoom in or out from 0 + 0i
         /// @param zoom zoom value
         /// @return true if successful
-        bool dilation(double zoom);
+        bool dilation(Pfloat zoom);
 
         /// @brief rotate around 0 + 0i
         /// @param angle rotation angle
         /// @return true if successful
-        bool rotate(double angle);
+        bool rotate(Pfloat angle);
 
         /// @brief calculate power of a complexe number
         /// @param exp exponent
         /// @return the complexe calculated
-        Complexe operator^(double exp);
+        Complexe operator^(Pfloat exp);
 
         /// @brief 
         /// @return exponential of the complexe

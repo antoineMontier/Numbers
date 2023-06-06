@@ -7,7 +7,7 @@ Complexe::Complexe(){
     b = 0;
 }
 
-Complexe::Complexe(double _a, double _b){
+Complexe::Complexe(Pfloat _a, Pfloat _b){
     a = _a;
     b = _b;
 }
@@ -30,14 +30,14 @@ const string Complexe::toString() const
             if(b == -1)
                 res << "- i";
             else
-                res << "- " << -b << "i";
+                res << "- " << Pfloat(0) - b << "i";
         }if(b == 0)
             res << "0";
     }else if(b == 0){
         if(a > 0)
             res << a;
         if(a < 0)
-            res << "-" << -a;
+            res << "-" << Pfloat(0) - a;
     }else{// a!=0 && b != 0
         if(a > 0 && b > 0){
             if(b == 1)
@@ -48,29 +48,29 @@ const string Complexe::toString() const
             if(b == -1)
                 res << a << " - i";
             else
-                res << a << " - " << -b << "i";
+                res << a << " - " << Pfloat(0) - b << "i";
         }else if(a < 0 && b > 0){
             if(b == 1)
-                res <<"-"<< -a << " + i";
+                res <<"-"<< Pfloat(0) - a << " + i";
             else
-                res <<"-"<< -a << " + " << b << "i";
+                res <<"-"<< Pfloat(0) - a << " + " << b << "i";
         }else if(a < 0 && b < 0){
             if(b == -1)
-                res <<"-"<< -a << " - i";
+                res <<"-"<< Pfloat(0) - a << " - i";
             else
-                res <<"-"<< -a << " - " << -b << "i";
+                res <<"-"<< Pfloat(0) - a << " - " << Pfloat(0) - b << "i";
         }
     }
     return res.str();
 }
 
-void Complexe::setRe(double _a){a = _a;}
+void Complexe::setRe(Pfloat _a){a = _a;}
 
-void Complexe::setIm(double _b){b = _b;}
+void Complexe::setIm(Pfloat _b){b = _b;}
 
-double Complexe::getRe() const{return a;}
+Pfloat Complexe::getRe() const{return a;}
 
-double Complexe::getIm() const{return b;}
+Pfloat Complexe::getIm() const{return b;}
 
 Complexe& Complexe::operator=(const Complexe& c){
     a = c.a;
@@ -127,13 +127,13 @@ bool Complexe::operator>=(const Complexe& c) const{//lexicographic order
 }
 
 
-Complexe& Complexe::operator+=(double d_a){a+=d_a; return *this;}
+Complexe& Complexe::operator+=(Pfloat d_a){a+=d_a; return *this;}
 
-Complexe& Complexe::operator-=(double d_a){a-=d_a; return *this;}
+Complexe& Complexe::operator-=(Pfloat d_a){a-=d_a; return *this;}
 
-Complexe& Complexe::operator*=(double d_a){a*=d_a; b*=d_a; return *this;}
+Complexe& Complexe::operator*=(Pfloat d_a){a*=d_a; b*=d_a; return *this;}
 
-Complexe& Complexe::operator/=(double d_a){a/=d_a; b/=d_a; return *this;}
+Complexe& Complexe::operator/=(Pfloat d_a){a/=d_a; b/=d_a; return *this;}
 
 Complexe& Complexe::operator*=(const Complexe& c){
     a = a*c.a - b*c.b;
@@ -159,19 +159,19 @@ Complexe Complexe::operator/(const Complexe& c) {
 }
 
 
-Complexe Complexe::operator+(double d_a){
+Complexe Complexe::operator+(Pfloat d_a){
     return Complexe(a + d_a, b);
 }
 
-Complexe Complexe::operator-(double d_b){
+Complexe Complexe::operator-(Pfloat d_b){
     return Complexe(a - d_b, b);
 }
 
-Complexe Complexe::operator*(double d_c){
+Complexe Complexe::operator*(Pfloat d_c){
     return Complexe(a * d_c, b*d_c);
 }
 
-Complexe Complexe::operator/(double d_c){
+Complexe Complexe::operator/(Pfloat d_c){
     if(d_c == 0)
         throw std::runtime_error("Division by zero");
     return Complexe(a / d_c, b / d_c);
@@ -180,11 +180,11 @@ Complexe Complexe::operator/(double d_c){
 Complexe Complexe::conjugate() const{return Complexe(a, -b);}
 
 
-double Complexe::abs() const {return sqrt(a*a + b*b);}
+Pfloat Complexe::abs() const {return sqrt(a*a + b*b);}
 
-double Complexe::arg() const {return atan(b*1.0/a);}
+Pfloat Complexe::arg() const {return atan(b*1.0/a);}
 
-double Complexe::distance(const Complexe& c) const{return sqrt((c.a - a) * (c.a - a) + (c.b - b) * (c.b - b));}
+Pfloat Complexe::distance(const Complexe& c) const{return sqrt((c.a - a) * (c.a - a) + (c.b - b) * (c.b - b));}
 
 bool Complexe::translate(const Complexe& c){
     a += c.a;
@@ -192,18 +192,18 @@ bool Complexe::translate(const Complexe& c){
     return true;
 }
 
-bool Complexe::translate(double _a, double _b){
+bool Complexe::translate(Pfloat _a, Pfloat _b){
     a += _a;
     b += _b;
     return true;
 }
 
-bool Complexe::translate(double _a){
+bool Complexe::translate(Pfloat _a){
     a += _a;
     return true;
 }
 
-bool Complexe::dilation(double zoom){
+bool Complexe::dilation(Pfloat zoom){
     if(zoom == 0.0)
         return false;
     a *= zoom;
@@ -211,14 +211,14 @@ bool Complexe::dilation(double zoom){
     return true;
 }
 
-bool Complexe::rotate(double angle){
+bool Complexe::rotate(Pfloat angle){
     Complexe rotation_center(cos(angle), sin(angle));
     (*this) *= rotation_center;
     return true;
 }
 
 
-Complexe Complexe::operator^(double exp){
+Complexe Complexe::operator^(Pfloat exp){
     if(exp == 0.0)
         return Complexe(1, 0);
     return Complexe(pow(abs(), exp)*cos(arg() * exp), pow(abs(), exp)*sin(arg() * exp));
@@ -230,6 +230,6 @@ Complexe Complexe::exp(){
     return Complexe(exp10(a)*cos(b), exp10(a)*sin(b)); //replace exp10 by exp ?
 }
 
-double Complexe::distance(const Complexe& c, const Complexe& d){
+Pfloat Complexe::distance(const Complexe& c, const Complexe& d){
     return sqrt((c.a - d.a)*(c.a - d.a) + (c.b - d.b)*(c.b - d.b));
 }
