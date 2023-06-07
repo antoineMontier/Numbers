@@ -546,7 +546,26 @@ std::ostream& operator << (std::ostream& os, const Pfloat& x) {
 	}
 }
 
+Pfloat Pfloat::sqrt( const Pfloat x ){
+	if (x.neg) throw std::runtime_error("Cannot calculate square root of a negative number");
+    
+    
+    Pfloat guess = x / 2.0;  // Initial guess
 
+    // Iterate until the difference between guess^2 and x is within a desired tolerance
+
+	Pfloat end_signal(1);
+	end_signal.precision = x.precision;
+	end_signal.exponent = - end_signal.precision;
+
+	std::cout << "p = " << end_signal << "\n";
+
+    while ((guess * guess - x).abs() > end_signal) {
+        guess = (guess + x / guess) / 2.0;
+    }
+
+    return guess;
+}
 
 // === One-line functions =================================
 int 	Pfloat::getExponent	(						) 	const		{return exponent;				}

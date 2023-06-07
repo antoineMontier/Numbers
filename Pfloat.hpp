@@ -99,7 +99,9 @@ public:
                     /// @brief sets the display mode : NORMAL : 0.000125 | SCIENTIFIC : 1.25e-4 | DEBUG : +[1, 2, 5] e = -4 | AUTOMATIC : switches between NORMAL and SCIENTIFIC
                     /// @param display_mode NORMAL | SCIENTIFIC | DEBUG | AUTOMATIC
                     /// @return if the displaye has been set or not. If not, be sure to enter one of the 4 types
-    static  bool    set_display (const int display_mode  );
+    static  bool    set_display ( const int display_mode  	);
+
+	static Pfloat 	sqrt		( const Pfloat x			);
 
     // === Methods ===
 

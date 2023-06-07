@@ -176,7 +176,7 @@ Complexe Complexe::operator/(Pfloat d_c){
         throw std::runtime_error("Division by zero");
     return Complexe(a / d_c, b / d_c);
 }
-
+/*
 Complexe Complexe::conjugate() const{return Complexe(a, -b);}
 
 
@@ -233,3 +233,4 @@ Complexe Complexe::exp(){
 Pfloat Complexe::distance(const Complexe& c, const Complexe& d){
     return sqrt((c.a - d.a)*(c.a - d.a) + (c.b - d.b)*(c.b - d.b));
 }
+*/
