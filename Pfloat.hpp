@@ -10,7 +10,7 @@
 #include <string.h>
 #include "LinkedList.cpp"
 
-#define STANDARD_PRECISION 3
+#define STANDARD_PRECISION 4
 
 // === display modes ===
 #define AUTOMATIC   (-1254)

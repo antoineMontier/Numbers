@@ -549,32 +549,32 @@ std::ostream& operator << (std::ostream& os, const Pfloat& x) {
 Pfloat Pfloat::sqrt( const Pfloat x ){
 	if (x.neg) throw std::runtime_error("Cannot calculate square root of a negative number");
     
-	Pfloat cpy(x);
-    Pfloat guess = x / 2.0;  // Initial guess
+	Pfloat cpy = x;
+    Pfloat guess = x;
 	Pfloat two = 2;
+	Pfloat end_signal = 1;
 
-	cpy.precision+=2; guess.precision+=2;	two.precision+=2;
+	cpy.precision = x.precision + 2; guess.precision = x.precision + 2;	two.precision = x.precision + 2; end_signal.precision = x.precision + 2;
 
 
 
     // Iterate until the difference between guess^2 and x is within a desired tolerance
 
-	Pfloat end_signal(1);
-	end_signal.precision = guess.precision;
-	end_signal.exponent = - end_signal.precision + 2;
+	end_signal.exponent = - end_signal.precision;
 
 	std::cout << "p = " << end_signal << "\n";
-
-    while ((guess * guess - cpy).abs() > end_signal) {
-		// std::cout << (guess * guess) << "\n" << cpy << "\n";
+ 
+    while ((guess * guess - cpy).abs().digits->size() != 0 && (guess * guess - cpy).abs().digits->get(0) != 0) {
+		std::cout << "\tres = " << guess.debugToString() << "\nres::p = " << guess.precision << "\nend_signal = " << end_signal.debugToString() << "\n";
         guess = (guess + cpy / guess) / two;
     }
-	guess.precision--;
+	guess.precision-=2;
 	guess.tidy();
     return guess;
 }
 
 // === One-line functions =================================
+
 int 	Pfloat::getExponent	(						) 	const		{return exponent;				}
 		Pfloat::~Pfloat		(						)				{delete digits;					}
 void 	Pfloat::exp_shift	(const int shift		)				{exponent += shift;				}
