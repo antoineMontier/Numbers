@@ -44,7 +44,7 @@ const string Pfloat::toeString() const{
 const string Pfloat::debugToString() const{
 	ostringstream res("");
 	if(neg) res << "-"; else res << "+";
-	res << digits->toString() << "\te = " << exponent;
+	res << digits->toString() << "\te = " << exponent << "\tp = " << precision;
 	return res.str();
 }
 
@@ -563,13 +563,15 @@ Pfloat Pfloat::sqrt( const Pfloat x ){
 	end_signal.exponent = - end_signal.precision;
 
 	std::cout << "p = " << end_signal << "\n";
- 
-    while ((guess * guess - cpy).abs().digits->size() != 0 && (guess * guess - cpy).abs().digits->get(0) != 0) {
-		std::cout << "\tres = " << guess.debugToString() << "\nres::p = " << guess.precision << "\nend_signal = " << end_signal.debugToString() << "\n";
+
+	std::cout << "\ncpy = " << cpy.debugToString() << "\nguess = " << guess.debugToString() << "\ntwo = " << two.debugToString() << "\nend_signal = " << end_signal.debugToString() << "\n";
+	int i = 0;
+    while (i++ <= x.precision){
+		std::cout << "loop it \n";
         guess = (guess + cpy / guess) / two;
-    }
-	guess.precision-=2;
-	guess.tidy();
+    } 
+	guess.precision = x.precision;
+	guess.tidy(); 
     return guess;
 }
 
