@@ -553,7 +553,7 @@ Pfloat Pfloat::sqrt( const Pfloat x ){
     Pfloat guess = x;
 	Pfloat two = 2;
 	Pfloat end_signal = 1;
-
+ 
 	cpy.precision = x.precision + 2; guess.precision = x.precision + 2;	two.precision = x.precision + 2; end_signal.precision = x.precision + 2;
 
 
@@ -571,6 +571,7 @@ Pfloat Pfloat::sqrt( const Pfloat x ){
         guess = (guess + cpy / guess) / two;
     } 
 	guess.precision = x.precision;
+	std::cout << "guess: " << guess << std::endl; 
 	guess.tidy(); 
     return guess;
 }
