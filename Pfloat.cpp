@@ -3,6 +3,7 @@
 using namespace std;
 
 int Pfloat::mode = AUTOMATIC; // default mode is automatic mode
+Pfloat Pfloat::Pi = 0;
 
 Pfloat::Pfloat(){
 	precision = STANDARD_PRECISION;
@@ -551,8 +552,28 @@ Pfloat Pfloat::sqrt( const Pfloat x ){
 	Pfloat cpy 			= x;					cpy.precision 		= x.precision;
     Pfloat guess 		= x;					guess.precision 	= x.precision;
 	Pfloat two 			= 2;					two.precision 		= x.precision;
-	for(int i = 0 ; i < x.precision + 2 ; ++i) 	guess = (guess+cpy / guess) / two;
+	for(long i = 0 ; i < x.precision + 2 ; ++i) guess = (guess+cpy / guess) / two;
 	guess.precision = x.precision;				guess.tidy(); 		 return guess;
+}
+
+Pfloat Pfloat::calculate_pi( ){
+	Pfloat res = 0.0;
+    Pfloat sign = 1;
+
+    for (long i = 0; i < STANDARD_PRECISION*100; ++i) {
+		std::cout << i/(double)STANDARD_PRECISION << "%\n"; 
+        Pfloat term = sign / (2 * i + 1);
+        res += term;
+        sign *= -1;
+    }
+
+    // res *= 4;
+	return res;
+}
+
+Pfloat Pfloat::pi( ){
+	if (Pi == 0) Pi = calculate_pi();
+	return Pi;
 }
 
 // === One-line functions =================================

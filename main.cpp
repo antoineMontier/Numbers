@@ -6,10 +6,7 @@ void test_Pfloat();
 
 int main(){
     
-    Pfloat a(26);
-
-    std::cout << "a = " << a << std::endl;
-    std::cout << "sqrt(a) = " << Pfloat::sqrt(a) << std::endl;
+    std::cout << Pfloat::pi() << std::endl;
 
     return 0;
 }
