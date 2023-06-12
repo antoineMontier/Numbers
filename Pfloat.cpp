@@ -478,10 +478,10 @@ Pfloat Pfloat::quotient(const Pfloat& x) const{
 	Pfloat ten  (10);
 	Pfloat tmp  (0);
 
-	t.precision     += 2;
-	y.precision     += 2;
-	res.precision   += 2;
-	ten.precision   += 2;
+	t.precision     = x.precision + 2;
+	y.precision     = x.precision + 2;
+	res.precision   = x.precision + 2;
+	ten.precision   = x.precision + 2;
 
 	long exp_count = t.exponent - y.exponent - 1;
 	y.exponent += exp_count;
@@ -553,8 +553,8 @@ Pfloat Pfloat::sqrt( const Pfloat x ){
     Pfloat guess = x;
 	Pfloat two = 2;
 	Pfloat end_signal = 1;
- 
-	cpy.precision = x.precision + 2; guess.precision = x.precision + 2;	two.precision = x.precision + 2; end_signal.precision = x.precision + 2;
+
+	cpy.precision = x.precision; guess.precision = x.precision;	two.precision = x.precision; end_signal.precision = x.precision;
 
 
 
@@ -566,12 +566,17 @@ Pfloat Pfloat::sqrt( const Pfloat x ){
 
 	std::cout << "\ncpy = " << cpy.debugToString() << "\nguess = " << guess.debugToString() << "\ntwo = " << two.debugToString() << "\nend_signal = " << end_signal.debugToString() << "\n";
 	int i = 0;
-    while (i++ <= x.precision){
-		std::cout << "loop it \n";
+    while (i++ <= x.precision + 1){
+		// std::cout << "loop it \n";
+		// std::cout << "\ncpy = " << cpy.debugToString() << "\nguess = " << guess.debugToString() << "\ntwo = " << two.debugToString() << "\nend_signal = " << end_signal.debugToString() << "\n";
+		// std::cout << "(guess + cpy).precision : " << (guess + cpy).precision << "\n";
+		// std::cout << "(guess + cpy / guess).precision : " << (guess + cpy / guess).precision << "\n";
+		// std::cout << "((guess + cpy / guess) / two).precision : " << ((guess + cpy / guess) / two).precision << "\n";
+
         guess = (guess + cpy / guess) / two;
     } 
+	std::cout << "guess: " << guess.debugToString() << std::endl; 
 	guess.precision = x.precision;
-	std::cout << "guess: " << guess << std::endl; 
 	guess.tidy(); 
     return guess;
 }
