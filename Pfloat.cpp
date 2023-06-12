@@ -548,37 +548,11 @@ std::ostream& operator << (std::ostream& os, const Pfloat& x) {
 
 Pfloat Pfloat::sqrt( const Pfloat x ){
 	if (x.neg) throw std::runtime_error("Cannot calculate square root of a negative number");
-    
-	Pfloat cpy = x;
-    Pfloat guess = x;
-	Pfloat two = 2;
-	Pfloat end_signal = 1;
-
-	cpy.precision = x.precision; guess.precision = x.precision;	two.precision = x.precision; end_signal.precision = x.precision;
-
-
-
-    // Iterate until the difference between guess^2 and x is within a desired tolerance
-
-	end_signal.exponent = - end_signal.precision;
-
-	std::cout << "p = " << end_signal << "\n";
-
-	std::cout << "\ncpy = " << cpy.debugToString() << "\nguess = " << guess.debugToString() << "\ntwo = " << two.debugToString() << "\nend_signal = " << end_signal.debugToString() << "\n";
-	int i = 0;
-    while (i++ <= x.precision + 1){
-		// std::cout << "loop it \n";
-		// std::cout << "\ncpy = " << cpy.debugToString() << "\nguess = " << guess.debugToString() << "\ntwo = " << two.debugToString() << "\nend_signal = " << end_signal.debugToString() << "\n";
-		// std::cout << "(guess + cpy).precision : " << (guess + cpy).precision << "\n";
-		// std::cout << "(guess + cpy / guess).precision : " << (guess + cpy / guess).precision << "\n";
-		// std::cout << "((guess + cpy / guess) / two).precision : " << ((guess + cpy / guess) / two).precision << "\n";
-
-        guess = (guess + cpy / guess) / two;
-    } 
-	std::cout << "guess: " << guess.debugToString() << std::endl; 
-	guess.precision = x.precision;
-	guess.tidy(); 
-    return guess;
+	Pfloat cpy 			= x;					cpy.precision 		= x.precision;
+    Pfloat guess 		= x;					guess.precision 	= x.precision;
+	Pfloat two 			= 2;					two.precision 		= x.precision;
+	for(int i = 0 ; i < x.precision + 2 ; ++i) 	guess = (guess+cpy / guess) / two;
+	guess.precision = x.precision;				guess.tidy(); 		 return guess;
 }
 
 // === One-line functions =================================
