@@ -5,10 +5,8 @@
 void test_Pfloat();
 
 int main(){
-    
-    std::cout << Pfloat::pi() << std::endl;
 
-    return 0;
+    std::cout << Pfloat::pi() << std::endl;
 }
 
 

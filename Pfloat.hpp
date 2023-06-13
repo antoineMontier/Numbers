@@ -10,7 +10,7 @@
 #include <string.h>
 #include "LinkedList.cpp"
 
-#define STANDARD_PRECISION 24
+#define STANDARD_PRECISION 1009
 
 // === display modes ===
 #define AUTOMATIC   (-1254)
@@ -25,9 +25,6 @@ class Pfloat{
 private:
 
 	static int 		mode;
-
-	static Pfloat 	Pi;
-
 
 	LinkedList<int>*    digits;
 
@@ -44,9 +41,6 @@ private:
 	static bool 	check_string    (std::string const str	);
 
 	static bool 	check_exp_string(std::string const str	);
-
-	static Pfloat 	calculate_pi    (						);
-
 
 					/// @brief standard toString function
 					/// @return string with this format : '-0.000123'
