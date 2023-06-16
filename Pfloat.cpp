@@ -378,9 +378,9 @@ bool Pfloat::rec_inf(const Pfloat b, int index_cmp) const{
 
 Pfloat Pfloat::operator * (const Pfloat& x) const{
 	// === quick cases ===
-	if(x == Pfloat(0) || *this == Pfloat(0)) return Pfloat(0, x.precision > precision ? precision : x.precision);
-	if(x == Pfloat(1)) return Pfloat(*this);
-	if(*this == Pfloat(1)) return Pfloat(x);
+	if(x == Pfloat(0) || *this == Pfloat(0)) 	return Pfloat(0, x.precision > precision ? precision : x.precision);
+	if(x == Pfloat(1)) 							return Pfloat(*this);
+	if(*this == Pfloat(1)) 						return Pfloat(x);
 	if(x == Pfloat(-1)){
 		Pfloat r(*this);
 		r.neg = !r.neg;
@@ -392,8 +392,8 @@ Pfloat Pfloat::operator * (const Pfloat& x) const{
 		return r;
 	}
 	Pfloat res;
-	res.precision = x.precision > precision ? precision : x.precision;
-	res.exponent = x.exponent;
+	res.precision 	= x.precision > precision ? precision : x.precision;
+	res.exponent 	= x.exponent;
 	// =============================== add slots to res
 	for(int i = 0 ; i < digits->size() + x.digits->size(); ++i) res.digits->push(0);
 
