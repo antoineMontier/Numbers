@@ -370,9 +370,10 @@ bool Pfloat::rec_inf(const Pfloat b, int index_cmp) const{
 	if(digits->size() > index_cmp && b.digits->size() > index_cmp){
 		if(digits->get(index_cmp) > b.digits->get(index_cmp)) return false;
 		if(digits->get(index_cmp) < b.digits->get(index_cmp)) return true;
-		return rec_inf(b, index_cmp + 1); // recursion
-	}else if(digits->size() == index_cmp && b.digits->size() > index_cmp) return true;// b is larger
-	else if(digits->size() > index_cmp && b.digits->size() == index_cmp) return false;
+															  return rec_inf(b, index_cmp + 1); // recursion
+	} 
+	else if(digits->size() == index_cmp && b.digits->size()  > index_cmp) return true;// b is larger
+	else if(digits->size() 	> index_cmp && b.digits->size() == index_cmp) return false;
 	else return false; // same size of digits arrays so they are equals
 }
 
