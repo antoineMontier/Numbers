@@ -1,12 +1,13 @@
 #include <iostream>
 #include <assert.h>
 #include "Pfloat.hpp"
+#include "Complexe.hpp"
 
 void test_Pfloat();
 
 int main(){
 
-    std::cout << Pfloat::pi() << std::endl;
+    std::cout << Complexe(-1, -0).toString() << std::endl;
 }
 
 

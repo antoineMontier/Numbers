@@ -1,7 +1,8 @@
 #! /bin/bash
 
 function execution () {
-    exec ./main && main
+    make
+    ./main
 }
 
 execution
