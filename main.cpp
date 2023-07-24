@@ -10,7 +10,6 @@ int main(){
 }
 
 
-
 void test_Pfloat(){
     if(STANDARD_PRECISION >= 24){
         // === == tests
