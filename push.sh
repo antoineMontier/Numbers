@@ -1,19 +1,20 @@
-#! /bin/bash
+#!/bin/bash
 
 function git_add_commit_push() {
     if (($# == 0)) ; then
-        echo "error, use this way : './push.sh my git commit message'"
+        echo "error, use this way: './push.sh my git commit message'"
     else
-        exec git add *
+        git add *
 
-        commit_message = "git commit -m '"
-        for word in $* ; do
-            commit_message = "$commit_message $word"
+        commit_message="git commit -m '"
+        for word in "$@" ; do
+            commit_message="$commit_message $word"
         done
-        commit_message = "$commit_message'"
+        commit_message="$commit_message'"
 
-        exec git push 
+        eval "$commit_message"
+        git push 
     fi
 }
 
-git_add_commit_push $*
+git_add_commit_push "$@"
