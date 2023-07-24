@@ -151,7 +151,6 @@ Complexe Complexe::operator/(const Complexe& c) {
     return Complexe((c.a*1.0*a +c.b*1.0*b) / (c.a*1.0*c.a + c.b*1.0*c.b), (c.a*1.0*b - c.b*1.0*a)  / (c.a*1.0*c.a + c.b*1.0*c.b));
 }
 
-
 Complexe Complexe::operator+(double d_a){
     return Complexe(a + d_a, b);
 }
@@ -171,7 +170,6 @@ Complexe Complexe::operator/(double d_c){
 }
 
 Complexe Complexe::conjugate() const{return Complexe(a, double() - b);}
-
 
 double Complexe::abs() const {return sqrt(a*a + b*b);}
 
@@ -210,7 +208,6 @@ bool Complexe::rotate(double angle){
     return true;
 }
 
-
 Complexe Complexe::operator^(double exp){
     if(exp == 0.0)
         return Complexe(1, 0);
@@ -225,4 +222,20 @@ Complexe Complexe::exp(){
 
 double Complexe::distance(const Complexe& c, const Complexe& d){
     return sqrt((c.a - d.a)*(c.a - d.a) + (c.b - d.b)*(c.b - d.b));
+}
+
+void Complexe::openWindow(){
+    screen = SDL_Screen(800, 600, "Complexe", 30);
+}
+
+void Complexe::openWindow(int size){
+    if(size <= 0) throw invalid_argument("size of a window must be positive");
+    screen = SDL_Screen(size, size, "Complexe", 30);
+}
+
+void Complexe::openWindow(int width, int height){
+    if(width <= 0) throw invalid_argument("width of a window must be positive");
+    if(height <= 0) throw invalid_argument("height of a window must be positive");
+
+    screen = SDL_Screen(width, height, "Complexe", 30);
 }

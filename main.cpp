@@ -5,10 +5,17 @@
 
 void test_Pfloat();
 
-int main(){
-
+int main(int argc, char **argv){
+    Complexe::openWindow();
     std::cout << Complexe(-1, -0).toString() << std::endl;
 }
+
+
+
+
+
+
+
 
 
 void test_Pfloat(){

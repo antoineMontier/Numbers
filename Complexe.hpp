@@ -1,6 +1,8 @@
 #ifndef COMPLEXE_HPP
 #define COMPLEXE_HPP
 
+#include "SDL_Screen.hpp"
+
 #include <iostream>
 #include <sstream>
 #include <iomanip>
@@ -13,7 +15,7 @@ class Complexe{
 
     private :
         double a, b;
-
+        static SDL_Screen screen;
 
     public:
     
@@ -149,6 +151,12 @@ class Complexe{
         /// @brief 
         /// @return exponential of the complexe
         Complexe exp();
+
+        static void openWindow();
+
+        static void openWindow(int size);
+        
+        static void openWindow(int width, int height);
 };
 
 #endif
