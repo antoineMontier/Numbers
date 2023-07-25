@@ -63,9 +63,7 @@ void SDLComplexe::drawAxis(){
     this->line(W()/2, 0, W()/2, H());
     // arrow
     this->filledTriangle(W()-10, int(H()/2)-10, W()-10, int(H()/2)+10, W(), int(H()/2));
-    // graduations TODO: fix to not display the central graduation
-    for( int i = int(W()/(graduation_count*2 + 2)) ; i < W() ; i += int(W()/(graduation_count*2 + 2)) ) if(i != W()/2) this->line(i, int(H()/2) - 5, i, int(H()/2) + 5);
-
+    
 
     // === vertical axis
 
@@ -73,7 +71,11 @@ void SDLComplexe::drawAxis(){
     this->line(0, H()/2, W(), H()/2);
     //arrow
     this->filledTriangle(W()/2-10, 10, W()/2+10, 10, W()/2, 0);
-    // graduations
+
+    // === graduations
+   // for(int i = )
+    for( int i = int(W()/(graduation_count*2 + 2)) ; i < W() ; i += int(W()/(graduation_count*2 + 2)) ) if(i != W()/2) this->line(i, int(H()/2) - 5, i, int(H()/2) + 5);
+
     for( int i = int(H()/(graduation_count*2 + 2)) ; i < H() ; i += int(H()/(graduation_count*2 + 2)) ) this->line(int(W()/2) - 5, i, int(W()/2) + 5, i);
 
 
