@@ -1,8 +1,6 @@
 #ifndef COMPLEXE_HPP
 #define COMPLEXE_HPP
 
-#include "SDL_Screen.hpp"
-
 #include <iostream>
 #include <sstream>
 #include <iomanip>
@@ -15,7 +13,6 @@ class Complexe{
 
     private :
         double a, b;
-        static SDL_Screen screen;
 
     public:
     
@@ -101,6 +98,9 @@ class Complexe{
 
         Complexe operator/(const Complexe& c);
 
+        friend std::ostream& operator << (std::ostream& os, const Complexe& x);
+
+
         /// @brief calculate the conjuagte number of current complexe
         /// @return conjugate (a - bi)
         Complexe conjugate() const;
@@ -152,11 +152,6 @@ class Complexe{
         /// @return exponential of the complexe
         Complexe exp();
 
-        static void openWindow();
-
-        static void openWindow(int size);
-        
-        static void openWindow(int width, int height);
 };
 
 #endif
