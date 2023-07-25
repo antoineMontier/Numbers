@@ -16,7 +16,7 @@ const string Pfloat::toString() const{
 	ostringstream res("");
 	if(neg) res << "-";
 
-	if(exponent < -1){// display first zeros if exponent is negative :
+	if(exponent < -1){ // display first zeros if exponent is negative :
 		int z = exponent;
 		res << "0.";
 		while(z++ + 1 < 0) res << "0";

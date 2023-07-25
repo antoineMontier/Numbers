@@ -11,7 +11,7 @@
 
 class SDL_Screen{
     
-    private:
+    protected:
         int _width;
         int _height;
         long _ms;

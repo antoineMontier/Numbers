@@ -1,14 +1,15 @@
 #include <iostream>
 #include <assert.h>
-#include "Pfloat.hpp"
-#include "Complexe.hpp"
+//#include "Pfloat.hpp"
+#include "SDLComplexe.hpp"
 
 void test_Pfloat();
 
 int main(int argc, char **argv){
 
-    std::cout << Complexe(-1, -0) << std::endl;
-
+    SDLComplexe::run();
+    return 0;
+    
 }
 
 
@@ -18,7 +19,7 @@ int main(int argc, char **argv){
 
 
 
-
+/*
 void test_Pfloat(){
     if(STANDARD_PRECISION >= 24){
         // === == tests
@@ -219,4 +220,4 @@ void test_Pfloat(){
         assert( Pfloat(0) / 1 == 0);
         std::cout << "all tests passed" << std::endl;
     }
-}
+}*/
