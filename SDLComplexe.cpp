@@ -10,22 +10,15 @@ SDLComplexe::SDLComplexe() : SDL_Screen(1080, 720, "Complexe", 30.0) {
 
 void SDLComplexe::run(){
 	SDLComplexe sc;
+	sc.addComplexe(1, 2);
 	while(sc.isRunning()){
 		sc.bg(255);
 		sc.setColor(0);
 		sc.drawAxis();
+		sc.displayComplexes();
+
 		sc.refreshAndEvents();
 		// std::cout << "center : (" << sc.center_x << "," << sc.center_y << ")\nz=" << sc.zoom<<"\n";
-
-		Complexe z(1, 2);
-		std::cout << "cList : " << sc.cList->toString() << "\n";
-		sc.addComplexe(z);
-		std::cout << "cList : " << sc.cList->toString() << "\n";
-		z.setIm(8);
-		std::cout << "cList : " << sc.cList->toString() << "\n";
-		sc.addComplexe(z);
-		std::cout << "cList : " << sc.cList->toString() << "\n";
-		sc.stopRunning();
 	}
 }
 
@@ -100,9 +93,7 @@ void SDLComplexe::events(){
 }
 
 void SDLComplexe::drawAxis(){
-	// number of graduations between a border of the screen and the origin
-	unsigned int graduation_count = 5;
-	
+
 	// === horizontal axis
 
 	// axis
@@ -120,9 +111,6 @@ void SDLComplexe::drawAxis(){
 
 	// === graduations
 	for(unsigned int i = 0 ; i <= graduation_count*2 + 2; i++) {
-		
-		int unit_cx = int(W() / (graduation_count*2 + 2));  
-		int unit_cy = int(H() / (graduation_count*2 + 2)); 
 
 		this->line(	int(center_x) % unit_cx + i*unit_cx, min(max(int(center_y + H()/2), 0), H()) - 5,
 					int(center_x) % unit_cx + i*unit_cx, min(max(int(center_y + H()/2), 0), H()) + 5); // horizontal
@@ -135,3 +123,15 @@ void SDLComplexe::drawAxis(){
 void SDLComplexe::addComplexe(const Complexe c)					{ cList->push(c); 				 }
 void SDLComplexe::addComplexe(const double re, const double im)	{ cList->push(Complexe(re, im)); }
 void SDLComplexe::addComplexe(const double re)					{ cList->push(Complexe(re)); 	 }
+
+void SDLComplexe::displayComplexes(){
+	if (cList->size() == 0) return;
+	for (int i = 0 ; i < cList->size() ; i++){
+		// == load the complex
+		Complexe current = cList->get(i);
+		// == display the complex
+		setColor(255, 0, 0);
+		this->point(center_x + current.getRe() * unit_cx, center_y + current.getIm() * unit_cy, 5);
+	}
+}
+
