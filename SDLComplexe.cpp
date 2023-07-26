@@ -16,7 +16,7 @@ void SDLComplexe::run(){
 		sc.setColor(0);
 		sc.drawAxis();
 		sc.refreshAndEvents();
-		std::cout << "(" << sc.center_x << "," << sc.center_y << ")\nz=" << sc.zoom<<"\n";
+		// std::cout << "(" << sc.center_x << "," << sc.center_y << ")\nz=" << sc.zoom<<"\n";
 	}
 }
 
@@ -38,20 +38,20 @@ void SDLComplexe::events(){
 						program_running = false; // escape the program if user presses esc
 						break;
 
-					case SDLK_q:
-						center_x += 10;
-						break;
-
-					case SDLK_d:
+					case 1073741904: // left arrow
 						center_x -= 10;
 						break;
 
-					case SDLK_z:
-						center_y += 10;
+					case 1073741903: // right arrow
+						center_x += 10;
 						break;
 
-					case SDLK_s:
+					case 1073741906: // up arrow
 						center_y -= 10;
+						break;
+
+					case 1073741905: // down arrow
+						center_y += 10;
 						break;
 					
 					case SDLK_KP_PLUS:
@@ -90,23 +90,23 @@ void SDLComplexe::drawAxis(){
 	// === horizontal axis
 
 	// axis
-	this->line(center_x, center_y + H()/2, center_x + W(), center_y + H()/2);
+	this->line(0, center_y + H()/2, W(), center_y + H()/2);
 	// arrow
-	this->filledTriangle(center_x + W()-10, int(center_y + H()/2)-10, center_x + W()-10, int(center_y + H()/2)+10, center_x + W(), int(center_y + H()/2));
+	this->filledTriangle(W()-10, center_y + int(H()/2)-10, W()-10, center_y + int(H()/2)+10, W(), center_y + int(H()/2));
 	
 
 	// === vertical axis
 
 	// axis
-	this->line(center_x + W()/2, center_y, center_x + W()/2, center_y + H());
+	this->line(center_x + W()/2, 0, center_x + W()/2, H());
 	//arrow
-	this->filledTriangle(center_x + W()/2-10, center_y + 10, center_x + W()/2+10, 10, center_x + W()/2, center_y);
+	this->filledTriangle(center_x + W()/2-10, 10, center_x + W()/2+10, 10, center_x + W()/2, 0);
 
 	// === graduations
 	for(unsigned int i = 1 ; i <= graduation_count*2 + 1 ; i++) {
-		if(i == graduation_count + 1) continue;
-		this->line(i*int(W()/(graduation_count*2 + 2)), int(center_y + H()/2) - 5, i*int(W()/(graduation_count*2 + 2)), int(center_y + H()/2) + 5); // horizontal
-		this->line(int(center_x + W()/2) - 5, i*int(H()/(graduation_count*2 + 2)), int(center_x + W()/2) + 5, i*int(H()/(graduation_count*2 + 2))); // vertical
+		//if(i == graduation_count + 1) continue;
+		this->line(int(center_x) % int(W()/2) + i*int(W()/(graduation_count*2 + 2)) % W(), center_y + int(H()/2) - 5, int(center_x) % int(W()/2) + i*int(W()/(graduation_count*2 + 2)) % W(), center_y + int(H()/2) + 5); // horizontal
+		this->line(int(center_x + W()/2) - 5, center_y + i*int(H()/(graduation_count*2 + 2)), int(center_x + W()/2) + 5, center_y + i*int(H()/(graduation_count*2 + 2))); // vertical
 	}
 	
 
