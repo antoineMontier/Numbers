@@ -16,7 +16,7 @@ void SDLComplexe::run(){
 		sc.setColor(0);
 		sc.drawAxis();
 		sc.refreshAndEvents();
-		// std::cout << "(" << sc.center_x << "," << sc.center_y << ")\nz=" << sc.zoom<<"\n";
+		std::cout << "(" << sc.center_x << "," << sc.center_y << ")\nz=" << sc.zoom<<"\n";
 	}
 }
 
@@ -108,8 +108,8 @@ void SDLComplexe::drawAxis(){
 		int unit_cx = W() / (graduation_count*2 + 2);  
 		int unit_cy = H() / (graduation_count*2 + 2); 
 
-		this->line(	int(center_x) % unit_cx + i*int(W()/(graduation_count*2 + 2)), int(center_y + H()/2 - 5),
-					int(center_x) % unit_cx + i*int(W()/(graduation_count*2 + 2)), int(center_y + H()/2 + 5)); // horizontal
+		this->line(	int(center_x) % unit_cx + i*int(W()/(graduation_count*2 + 2)), int(max(center_y + H()/2, 0) - 5),
+					int(center_x) % unit_cx + i*int(W()/(graduation_count*2 + 2)), int(max(center_y + H()/2, 0) + 5)); // horizontal
 
 		this->line(	int(center_x + W()/2 - 5), int(center_y) % unit_cy + i*int(H()/(graduation_count*2 + 2)),
 					int(center_x + W()/2 + 5), int(center_y) % unit_cy + i*int(H()/(graduation_count*2 + 2))); // vertical
