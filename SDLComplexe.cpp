@@ -11,6 +11,7 @@ SDLComplexe::SDLComplexe() : SDL_Screen(1080, 720, "Complexe", 30.0) {
 void SDLComplexe::run(){
 	SDLComplexe sc;
 	sc.addComplexe(1, 2);
+	sc.addComplexe(1, 2.5);
 	while(sc.isRunning()){
 		sc.bg(255);
 		sc.setColor(0);
