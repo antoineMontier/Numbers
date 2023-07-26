@@ -103,10 +103,16 @@ void SDLComplexe::drawAxis(){
 	this->filledTriangle(center_x + W()/2-10, 10, center_x + W()/2+10, 10, center_x + W()/2, 0);
 
 	// === graduations
-	for(unsigned int i = 1 ; i <= graduation_count*2 + 1 ; i++) {
-		//if(i == graduation_count + 1) continue;
-		this->line(int(center_x) % int(W()/2) + i*int(W()/(graduation_count*2 + 2)) % W(), center_y + int(H()/2) - 5, int(center_x) % int(W()/2) + i*int(W()/(graduation_count*2 + 2)) % W(), center_y + int(H()/2) + 5); // horizontal
-		this->line(int(center_x + W()/2) - 5, center_y + i*int(H()/(graduation_count*2 + 2)), int(center_x + W()/2) + 5, center_y + i*int(H()/(graduation_count*2 + 2))); // vertical
+	for(unsigned int i = 0 ; i <= graduation_count*2 + 2; i++) {
+		
+		int unit_cx = W() / (graduation_count*2 + 2);  
+		int unit_cy = H() / (graduation_count*2 + 2); 
+
+		this->line(	int(center_x) % unit_cx + i*int(W()/(graduation_count*2 + 2)), int(center_y + H()/2 - 5),
+					int(center_x) % unit_cx + i*int(W()/(graduation_count*2 + 2)), int(center_y + H()/2 + 5)); // horizontal
+
+		this->line(	int(center_x + W()/2 - 5), int(center_y) % unit_cy + i*int(H()/(graduation_count*2 + 2)),
+					int(center_x + W()/2 + 5), int(center_y) % unit_cy + i*int(H()/(graduation_count*2 + 2))); // vertical
 	}
 	
 
