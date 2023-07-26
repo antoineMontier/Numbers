@@ -29,6 +29,10 @@ class SDLComplexe : public SDL_Screen{
 
         void drawAxis();
 
+        void addComplexe(const Complexe c);
+        void addComplexe(const double re, const double im);
+        void addComplexe(const double re);
+
 };
 
 #endif
