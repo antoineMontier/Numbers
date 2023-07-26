@@ -14,6 +14,10 @@ class SDLComplexe : public SDL_Screen{
     private:
 
         LinkedList<Complexe> * cList;
+        // zoom level, ie, the separation between two graduations
+        double zoom;
+        // center of the screen, if (0 ; 0), the screen will be centered on th origin of the axis
+        double center_x, center_y;
 
     public:
 
@@ -21,7 +25,7 @@ class SDLComplexe : public SDL_Screen{
 
         static void run();
 
-        void events();
+        void events() override;
 
         void drawAxis();
 

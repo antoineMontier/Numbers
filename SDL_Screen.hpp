@@ -158,7 +158,7 @@ class SDL_Screen{
 
         void stopRunning();
 
-        void events();
+        virtual void events();
 
         static bool rollover(int mx, int my, int x, int y, int w, int h);
 
