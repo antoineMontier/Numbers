@@ -133,9 +133,10 @@ void SDLComplexe::drawAxis(){
 
 	// === graduations
 	for(unsigned int i = 0 ; i <= graduation_count*2 + 2; i++) {
-
-		this->line(	int(center_x) % unit_cx + i*unit_cx, min(max(int(center_y + H()/2), 0), H()) - 5,
-					int(center_x) % unit_cx + i*unit_cx, min(max(int(center_y + H()/2), 0), H()) + 5); // horizontal
+		int x = int(center_x) % unit_cx + i*unit_cx;
+		this->line(	x, min(max(int(center_y + H()/2), 0), H()) - 5,
+					x, min(max(int(center_y + H()/2), 0), H()) + 5); // horizontal
+				
 
 		this->line(	min(max(int(center_x + W()/2), 0), W()) - 5, int(center_y) % unit_cy + i*unit_cy,
 					min(max(int(center_x + W()/2), 0), W()) + 5, int(center_y) % unit_cy + i*unit_cy); // vertical
