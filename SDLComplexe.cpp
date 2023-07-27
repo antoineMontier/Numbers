@@ -11,13 +11,14 @@ SDLComplexe::SDLComplexe() : SDL_Screen(1080, 720, "Complexe", 30.0) {
 void SDLComplexe::run(){
 	SDLComplexe sc;
 	sc.addComplexe(1, 2);
-	sc.addComplexe(1, 2.5);
+	sc.addComplexe(2, -3);
+	sc.addComplexe(-3, -4);
+	sc.addComplexe(-2, 3);
 	while(sc.isRunning()){
 		sc.bg(255);
 		sc.setColor(0);
 		sc.drawAxis();
 		sc.displayComplexes();
-
 		sc.refreshAndEvents();
 		// std::cout << "center : (" << sc.center_x << "," << sc.center_y << ")\nz=" << sc.zoom<<"\n";
 	}
@@ -132,7 +133,7 @@ void SDLComplexe::displayComplexes(){
 		Complexe current = cList->get(i);
 		// == display the complex
 		setColor(255, 0, 0);
-		this->point(center_x + current.getRe() * unit_cx, center_y + current.getIm() * unit_cy, 5);
+		this->point(W()/2 + center_x + current.getRe() * unit_cx, H()/2 + center_y - current.getIm() * unit_cy, 5);
 	}
 }
 
