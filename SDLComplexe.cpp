@@ -17,6 +17,7 @@ void SDLComplexe::run(){
 	while(sc.isRunning()){
 		sc.bg(255);
 		sc.setColor(0);
+		sc.axis_button();
 		sc.drawAxis();
 		sc.displayComplexes();
 		sc.refreshAndEvents();
@@ -80,6 +81,23 @@ void SDLComplexe::events(){
 				else if ( scroll == -1 ) zoom /= 1.05;
 				break;
 
+			case SDL_MOUSEMOTION:
+                pmouseX = mouseX;
+                pmouseY = mouseY;
+                mouseX = e.button.x;
+                mouseY = e.button.y;
+                break;
+
+			case SDL_MOUSEBUTTONDOWN:
+                click = true;
+				break;
+
+			case SDL_MOUSEBUTTONUP:
+                click = false;
+				break;
+
+			
+
 			case SDL_KEYUP:
 				switch (e.key.keysym.sym){
 
@@ -95,6 +113,8 @@ void SDLComplexe::events(){
 }
 
 void SDLComplexe::drawAxis(){
+
+	if(!display_axis) return;
 
 	// === horizontal axis
 
@@ -137,3 +157,23 @@ void SDLComplexe::displayComplexes(){
 	}
 }
 
+void SDLComplexe::axis_button(){
+	int sz = 25;
+	int x = W() - sz - 10;
+	int y = 10;
+	int t_size = 4;
+	emptyRect(x, y, sz, sz, 3); // draw the rectangle
+	x -= 1;
+	line(x + sz/2, y + 2, x + sz/2, y + sz - 2); // draw the vertical axis
+	filledTriangle(x + sz/2 - t_size, y + t_size + 2, x + sz/2 + t_size, y + t_size + 2, x + sz/2, y + 2); // draw the vertical arrow
+	
+	x += 1; y += 2;
+
+	line(x + 2, y + sz/2, x + sz - 2, y + sz/2); // draw the horizontal axis
+	filledTriangle(x + sz - 2 - t_size, y + sz/2 - t_size, x + sz - 2 - t_size, y + sz/2 + t_size, x + sz - 2, y + sz/2); // draw the horizontal arrow 
+	y -= 2;
+	if (click && rollover(mouseX, mouseY, x, y, sz, sz)){ 
+		display_axis = !display_axis; 
+		click = false;
+	}
+}

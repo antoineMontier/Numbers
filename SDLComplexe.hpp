@@ -12,7 +12,8 @@ class SDLComplexe : public SDL_Screen{
 
 
     private:
-
+        
+        // linked list to keep the complex numbers 
         LinkedList<Complexe> * cList;
 
         // zoom level, ie, the separation between two graduations
@@ -26,6 +27,15 @@ class SDLComplexe : public SDL_Screen{
 
         int unit_cx = int(W() / (graduation_count*2 + 2));  
 		int unit_cy = int(H() / (graduation_count*2 + 2));
+
+        // boolean variable indicating whether or not display the axis and graduations
+        bool display_axis = true;
+
+        // coordinates and previous coordinates of the mouse
+        int mouseX = 0, mouseY = 0, pmouseX = 0, pmouseY = 0;
+
+        // indicates whether or not the mouse is pressed
+        bool click = false;
 
     public:
 
@@ -42,6 +52,8 @@ class SDLComplexe : public SDL_Screen{
         void addComplexe(const double re);
 
         void displayComplexes();
+
+        void axis_button();
 
 };
 
