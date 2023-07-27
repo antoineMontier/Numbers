@@ -37,6 +37,8 @@ class SDLComplexe : public SDL_Screen{
         // indicates whether or not the mouse is pressed
         bool click = false;
 
+        TTF_Font *font;
+
     public:
 
         SDLComplexe();

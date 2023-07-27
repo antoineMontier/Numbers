@@ -10,6 +10,7 @@ SDLComplexe::SDLComplexe() : SDL_Screen(1080, 720, "Complexe", 30.0) {
 
 void SDLComplexe::run(){
 	SDLComplexe sc;
+	sc.setFont(&sc.font, "Roboto-Light.ttf", 16);
 	sc.addComplexe(1, 2);
 	sc.addComplexe(2, -3);
 	sc.addComplexe(-3, -4);
@@ -21,8 +22,9 @@ void SDLComplexe::run(){
 		sc.drawAxis();
 		sc.displayComplexes();
 		sc.refreshAndEvents();
-		// std::cout << "center : (" << sc.center_x << "," << sc.center_y << ")\nz=" << sc.zoom<<"\n";
+		//std::cout << "center : (" << sc.center_x << "," << sc.center_y << ")\nz=" << sc.zoom<<"\n";
 	}
+	TTF_CloseFont(sc.font);
 }
 
 void SDLComplexe::events(){
@@ -130,17 +132,43 @@ void SDLComplexe::drawAxis(){
 	this->line(center_x + W()/2, 0, center_x + W()/2, H());
 	//arrow
 	this->filledTriangle(center_x + W()/2-10, 10, center_x + W()/2+10, 10, center_x + W()/2, 0);
+	
+	int x, y;
 
+	std::string grad;
+	double actual_grad = 0;
 	// === graduations
 	for(unsigned int i = 0 ; i <= graduation_count*2 + 2; i++) {
-		int x = int(center_x) % unit_cx + i*unit_cx;
-		this->line(	x, min(max(int(center_y + H()/2), 0), H()) - 5,
-					x, min(max(int(center_y + H()/2), 0), H()) + 5); // horizontal
-				
+		
+		x = int(center_x) % unit_cx + i*unit_cx;
+		y = min(max(int(center_y + H()/2), 0), H());
+		
+		this->line( x, y - 5, x, y + 5); // horizontal
 
-		this->line(	min(max(int(center_x + W()/2), 0), W()) - 5, int(center_y) % unit_cy + i*unit_cy,
-					min(max(int(center_x + W()/2), 0), W()) + 5, int(center_y) % unit_cy + i*unit_cy); // vertical
+		// === horizontal graduations
+		actual_grad = int(i - graduation_count - 1) - int(center_x / unit_cx);
+			if(actual_grad != 0){
+			if(actual_grad >= 0)	grad = std::to_string(actual_grad).substr(0, 4);
+			else					grad = std::to_string(actual_grad).substr(0, 5);
+			if(center_y < -330)	text(x - 4, y + 11, grad.c_str(), font);
+			else 				text(x - 4, y - 25, grad.c_str(), font);
+		}
+
+		x = min(max(int(center_x + W()/2), 0), W());
+		y = int(center_y) % unit_cy + i*unit_cy;
+
+		this->line(	x - 5, y, x + 5, y); // vertical
+
+		// === vertical graduations
+		actual_grad = int(i - graduation_count - 1) - int(center_y / unit_cy);
+		if(actual_grad != 0) {
+			if(actual_grad >= 0)	grad = std::to_string(-actual_grad).substr(0, 5);
+			else					grad = std::to_string(-actual_grad).substr(0, 4);
+			if(center_x > 480)	text(x - 46, y-8, grad.c_str(), font);
+			else 				text(x + 18, y-8, grad.c_str(), font);
+		}
 	}
+
 }
 
 void SDLComplexe::addComplexe(const Complexe c)					{ cList->push(c); 				 }
