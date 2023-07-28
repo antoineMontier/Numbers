@@ -14,7 +14,8 @@ class SDLComplexe : public SDL_Screen{
     private:
         
         // linked list to keep the complex numbers 
-        LinkedList<Complexe> * cList;
+        std::vector<Complexe>   cList;
+        std::vector<double>        divergence;
 
         // zoom level, ie, the separation between two graduations
         double zoom;
@@ -39,6 +40,9 @@ class SDLComplexe : public SDL_Screen{
 
         TTF_Font *font;
 
+        int it_max = 2550;	// max amount of iterations when computing mandelbrot
+
+
     public:
 
         SDLComplexe();
@@ -56,6 +60,10 @@ class SDLComplexe : public SDL_Screen{
         void displayComplexes();
 
         void axis_button();
+
+        void load_mandelbrot(int min_x, int min_y, int max_x, int max_y, double precision);
+
+        int compute_mandelbrot(Complexe c);
 
 };
 

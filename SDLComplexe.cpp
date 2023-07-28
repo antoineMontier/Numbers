@@ -3,7 +3,6 @@
 using namespace std;
 
 SDLComplexe::SDLComplexe() : SDL_Screen(1080, 720, "Complexe", 30.0) {
-	cList = new LinkedList<Complexe>();
 	zoom = 1;
 	center_x = 0, center_y = 0;
 }
@@ -11,16 +10,14 @@ SDLComplexe::SDLComplexe() : SDL_Screen(1080, 720, "Complexe", 30.0) {
 void SDLComplexe::run(){
 	SDLComplexe sc;
 	sc.setFont(&sc.font, "Roboto-Light.ttf", 16);
-	sc.addComplexe(1, 2);
-	sc.addComplexe(2, -3);
-	sc.addComplexe(-3, -4);
-	sc.addComplexe(-2, 3);
+	sc.load_mandelbrot(-2, -2, 2, 2, .007);
 	while(sc.isRunning()){
 		sc.bg(255);
 		sc.setColor(0);
-		sc.axis_button();
-		sc.drawAxis();
 		sc.displayComplexes();
+		sc.drawAxis();
+		sc.axis_button();
+
 		sc.refreshAndEvents();
 		//std::cout << "center : (" << sc.center_x << "," << sc.center_y << ")\nz=" << sc.zoom<<"\n";
 	}
@@ -171,18 +168,23 @@ void SDLComplexe::drawAxis(){
 
 }
 
-void SDLComplexe::addComplexe(const Complexe c)					{ cList->push(c); 				 }
-void SDLComplexe::addComplexe(const double re, const double im)	{ cList->push(Complexe(re, im)); }
-void SDLComplexe::addComplexe(const double re)					{ cList->push(Complexe(re)); 	 }
+void SDLComplexe::addComplexe(const Complexe c)					{ cList.push_back(c); 				 }
+void SDLComplexe::addComplexe(const double re, const double im)	{ cList.push_back(Complexe(re, im)); }
+void SDLComplexe::addComplexe(const double re)					{ cList.push_back(Complexe(re)); 	 }
 
 void SDLComplexe::displayComplexes(){
-	if (cList->size() == 0) return;
-	for (int i = 0 ; i < cList->size() ; i++){
+	if (cList.size() == 0) return;
+	bool color = divergence.size() != 0;
+	for (int i = 0 ; i < int(cList.size()) ; i++){
 		// == load the complex
-		Complexe current = cList->get(i);
+		Complexe current = cList[i];
 		// == display the complex
-		setColor(255, 0, 0);
-		this->point(W()/2 + center_x + 1/zoom * current.getRe() * unit_cx, H()/2 + center_y - 1/zoom * current.getIm() * unit_cy, 5);
+		if (color){
+			// double color = double(divergence[i])*255.0/double(it_max);
+			// std::cout << "color : " << color << std::endl;
+			setColor(divergence[i], 0, 0);
+		}else 	setColor(255/10, 0, 0);
+		this->point(W()/2 + center_x + 1/zoom * current.getRe() * unit_cx, H()/2 + center_y - 1/zoom * current.getIm() * unit_cy);
 	}
 }
 
@@ -206,3 +208,25 @@ void SDLComplexe::axis_button(){
 		click = false;
 	}
 }
+
+void SDLComplexe::load_mandelbrot(int min_re, int min_im, int max_re, int max_im,double precision){
+
+	precision = fabs(precision);
+	for(double re = min_re; re <= max_re; re += precision)
+		for(double im = min_im; im <= max_im; im += precision){
+			Complexe z(re, im);
+			int n = compute_mandelbrot(z);
+			if(n <= 5) continue;
+			addComplexe(z);
+			// std::cout << n << " " << std::endl;
+			divergence.push_back(n);
+		}
+}
+
+int SDLComplexe::compute_mandelbrot(Complexe c){
+	Complexe z;
+	int n = 0;
+	while (n++ < it_max - 1 && z.distance(Complexe(0)) < 2) z = z*z + c;
+	return n;
+}
+
