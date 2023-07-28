@@ -46,27 +46,27 @@ void SDLComplexe::events(){
 						break;
 
 					case 1073741904: // left arrow
-						center_x -= 10;
-						break;
-
-					case 1073741903: // right arrow
 						center_x += 10;
 						break;
 
+					case 1073741903: // right arrow
+						center_x -= 10;
+						break;
+
 					case 1073741906: // up arrow
-						center_y -= 10;
+						center_y += 10;
 						break;
 
 					case 1073741905: // down arrow
-						center_y += 10;
+						center_y -= 10;
 						break;
 					
 					case SDLK_KP_PLUS:
-						zoom *= 1.2;
+						zoom /= 1.2;
 						break;
 
 					case SDLK_KP_MINUS:
-						zoom /= 1.2;
+						zoom *= 1.2;
 						break;
 
 					default:
@@ -79,8 +79,8 @@ void SDLComplexe::events(){
 				// std::cout << "case mouse\n";
 				int scroll;
 				scroll = e.wheel.y;
-				if 		( scroll == 1  ) zoom *= 1.05;
-				else if ( scroll == -1 ) zoom /= 1.05;
+				if 		( scroll == 1  ) zoom /= 1.05;
+				else if ( scroll == -1 ) zoom *= 1.05;
 				break;
 
 			case SDL_MOUSEMOTION:
@@ -148,10 +148,10 @@ void SDLComplexe::drawAxis(){
 		// === horizontal graduations
 		actual_grad = int(i - graduation_count - 1) - int(center_x / unit_cx);
 			if(actual_grad != 0){
-			if(actual_grad >= 0)	grad = std::to_string(actual_grad).substr(0, 4);
-			else					grad = std::to_string(actual_grad).substr(0, 5);
-			if(center_y < -330)	text(x - 4, y + 11, grad.c_str(), font);
-			else 				text(x - 4, y - 25, grad.c_str(), font);
+			if(actual_grad >= 0)	grad = std::to_string(zoom*actual_grad).substr(0, 4);
+			else					grad = std::to_string(zoom*actual_grad).substr(0, 5);
+			if(center_y <-H()/2+30)	text(x - 4, y + 11, grad.c_str(), font);
+			else 					text(x - 4, y - 25, grad.c_str(), font);
 		}
 
 		x = min(max(int(center_x + W()/2), 0), W());
@@ -162,10 +162,10 @@ void SDLComplexe::drawAxis(){
 		// === vertical graduations
 		actual_grad = int(i - graduation_count - 1) - int(center_y / unit_cy);
 		if(actual_grad != 0) {
-			if(actual_grad >= 0)	grad = std::to_string(-actual_grad).substr(0, 5);
-			else					grad = std::to_string(-actual_grad).substr(0, 4);
-			if(center_x > 480)	text(x - 46, y-8, grad.c_str(), font);
-			else 				text(x + 18, y-8, grad.c_str(), font);
+			if(actual_grad >= 0)	grad = std::to_string(-zoom*actual_grad).substr(0, 5);
+			else					grad = std::to_string(-zoom*actual_grad).substr(0, 4);
+			if(center_x > W()/2-60)	text(x - 46, y-8, grad.c_str(), font);
+			else 					text(x + 18, y-8, grad.c_str(), font);
 		}
 	}
 
@@ -182,7 +182,7 @@ void SDLComplexe::displayComplexes(){
 		Complexe current = cList->get(i);
 		// == display the complex
 		setColor(255, 0, 0);
-		this->point(W()/2 + center_x + current.getRe() * unit_cx, H()/2 + center_y - current.getIm() * unit_cy, 5);
+		this->point(W()/2 + center_x + 1/zoom * current.getRe() * unit_cx, H()/2 + center_y - 1/zoom * current.getIm() * unit_cy, 5);
 	}
 }
 
