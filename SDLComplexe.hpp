@@ -61,9 +61,17 @@ class SDLComplexe : public SDL_Screen{
 
         void axis_button();
 
-        void load_mandelbrot(int min_x, int min_y, int max_x, int max_y, double precision);
+        void load_mandelbrot(double min_x, double min_y, double max_x, double max_y, double precision);
+
+        void complexe_to_pixel(Complexe c, double *x, double *y);
+
+        void pixel_to_complexe(double x, double y, Complexe *c);
+
+        void pixel_to_complexe(double x, double y, double *Re, double *Im);
 
         int compute_mandelbrot(Complexe c);
+
+
 
 };
 
