@@ -71,6 +71,8 @@ class SDLComplexe : public SDL_Screen{
 
         int compute_mandelbrot(Complexe c);
 
+        void center_on(double x, double y);
+
 
 
 };

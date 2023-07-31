@@ -16,9 +16,9 @@ void SDLComplexe::run(){
 		sc.displayComplexes();
 		sc.drawAxis();
 		sc.axis_button();
-
+		sc.center_on(0, 0);
 		sc.refreshAndEvents();
-		// std::cout << "center : (" << sc.center_x << "," << sc.center_y << ")\nz=" << sc.zoom<<"\n";
+		std::cout << "center : (" << sc.center_x << "," << sc.center_y << ")\nz=" << sc.zoom<<"\n";
 	}
 	TTF_CloseFont(sc.font);
 }
@@ -261,4 +261,15 @@ void SDLComplexe::pixel_to_complexe(double x, double y, Complexe *c){
 void SDLComplexe::pixel_to_complexe(double x, double y, double *Re, double *Im){
 	*Re = (x - W()/2 - center_x)*zoom/unit_cx;
 	*Im = -(y - H()/2 - center_y)*zoom/unit_cy;
+}
+
+void SDLComplexe::center_on(double x, double y){
+	double graphic_width, graphic_height;
+	double minx, miny, maxx, maxy;
+	pixel_to_complexe(0, 0, &minx, &maxy);
+	pixel_to_complexe(W(), H(), &maxx, &miny);
+	graphic_width = maxx - minx;
+	graphic_height = maxy - miny;
+	std::cout << minx << " -- " << graphic_width << " -- " << maxx << "\n" << miny << " -- " << graphic_height << " -- " << maxy << "\n";
+	center_x = 
 }
