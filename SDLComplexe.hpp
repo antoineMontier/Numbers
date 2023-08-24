@@ -49,6 +49,9 @@ class SDLComplexe : public SDL_Screen{
 
         static void run();
 
+        /// @brief draw center point + lines
+        void draw_center();
+
         void events() override;
 
         void drawAxis();
@@ -72,6 +75,9 @@ class SDLComplexe : public SDL_Screen{
         int compute_mandelbrot(Complexe c);
 
         void center_on(double x, double y);
+
+        /// @brief prints the complexe coordinates of the center
+        void print_center();
 
 
 

@@ -16,9 +16,9 @@ void SDLComplexe::run(){
 		sc.displayComplexes();
 		sc.drawAxis();
 		sc.axis_button();
-		sc.center_on(0, 0);
+		sc.draw_center();
 		sc.refreshAndEvents();
-		std::cout << "center : (" << sc.center_x << "," << sc.center_y << ")\nz=" << sc.zoom<<"\n";
+		// std::cout << "center : (" << sc.center_x << "," << sc.center_y << ")\nz=" << sc.zoom<<"\n";
 	}
 	TTF_CloseFont(sc.font);
 }
@@ -64,13 +64,19 @@ void SDLComplexe::events(){
 						//std::cout << "loading\n" << min_x << " " << max_y << " -- " << max_x << " " << min_y << "\n";
 						load_mandelbrot(min_x, max_y, max_x, min_y, zoom/100);
 						break;
+
+					case SDLK_p: // prints the center
+						print_center();
+						break;
 					
 					case SDLK_KP_PLUS:
 						zoom /= 1.2;
+						center_on(mouseX, mouseY);
 						break;
 
 					case SDLK_KP_MINUS:
 						zoom *= 1.2;
+						center_on(mouseX, mouseY);
 						break;
 
 					default:
@@ -85,6 +91,7 @@ void SDLComplexe::events(){
 				scroll = e.wheel.y;
 				if 		( scroll == 1  ) zoom /= 1.05;
 				else if ( scroll == -1 ) zoom *= 1.05;
+				center_on(mouseX, mouseY);
 				break;
 
 			case SDL_MOUSEMOTION:
@@ -266,10 +273,30 @@ void SDLComplexe::pixel_to_complexe(double x, double y, double *Re, double *Im){
 void SDLComplexe::center_on(double x, double y){
 	double graphic_width, graphic_height;
 	double minx, miny, maxx, maxy;
+	double tmp1, tmp2;
+	pixel_to_complexe(0, unit_cx, &tmp1, &tmp2);
+	double unit_graph_x = tmp2 - tmp1;
+	pixel_to_complexe(0, unit_cy, &tmp1, &tmp2);
+	double unit_graph_y = tmp2 - tmp1;
+	std::cout << "ugy = " << unit_graph_y << std::endl;
 	pixel_to_complexe(0, 0, &minx, &maxy);
 	pixel_to_complexe(W(), H(), &maxx, &miny);
-	graphic_width = maxx - minx;
-	graphic_height = maxy - miny;
-	std::cout << minx << " -- " << graphic_width << " -- " << maxx << "\n" << miny << " -- " << graphic_height << " -- " << maxy << "\n";
-	center_x = 
+	graphic_width 	= maxx - minx;
+	graphic_height 	= maxy - miny;
+	double graphic_cx = (minx + maxx) / 2;
+	double graphic_cy = (miny + maxy) / 2;
+
+}
+
+void SDLComplexe::print_center(){
+	double x = -zoom*center_x/unit_cx;
+	double y = 	zoom*center_y/unit_cy;
+	std::cout << "(" << x << "; " << y << ")\tzoom = " << zoom << "\n";
+}
+
+void SDLComplexe::draw_center(){
+	setColor(255, 0, 0);
+	point(W()/2, H()/2, 5); // mark the center of the screen
+	line(0, H()/2, W(), H()/2);
+	line(W()/2, 0, W()/2, H());
 }
