@@ -69,6 +69,13 @@ void SDLComplexe::events(){
 						print_center();
 						break;
 					
+					case SDLK_c: // center on a point
+						double x, y;
+						std::cout << "center on : \n";
+						scanf("%lf ; %lf", &x, &y);
+						center_on(x, y);
+						break;
+					
 					case SDLK_KP_PLUS:
 						zoom /= 1.2;
 						center_on(mouseX, mouseY);
@@ -91,7 +98,6 @@ void SDLComplexe::events(){
 				scroll = e.wheel.y;
 				if 		( scroll == 1  ) zoom /= 1.05;
 				else if ( scroll == -1 ) zoom *= 1.05;
-				center_on(mouseX, mouseY);
 				break;
 
 			case SDL_MOUSEMOTION:
@@ -271,21 +277,8 @@ void SDLComplexe::pixel_to_complexe(double x, double y, double *Re, double *Im){
 }
 
 void SDLComplexe::center_on(double x, double y){
-	double graphic_width, graphic_height;
-	double minx, miny, maxx, maxy;
-	double tmp1, tmp2;
-	pixel_to_complexe(0, unit_cx, &tmp1, &tmp2);
-	double unit_graph_x = tmp2 - tmp1;
-	pixel_to_complexe(0, unit_cy, &tmp1, &tmp2);
-	double unit_graph_y = tmp2 - tmp1;
-	std::cout << "ugy = " << unit_graph_y << std::endl;
-	pixel_to_complexe(0, 0, &minx, &maxy);
-	pixel_to_complexe(W(), H(), &maxx, &miny);
-	graphic_width 	= maxx - minx;
-	graphic_height 	= maxy - miny;
-	double graphic_cx = (minx + maxx) / 2;
-	double graphic_cy = (miny + maxy) / 2;
-
+	center_x = -x*unit_cy/zoom;
+	center_y = 	y*unit_cy/zoom;
 }
 
 void SDLComplexe::print_center(){
