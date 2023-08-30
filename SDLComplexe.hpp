@@ -77,7 +77,8 @@ class SDLComplexe : public SDL_Screen{
         void center_on(double x, double y);
 
         /// @brief prints the complexe coordinates of the center
-        void print_center();
+        void get_center(double*x, double*y);
+
 
 
 

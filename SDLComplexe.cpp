@@ -25,6 +25,7 @@ void SDLComplexe::run(){
 
 void SDLComplexe::events(){
 	while (SDL_PollEvent(&e)){ // reads all the events (mouse moving, key pressed...)        //possible to wait for an event with SDL_WaitEvent
+		double c_x, c_y;
 		switch (e.type){
 			case SDL_WINDOWEVENT:
 				if (e.window.event == SDL_WINDOWEVENT_RESIZED)
@@ -64,26 +65,29 @@ void SDLComplexe::events(){
 						//std::cout << "loading\n" << min_x << " " << max_y << " -- " << max_x << " " << min_y << "\n";
 						load_mandelbrot(min_x, max_y, max_x, min_y, zoom/100);
 						break;
-
-					case SDLK_p: // prints the center
-						print_center();
-						break;
 					
 					case SDLK_c: // center on a point
 						double x, y;
 						std::cout << "center on : \n";
-						scanf("%lf ; %lf", &x, &y);
+						std::cin >> x >> y;
+						std::cout << "centering on : (" << x << "," << y << ")\n";
 						center_on(x, y);
 						break;
 					
 					case SDLK_KP_PLUS:
+						// save the center of the window : 
+						get_center(&c_x, &c_y);
 						zoom /= 1.2;
-						center_on(mouseX, mouseY);
+						// put again the center : 
+						center_on(c_x, c_y);
 						break;
 
 					case SDLK_KP_MINUS:
+						// save the center of the window : 
+						get_center(&c_x, &c_y);
 						zoom *= 1.2;
-						center_on(mouseX, mouseY);
+						// put again the center : 
+						center_on(c_x, c_y);
 						break;
 
 					default:
@@ -93,11 +97,14 @@ void SDLComplexe::events(){
 				break;
 
 			case SDL_MOUSEWHEEL:
-				// std::cout << "case mouse\n";
+				// save the center of the window : 
+				get_center(&c_x, &c_y);
 				int scroll;
 				scroll = e.wheel.y;
 				if 		( scroll == 1  ) zoom /= 1.05;
 				else if ( scroll == -1 ) zoom *= 1.05;
+				// put again the center :
+				center_on(c_x, c_y);
 				break;
 
 			case SDL_MOUSEMOTION:
@@ -277,14 +284,13 @@ void SDLComplexe::pixel_to_complexe(double x, double y, double *Re, double *Im){
 }
 
 void SDLComplexe::center_on(double x, double y){
-	center_x = -x*unit_cy/zoom;
+	center_x = -x*unit_cx/zoom;
 	center_y = 	y*unit_cy/zoom;
 }
 
-void SDLComplexe::print_center(){
-	double x = -zoom*center_x/unit_cx;
-	double y = 	zoom*center_y/unit_cy;
-	std::cout << "(" << x << "; " << y << ")\tzoom = " << zoom << "\n";
+void SDLComplexe::get_center(double*x, double*y){
+	*x = -zoom*center_x/unit_cx;
+	*y =  zoom*center_y/unit_cy;
 }
 
 void SDLComplexe::draw_center(){
